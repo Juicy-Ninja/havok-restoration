@@ -13,6 +13,28 @@ npm run build    # static output in dist/
 npm run preview  # serve dist/ locally
 ```
 
+## Staging environment (GitHub Pages)
+
+Every push to `main` runs `.github/workflows/deploy-staging.yml`, which builds the site in staging
+mode and publishes it to the `gh-pages` branch. GitHub Pages serves it at:
+
+**https://juicyninja.github.io/havok-restoration/**
+
+Staging differs from production in three ways, all handled by `scripts/build-staging.mjs`:
+
+- It runs under the `/havok-restoration/` subfolder, so root-absolute links are prefixed after the build.
+- Every page carries `noindex, nofollow` and `robots.txt` disallows everything, so Google never indexes it.
+- A small "Staging preview" banner shows at the top of each page.
+
+Canonical URLs still point at `centralpa.havokrestoration.com`, so nothing needs changing at launch.
+To build staging locally: `npm run build:staging`.
+
+### Going live later
+
+1. Point a production host (Netlify, Vercel, Cloudflare Pages, or GitHub Pages with a custom domain) at this repo with build command `npm run build` and publish directory `dist`. That is the normal build with no staging flags.
+2. Switch DNS for `centralpa.havokrestoration.com` to the new host.
+3. Keep or delete the staging workflow. It does not affect production.
+
 ## Where things live
 
 | What | Where |

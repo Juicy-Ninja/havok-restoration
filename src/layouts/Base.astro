@@ -15,7 +15,11 @@ interface Props {
   noindex?: boolean;
 }
 const { title, description, canonical, ogImage = '/images/hero-crew.jpg', ogType = 'website', schema = [], noindex = false } = Astro.props;
-const canonicalURL = canonical ?? new URL(Astro.url.pathname, site.url).href;
+// Staging (GitHub Pages) runs under a base path; strip it so canonicals always point at production.
+const basePrefix = import.meta.env.BASE_URL.replace(/\/$/, "");
+const cleanPath = basePrefix && Astro.url.pathname.startsWith(basePrefix) ? Astro.url.pathname.slice(basePrefix.length) || "/" : Astro.url.pathname;
+const isStaging = import.meta.env.PUBLIC_STAGING === "true";
+const canonicalURL = canonical ?? new URL(cleanPath, site.url).href;
 const ogURL = new URL(ogImage, site.url).href;
 const allSchema = [localBusiness(), ...schema];
 ---
@@ -26,7 +30,7 @@ const allSchema = [localBusiness(), ...schema];
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    {(noindex || isStaging) && <meta name="robots" content={isStaging ? "noindex, nofollow" : "noindex, follow"} />}
     <meta name="theme-color" content="#0b1f3a" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
@@ -58,6 +62,7 @@ const allSchema = [localBusiness(), ...schema];
   </head>
   <body>
     <a class="sr-only" href="#main">Skip to content</a>
+    {isStaging && <div class="staging-banner" role="note">Staging preview · not the live site · hidden from search engines</div>}
     <Header />
     <main id="main">
       <slot />
@@ -73,3 +78,7 @@ const allSchema = [localBusiness(), ...schema];
     </script>
   </body>
 </html>
+
+<style is:global>
+  .staging-banner { background: #111; color: #ffd166; text-align: center; font: 600 0.78rem/1 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; padding: 0.45rem 1rem; }
+</style>
