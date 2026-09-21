@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import CTABand from '../../components/CTABand.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../../data/site';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const categories = [...new Set(posts.map((p) => p.data.category))];
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const [featured, ...rest] = posts;
+---
+<Base
+  title="Restoration Blog | Water, Fire & Insurance Advice for Central PA Homeowners | Havok"
+  description="Practical advice from Johnstown restoration pros: what to do after water or fire damage, how insurance claims work in Pennsylvania, ice dams, mold, sewage backups and more."
+  schema={[breadcrumbSchema([{ name: 'Home', url: site.url + '/' }, { name: 'Blog', url: site.url + '/blog/' }])]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <ol class="crumbs"><li><a href="/">Home</a></li><li>Blog</li></ol>
+      <p class="eyebrow">From the field</p>
+      <h1>Restoration advice for Central PA homeowners</h1>
+      <p class="lead">Written by the people who show up at 2 a.m. No fluff, just what we wish every homeowner knew before they needed us.</p>
+      <nav class="cats" aria-label="Blog categories">
+        <a href="/blog/" class="pill is-on">All</a>
+        {categories.map((c) => <a href={`/blog/category/${slug(c)}/`} class="pill">{c}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      {featured && (
+        <article class="featured card reveal">
+          <a href={`/blog/${featured.id}/`} class="featured__img"><img src={featured.data.heroImage ?? '/images/technician-moisture.jpg'} alt={featured.data.heroAlt ?? ''} width="1264" height="848" loading="eager" /></a>
+          <div class="featured__body">
+            <span class="pill pill--orange">Latest · {featured.data.category}</span>
+            <h2><a href={`/blog/${featured.id}/`}>{featured.data.title}</a></h2>
+            <p>{featured.data.description}</p>
+            <a href={`/blog/${featured.id}/`} class="btn btn-dark">Read article</a>
+          </div>
+        </article>
+      )}
+      <div class="grid grid-3" style="margin-top:2rem">
+        {rest.map((p) => <BlogCard post={p} />)}
+      </div>
+    </div>
+  </section>
+  <CTABand />
+</Base>
+
+<style>
+  .cats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .cats .pill { text-decoration: none; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: var(--white); }
+  .cats .pill:hover, .cats .pill.is-on { background: var(--orange-500); border-color: var(--orange-500); }
+  .featured { padding: 0; overflow: hidden; display: grid; }
+  @media (min-width: 900px) { .featured { grid-template-columns: 1.3fr 1fr; } }
+  .featured__img img { width: 100%; height: 100%; object-fit: cover; }
+  .featured__body { padding: clamp(1.5rem, 3vw, 2.5rem); display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; justify-content: center; }
+  .featured h2 { text-transform: none; letter-spacing: 0; font-size: clamp(1.6rem, 2.6vw, 2.2rem); margin: 0; }
+  .featured h2 a { color: var(--navy-800); text-decoration: none; }
+  .featured p { margin: 0; color: var(--ink-700); }
+</style>

@@ -1,0 +1,173 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Showcase from '../components/Showcase.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Process from '../components/Process.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Insurers from '../components/Insurers.astro';
+import AreaGrid from '../components/AreaGrid.astro';
+import FAQ from '../components/FAQ.astro';
+import CTABand from '../components/CTABand.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { site, services } from '../data/site';
+import { faqSchema } from '../lib/schema';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+
+const faqs = [
+  { q: 'How quickly can you get to my home in Johnstown?', a: 'We answer the phone 24 hours a day and dispatch immediately. In Johnstown and the surrounding Cambria County boroughs we are typically on site within an hour. Altoona, Indiana, Greensburg and Somerset usually see a crew in 60 to 90 minutes.' },
+  { q: 'Do I have to use the restoration company my insurance company recommends?', a: 'No. Pennsylvania homeowners have the right to choose their own contractor. Carriers may suggest a vendor from their program, but you are free to hire the company you trust. We work with every major carrier and bill them directly.' },
+  { q: 'What does it cost? Do I pay anything up front?', a: 'Estimates are free. For covered losses, you typically pay only your deductible and we bill the rest to your insurance carrier. For uninsured losses we provide a written line-item estimate and offer financing options.' },
+  { q: 'Do you do the rebuild too, or just the cleanup?', a: 'Both. Our mitigation crews stop the damage and dry or clean the structure, and our in-house reconstruction team rebuilds it. One company, one point of contact, from the first phone call to the final coat of paint.' },
+  { q: 'Is Havok Restoration locally owned?', a: 'Yes. Havok Restoration of Central PA is a locally owned and operated business based in Johnstown. Our technicians live in the communities we serve.' },
+];
+---
+<Base
+  title="Water, Fire & Flood Damage Restoration Johnstown PA | 24/7 | Havok Restoration of Central PA"
+  description="24/7 emergency water damage, fire damage, flood, storm, mold, hoarding and biohazard restoration in Johnstown and Central Pennsylvania. IICRC-certified, insurance-approved, locally owned. Call (814) 809-9833."
+  schema={[faqSchema(faqs)]}
+>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__media" aria-hidden="true">
+      <img src="/images/hero-crew.jpg" alt="" width="1376" height="768" loading="eager" fetchpriority="high" decoding="async" />
+    </div>
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <span class="pill pill--live hero__live">Crews on call right now</span>
+        <h1>Your home. <span>Restored.</span> Your claim. Handled.</h1>
+        <p class="lead">24/7 water, fire, flood, storm and biohazard damage restoration in Johnstown and all of Central Pennsylvania. We stop the damage tonight, deal with your insurance company, and rebuild it right.</p>
+        <div class="hero__actions">
+          <a href={site.phoneHref} class="btn btn-primary btn-lg"><Icon name="phone" /> {site.phone}</a>
+          <a href="/contact/" class="btn btn-light">Free estimate</a>
+        </div>
+        <ul class="hero__proof">
+          <li><Icon name="clock" size={18} /> 60-min average response in Johnstown</li>
+          <li><Icon name="award" size={18} /> IICRC certified technicians</li>
+          <li><Icon name="file" size={18} /> Direct insurance billing</li>
+          <li><Icon name="pin" size={18} /> Locally owned in Cambria County</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK SERVICE STRIP -->
+  <section class="strip">
+    <div class="container strip__inner">
+      <p class="strip__label">I need help with:</p>
+      <ul>
+        {services.slice(0, 6).map((s) => <li><a href={`/services/${s.slug}/`}><Icon name={s.icon} size={18} /> {s.name.replace(' Restoration', '').replace(' & Trauma Cleanup', '')}</a></li>)}
+        <li><a href="/services/">All services <Icon name="arrow" size={16} /></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EMPATHY / POSITIONING -->
+  <section class="section section--white">
+    <div class="container intro">
+      <div class="intro__copy reveal">
+        <p class="eyebrow">You are not alone in this</p>
+        <h2>The worst day of the year does not have to become the worst year.</h2>
+        <p class="lead">A burst pipe at 2 a.m. A kitchen fire on a holiday. A basement full of river water. Whatever brought you here, the next few hours matter more than anything else, and you should not have to figure them out alone.</p>
+        <p>We are a locally owned restoration company based in Johnstown, and we have walked hundreds of Central Pennsylvania families through exactly this. We know what your adjuster will ask for. We know how fast mold moves in a wet wall cavity. We know which of your belongings can be saved. And we know how to talk to you like a neighbor, not a case number.</p>
+        <div class="intro__stats">
+          <div><strong>24/7</strong><span>Live answer, every call</span></div>
+          <div><strong>75 mi</strong><span>Service radius from Johnstown</span></div>
+          <div><strong>1 crew</strong><span>Cleanup through rebuild</span></div>
+        </div>
+      </div>
+      <div class="intro__img reveal">
+        <img src="/images/insurance-meeting.jpg" alt="Havok Restoration project manager reviewing an insurance claim with homeowners at their kitchen table" width="1264" height="848" loading="lazy" decoding="async" />
+        <figure class="intro__quote">
+          <blockquote>“They handled the adjuster, the paperwork, everything. I just had to pick paint colors.”</blockquote>
+          <figcaption>Emily J., Westmont</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCROLL SHOWCASE -->
+  <Showcase />
+
+  <!-- SERVICES -->
+  <section class="section section--sand" aria-labelledby="services-title">
+    <div class="container">
+      <div class="services__head reveal">
+        <p class="eyebrow">Residential &amp; commercial</p>
+        <h2 id="services-title">Every kind of damage. One phone number.</h2>
+        <p class="lead">From a leaking dishwasher to a total loss, our crews are trained, equipped and certified for the full spectrum of property damage.</p>
+      </div>
+      <div class="grid grid-3">
+        {services.map((s, i) => <ServiceCard service={s} class="reveal" />)}
+      </div>
+    </div>
+  </section>
+
+  <Process />
+  <Insurers />
+  <Testimonials />
+  <AreaGrid />
+  <FAQ faqs={faqs} />
+
+  <!-- BLOG -->
+  <section class="section section--sand" aria-labelledby="blog-title">
+    <div class="container">
+      <div class="blog__head reveal">
+        <div>
+          <p class="eyebrow">From the field</p>
+          <h2 id="blog-title">Advice for Central PA homeowners</h2>
+        </div>
+        <a href="/blog/" class="btn btn-outline">All articles <Icon name="arrow" /></a>
+      </div>
+      <div class="grid grid-3">
+        {posts.map((p) => <BlogCard post={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</Base>
+
+<style>
+  .hero { position: relative; min-height: min(88vh, 860px); display: flex; align-items: center; color: var(--white); overflow: hidden; background: var(--navy-900); }
+  .hero__media { position: absolute; inset: 0; }
+  .hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
+  .hero__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,20,40,0.92) 0%, rgba(7,20,40,0.78) 40%, rgba(7,20,40,0.25) 100%), linear-gradient(to top, rgba(7,20,40,0.7), transparent 40%); }
+  .hero__inner { position: relative; padding-block: clamp(3.5rem, 8vw, 6rem); }
+  .hero__copy { max-width: 700px; }
+  .hero__live { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: var(--white); margin-bottom: 1.25rem; }
+  .hero h1 { color: var(--white); }
+  .hero h1 span { color: var(--orange-500); }
+  .hero .lead { color: #d5dee9; max-width: 58ch; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin: 1.75rem 0; }
+  .hero__proof { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; font-size: 0.92rem; color: #c7d2e2; }
+  .hero__proof li { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .hero__proof svg { color: var(--amber-400); }
+
+  .strip { background: var(--navy-800); color: var(--white); border-top: 1px solid rgba(255,255,255,0.08); }
+  .strip__inner { display: flex; align-items: center; gap: 1rem; padding-block: 0.8rem; overflow-x: auto; scrollbar-width: none; }
+  .strip__inner::-webkit-scrollbar { display: none; }
+  .strip__label { margin: 0; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.85rem; color: var(--amber-400); white-space: nowrap; font-weight: 700; }
+  .strip ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.4rem; }
+  .strip a { display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap; padding: 0.5rem 0.9rem; border-radius: 999px; background: rgba(255,255,255,0.07); color: var(--white); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+  .strip a:hover { background: var(--orange-500); }
+  .strip a svg { color: var(--amber-400); }
+  .strip a:hover svg { color: var(--white); }
+
+  .intro { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 900px) { .intro { grid-template-columns: 1.15fr 1fr; gap: 4rem; } }
+  .intro__copy p:not(.lead):not(.eyebrow) { color: var(--ink-700); }
+  .intro__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--sand-200); }
+  .intro__stats strong { display: block; font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--orange-600); line-height: 1; }
+  .intro__stats span { font-size: 0.85rem; color: var(--ink-500); }
+  .intro__img { position: relative; }
+  .intro__img img { border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+  .intro__quote { margin: -2.5rem 1rem 0; position: relative; background: var(--navy-800); color: var(--white); padding: 1.25rem 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-md); }
+  .intro__quote blockquote { margin: 0 0 0.4rem; font-family: var(--font-display); font-size: 1.3rem; line-height: 1.25; }
+  .intro__quote figcaption { font-size: 0.85rem; color: var(--amber-400); }
+
+  .services__head { max-width: 760px; margin-bottom: 2.5rem; }
+  .blog__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 2rem; }
+</style>

@@ -1,0 +1,119 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import BeforeAfter from '../../components/BeforeAfter.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTABand from '../../components/CTABand.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { areas, services, pairs, site } from '../../data/site';
+import { faqSchema, breadcrumbSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { slug: a.slug }, props: { a } }));
+}
+const { a } = Astro.props;
+const others = areas.filter((o) => o.slug !== a.slug);
+const showcase = [pairs.pipe, pairs.fire];
+const faqs = [
+  { q: `How fast can you get to ${a.name}?`, a: a.driveTime === 'Headquarters' ? `We are based in Johnstown, so ${a.name} calls are usually on site in under an hour, day or night.` : `${a.name} is roughly ${a.driveTime.replace('~', '')} from our Johnstown base. We dispatch immediately on every call, 24/7, and give you a real arrival window before you hang up.` },
+  { q: `Do you work with insurance companies in ${a.county}?`, a: `Yes. We work with every major carrier that writes policies in ${a.county}, including Erie, State Farm, Nationwide, Allstate and Penn National. We document the loss, submit the estimate and bill the carrier directly.` },
+  { q: `Do you handle both cleanup and rebuild in ${a.name}?`, a: `Yes. Our mitigation crew stops the damage and dries or cleans the structure, then our in-house reconstruction team rebuilds. One company handles everything from the emergency call to the final walk-through.` },
+  { q: `What areas around ${a.name} do you cover?`, a: `We regularly serve ${a.neighborhoods.join(', ')} and every township in ${a.county}.` },
+];
+const areaSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `Damage Restoration in ${a.name}, PA`,
+  provider: { '@id': `${site.url}/#business` },
+  areaServed: { '@type': 'City', name: a.name, containedInPlace: { '@type': 'AdministrativeArea', name: a.county } },
+  url: `${site.url}/service-areas/${a.slug}/`,
+};
+---
+<Base
+  title={`Water & Fire Damage Restoration ${a.name} PA | 24/7 | Havok Restoration`}
+  description={`24/7 water damage, fire damage, flood, mold and biohazard restoration in ${a.name}, PA and ${a.county}. ${a.blurb} Call (814) 809-9833.`}
+  schema={[areaSchema, faqSchema(faqs), breadcrumbSchema([{ name: 'Home', url: site.url + '/' }, { name: 'Service Areas', url: site.url + '/service-areas/' }, { name: a.name, url: `${site.url}/service-areas/${a.slug}/` }])]}
+>
+  <section class="page-hero">
+    <div class="container area-hero">
+      <div>
+        <ol class="crumbs"><li><a href="/">Home</a></li><li><a href="/service-areas/">Service Areas</a></li><li>{a.name}</li></ol>
+        <p class="eyebrow">{a.county} · {a.driveTime === 'Headquarters' ? 'Our home base' : `${a.driveTime} from Johnstown`}</p>
+        <h1>Damage restoration in {a.name}, PA</h1>
+        <p class="lead">{a.blurb}</p>
+        <div class="area-hero__actions">
+          <a href={site.phoneHref} class="btn btn-primary btn-lg"><Icon name="phone" /> {site.phone}</a>
+          <a href="#estimate" class="btn btn-light">Free estimate</a>
+        </div>
+      </div>
+      <div class="area-hero__card">
+        <h3>Serving {a.name} &amp; nearby</h3>
+        <ul>{a.neighborhoods.map((n) => <li><Icon name="pin" size={16} /> {n}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container area-local">
+      <div class="reveal">
+        <p class="eyebrow">We know {a.name} homes</p>
+        <h2>Local knowledge matters when water is in the walls</h2>
+        <p class="lead">{a.local}</p>
+        <p>Every Havok crew carries the same equipment and follows the same IICRC protocols whether the job is in downtown {a.name} or a farmhouse ten miles out. What changes is the local knowledge: which carriers write most of the policies in {a.county}, which neighborhoods have combined sewers, and which streets flood first.</p>
+      </div>
+      <div class="reveal area-local__pairs">
+        {showcase.map((p) => <BeforeAfter pair={p} caption={false} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <div class="reveal" style="max-width:720px;margin-bottom:2rem">
+        <p class="eyebrow">Available 24/7 in {a.name}</p>
+        <h2>Restoration services in {a.name}</h2>
+      </div>
+      <div class="grid grid-3">
+        {services.map((s) => <ServiceCard service={s} class="reveal" />)}
+      </div>
+    </div>
+  </section>
+
+  <FAQ faqs={faqs} title={`Restoration in ${a.name}: your questions`} />
+
+  <section class="section section--sand" id="estimate">
+    <div class="container estimate">
+      <div class="reveal">
+        <p class="eyebrow">Free estimate</p>
+        <h2>Talk to a {a.name} restoration specialist</h2>
+        <p class="lead">Call any hour or send the form. We will explain what happens next and how your insurance fits in.</p>
+        <h3 style="margin-top:2rem">Other areas we serve</h3>
+        <ul class="others">{others.map((o) => <li><a href={`/service-areas/${o.slug}/`}>{o.name}</a></li>)}</ul>
+      </div>
+      <ContactForm compact heading={`Request an estimate in ${a.name}`} />
+    </div>
+  </section>
+
+  <CTABand title={`Emergency in ${a.name}? We are already on the way.`} />
+</Base>
+
+<style>
+  .area-hero { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 1000px) { .area-hero { grid-template-columns: 1.6fr 1fr; gap: 4rem; } }
+  .area-hero__actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.5rem; }
+  .area-hero__card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 1.5rem; align-self: center; }
+  .area-hero__card h3 { color: var(--white); text-transform: uppercase; font-size: 1.2rem; }
+  .area-hero__card ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+  .area-hero__card li { display: flex; align-items: center; gap: 0.4rem; font-size: 0.92rem; color: #dfe6f0; }
+  .area-hero__card svg { color: var(--orange-500); }
+  .area-local { display: grid; gap: 2.5rem; align-items: start; }
+  @media (min-width: 1000px) { .area-local { grid-template-columns: 1fr 1.2fr; gap: 4rem; } }
+  .area-local p:not(.lead):not(.eyebrow) { color: var(--ink-700); }
+  .area-local__pairs { display: grid; gap: 1.5rem; }
+  .estimate { display: grid; gap: 2.5rem; align-items: start; }
+  @media (min-width: 1000px) { .estimate { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+  .others { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .others a { display: inline-block; padding: 0.4rem 0.85rem; border-radius: 999px; background: var(--white); border: 1px solid var(--sand-200); text-decoration: none; font-weight: 600; font-size: 0.9rem; color: var(--navy-800); }
+  .others a:hover { border-color: var(--orange-500); color: var(--orange-600); }
+</style>

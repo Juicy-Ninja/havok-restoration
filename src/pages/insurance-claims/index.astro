@@ -1,0 +1,94 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTABand from '../../components/CTABand.astro';
+import Insurers from '../../components/Insurers.astro';
+import { site } from '../../data/site';
+import { faqSchema, breadcrumbSchema } from '../../lib/schema';
+
+const steps = [
+  { t: 'Call us first, then your carrier', b: 'Mitigation cannot wait for an adjuster. Your policy requires you to prevent further damage, so the first call is to us. We will help you make the second call and know exactly what to say.' },
+  { t: 'We document the loss', b: 'Photos, moisture maps, thermal images, inventory of damaged contents. All of it time-stamped and organized the way adjusters expect to see it.' },
+  { t: 'We write the estimate in Xactimate', b: 'The same line-item pricing software your carrier uses. That means fewer disputes, fewer supplements and faster approval.' },
+  { t: 'We meet the adjuster on site', b: 'You do not have to explain what happened or defend the scope. We walk the adjuster through it and answer the technical questions.' },
+  { t: 'We bill the carrier directly', b: 'You pay your deductible. We handle the rest, including any supplements when hidden damage turns up during the rebuild.' },
+  { t: 'We close it out cleanly', b: 'Final walk-through, certificate of completion, and the documentation your carrier needs to release the final payment.' },
+];
+const faqs = [
+  { q: 'Do I have to use the contractor my insurance company recommends?', a: 'No. Pennsylvania homeowners have the legal right to choose their own restoration contractor. Carrier "preferred vendor" programs are optional. You can hire us and your claim is handled the same way.' },
+  { q: 'What is the difference between mitigation and reconstruction on my claim?', a: 'Mitigation is the emergency work to stop the damage: extraction, drying, board-up, demolition of unsalvageable materials. Reconstruction is putting the home back together. Carriers often handle them as two parts of one claim. We do both, so nothing falls through the gap.' },
+  { q: 'What if the adjuster\'s estimate is lower than yours?', a: 'It happens, usually because the adjuster could not see hidden damage or used outdated pricing. We submit a supplement with documentation. Because our estimates are in the same software, these are usually resolved quickly.' },
+  { q: 'Should I hire a public adjuster?', a: 'For most residential losses, a licensed contractor who documents well and communicates with the carrier gets you to a fair settlement without giving up a percentage. For large, complex or disputed losses, a public adjuster can make sense. We will tell you honestly which situation you are in.' },
+  { q: 'Will filing a claim raise my rates?', a: 'Possibly, depending on your carrier and claim history. For a small loss under or near your deductible, we will tell you if it makes more sense to pay out of pocket. We would rather give you honest advice than a bigger invoice.' },
+  { q: 'What does "sudden and accidental" mean?', a: 'Most homeowners policies cover water damage that happens suddenly, like a burst pipe or a failed water heater, and exclude damage from long-term leaks or neglect. Our documentation helps establish the cause and timing of the loss.' },
+];
+---
+<Base
+  title="Insurance Claim Help for Restoration | Johnstown & Central PA | Havok Restoration"
+  description="We handle your restoration insurance claim from first call to final payment: documentation, Xactimate estimates, adjuster meetings and direct billing. Pennsylvania homeowners can choose their own contractor."
+  ogImage="/images/insurance-meeting.jpg"
+  schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'Home', url: site.url + '/' }, { name: 'Insurance Claims', url: site.url + '/insurance-claims/' }])]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <ol class="crumbs"><li><a href="/">Home</a></li><li>Insurance Claims</li></ol>
+      <p class="eyebrow">Insurance claim management</p>
+      <h1>We deal with your insurance company so you do not have to</h1>
+      <p class="lead">Most homeowners file one property claim in their life. We handle them every week. Let us carry that part.</p>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container ins">
+      <div class="reveal">
+        <p class="eyebrow">Know your rights</p>
+        <h2>In Pennsylvania, you choose the contractor</h2>
+        <p class="lead">Your insurance company can recommend a vendor. It cannot require you to use one.</p>
+        <p>Carrier vendor programs exist to control the carrier's costs, not to get you the best result. When you hire Havok, we work for you. We still communicate with the adjuster professionally and submit everything they need, but our job is to restore your home properly and get the claim paid fairly.</p>
+        <ul class="ins__list">
+          <li><Icon name="check" /> Free claim consultation before you call your carrier</li>
+          <li><Icon name="check" /> Estimates written in Xactimate, the industry standard</li>
+          <li><Icon name="check" /> Adjuster meetings handled by our project manager</li>
+          <li><Icon name="check" /> Direct billing: you pay your deductible only</li>
+          <li><Icon name="check" /> Supplements filed for hidden damage found during rebuild</li>
+          <li><Icon name="check" /> Contents inventory and pack-out documentation</li>
+        </ul>
+      </div>
+      <img class="reveal" src="/images/insurance-meeting.jpg" alt="Havok project manager walking a homeowner couple through their insurance claim paperwork" width="1264" height="848" loading="lazy" decoding="async" style="border-radius:var(--radius);box-shadow:var(--shadow-lg)" />
+    </div>
+  </section>
+
+  <section class="section section--navy">
+    <div class="container">
+      <div class="reveal" style="max-width:720px;margin-bottom:2.5rem"><p class="eyebrow">Step by step</p><h2>How a restoration claim actually works</h2></div>
+      <ol class="claim">
+        {steps.map((s, i) => (
+          <li class="claim__step reveal" style={`transition-delay:${i * 60}ms`}>
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.t}</h3>
+            <p>{s.b}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <Insurers />
+  <FAQ faqs={faqs} title="Insurance questions, answered honestly" />
+  <CTABand title="Not sure whether to file a claim? Ask us first." body="A five-minute call can save you a claim on your record or thousands in uncovered damage. No pressure, no obligation." />
+</Base>
+
+<style>
+  .ins { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 1000px) { .ins { grid-template-columns: 1.2fr 1fr; gap: 4rem; } }
+  .ins p:not(.lead):not(.eyebrow) { color: var(--ink-700); }
+  .ins__list { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
+  .ins__list li { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 500; }
+  .ins__list svg { color: var(--success); flex-shrink: 0; margin-top: 3px; }
+  .claim { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .claim__step { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 1.5rem; }
+  .claim__step span { font-family: var(--font-display); font-weight: 800; font-size: 2.4rem; color: var(--orange-500); line-height: 1; display: block; margin-bottom: 0.5rem; }
+  .claim__step h3 { font-size: 1.3rem; text-transform: uppercase; }
+  .claim__step p { margin: 0; font-size: 0.95rem; opacity: 0.9; }
+</style>

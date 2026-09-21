@@ -1,0 +1,94 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import CTABand from '../../components/CTABand.astro';
+import { site } from '../../data/site';
+import { breadcrumbSchema } from '../../lib/schema';
+const values = [
+  { icon: 'clock', t: 'Fast', b: 'We answer every call live and dispatch immediately. Restoration is a race against water and mold, and we treat it that way.' },
+  { icon: 'shield', t: 'Clean', b: 'IICRC standards on every job. Containment, documentation, verified dry readings. Your home is left safer than we found it.' },
+  { icon: 'pin', t: 'Local', b: 'Owned and operated in Johnstown. Our technicians coach Little League here, go to church here, and answer to their neighbors.' },
+  { icon: 'dollar', t: 'Fair', b: 'Line-item pricing in the same format your carrier uses. No surprise invoices, no padding, no pressure to upgrade.' },
+];
+---
+<Base
+  title="About Havok Restoration of Central PA | Locally Owned Johnstown Restoration Company"
+  description="Havok Restoration of Central PA is a locally owned, IICRC-certified disaster restoration company based in Johnstown, PA. Meet the team that shows up fast, cleans right and treats you fairly."
+  ogImage="/images/hero-crew.jpg"
+  schema={[breadcrumbSchema([{ name: 'Home', url: site.url + '/' }, { name: 'About', url: site.url + '/about/' }])]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <ol class="crumbs"><li><a href="/">Home</a></li><li>About</li></ol>
+      <p class="eyebrow">Locally owned · Johnstown, PA</p>
+      <h1>Fast. Clean. Local. Fair.</h1>
+      <p class="lead">Four words on the side of every truck, and the standard we hold every technician to on every job.</p>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container about">
+      <div class="reveal">
+        <p class="eyebrow">Our story</p>
+        <h2>Built in Johnstown to serve Central Pennsylvania</h2>
+        <p class="lead">Havok Restoration of Central PA was started by people who grew up in the Conemaugh Valley and got tired of watching neighbors wait days for an out-of-town crew after a pipe burst or a fire.</p>
+        <p>We are part of the Havok Restoration family of locally owned franchises, which gives us national-grade training, equipment and insurance relationships. But the truck that shows up at your door is dispatched from Johnstown, and the person on the phone knows the difference between Westmont and Moxham.</p>
+        <p>Our technicians are trained and certified through the Institute of Inspection, Cleaning and Restoration Certification (IICRC), the industry standard for water, fire, mold and biohazard work. We are a registered Pennsylvania home improvement contractor, fully licensed and insured, and we work with every major insurance carrier that writes policies in the region.</p>
+        <p>Most of all, we understand that you did not plan to meet us. Nobody calls a restoration company on a good day. So we show up ready to take the weight off your shoulders, explain everything in plain language, and stay until your home is yours again.</p>
+      </div>
+      <div class="about__img reveal">
+        <img src="/images/hero-crew.jpg" alt="Havok Restoration crew unloading drying equipment in front of a Johnstown home" width="1376" height="768" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <div class="reveal" style="max-width:700px;margin-bottom:2rem"><p class="eyebrow">What we stand for</p><h2>The four words on the truck</h2></div>
+      <div class="grid grid-4">
+        {values.map((v, i) => (
+          <div class="card reveal" style={`transition-delay:${i * 70}ms`}>
+            <span class="val__icon"><Icon name={v.icon} size={24} /></span>
+            <h3>{v.t}</h3>
+            <p>{v.b}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy">
+    <div class="container creds">
+      <div class="reveal"><p class="eyebrow">Credentials</p><h2>Certified, licensed, insured, approved</h2></div>
+      <ul class="creds__list reveal">
+        <li><Icon name="award" /> <span><strong>IICRC certified</strong>Water Restoration (WRT), Applied Structural Drying (ASD), Fire & Smoke (FSRT), Applied Microbial Remediation (AMRT)</span></li>
+        <li><Icon name="file" /> <span><strong>PA Home Improvement Contractor</strong>Registered with the Pennsylvania Attorney General as required by HICPA</span></li>
+        <li><Icon name="shield" /> <span><strong>Fully insured</strong>General liability, workers compensation and pollution liability coverage</span></li>
+        <li><Icon name="users" /> <span><strong>Background-checked technicians</strong>Every employee entering your home is screened and drug tested</span></li>
+        <li><Icon name="check" /> <span><strong>OSHA & EPA compliant</strong>Bloodborne pathogen, lead-safe (RRP) and hazardous waste handling protocols</span></li>
+        <li><Icon name="star" /> <span><strong>Insurance carrier approved</strong>Preferred vendor relationships with major regional and national carriers</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <Testimonials />
+  <CTABand title="Want to talk to a real person in Johnstown?" body="Call any time. If it is not an emergency, we will still pick up and answer your questions honestly." />
+</Base>
+
+<style>
+  .about { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 1000px) { .about { grid-template-columns: 1.2fr 1fr; gap: 4rem; } }
+  .about p:not(.lead):not(.eyebrow) { color: var(--ink-700); }
+  .about__img img { border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+  .val__icon { width: 50px; height: 50px; border-radius: 12px; background: var(--orange-100); color: var(--orange-600); display: grid; place-items: center; margin-bottom: 0.9rem; }
+  .card h3 { text-transform: uppercase; }
+  .card p { margin: 0; color: var(--ink-700); font-size: 0.95rem; }
+  .creds { display: grid; gap: 2rem; }
+  @media (min-width: 900px) { .creds { grid-template-columns: 1fr 1.6fr; gap: 4rem; } }
+  .creds__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .creds__list li { display: flex; gap: 0.9rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 1rem; border-radius: var(--radius-sm); }
+  .creds__list svg { color: var(--amber-400); flex-shrink: 0; }
+  .creds__list strong { display: block; color: var(--white); font-family: var(--font-display); text-transform: uppercase; font-size: 1.05rem; }
+  .creds__list span span { font-size: 0.9rem; }
+</style>

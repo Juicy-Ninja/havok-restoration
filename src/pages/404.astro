@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { site, services } from '../data/site';
+---
+<Base title="Page not found | Havok Restoration of Central PA" description="That page does not exist. Find restoration services, service areas and emergency contact information." noindex>
+  <section class="page-hero"><div class="container">
+    <p class="eyebrow">404</p>
+    <h1>That page washed away</h1>
+    <p class="lead">The page you were looking for is not here. If you have an emergency, do not go looking, just call.</p>
+    <a href={site.phoneHref} class="btn btn-primary btn-lg"><Icon name="phone" /> {site.phone}</a>
+  </div></section>
+  <section class="section section--sand"><div class="container">
+    <h2>Popular pages</h2>
+    <ul>
+      <li><a href="/">Home</a></li>
+      {services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}
+      <li><a href="/service-areas/">Service areas</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ul>
+  </div></section>
+</Base>

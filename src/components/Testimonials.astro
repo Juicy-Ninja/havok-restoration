@@ -1,0 +1,32 @@
+---
+import { testimonials } from '../data/site';
+import Icon from './Icon.astro';
+---
+<section class="section section--sand" aria-labelledby="reviews-title">
+  <div class="container">
+    <div class="reviews__head reveal">
+      <p class="eyebrow">Neighbors, not case numbers</p>
+      <h2 id="reviews-title">What Central PA homeowners say</h2>
+    </div>
+    <div class="reviews">
+      {testimonials.map((t, i) => (
+        <blockquote class="review card reveal" style={`transition-delay:${i * 70}ms`}>
+          <div class="review__stars" aria-label="5 out of 5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={16} />)}</div>
+          <p>“{t.quote}”</p>
+          <footer><strong>{t.name}</strong> · {t.town}, PA <span class="pill">{t.service}</span></footer>
+        </blockquote>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews__head { max-width: 700px; margin-bottom: 2rem; }
+  .reviews { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .review { margin: 0; display: flex; flex-direction: column; }
+  .review__stars { display: flex; gap: 2px; color: var(--amber-400); margin-bottom: 0.75rem; }
+  .review__stars svg { fill: currentColor; }
+  .review p { color: var(--ink-700); font-size: 1rem; flex: 1; }
+  .review footer { font-size: 0.9rem; color: var(--ink-500); display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+  .review footer strong { color: var(--navy-800); }
+</style>

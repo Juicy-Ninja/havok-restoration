@@ -1,0 +1,160 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import BeforeAfter from '../../components/BeforeAfter.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTABand from '../../components/CTABand.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import { services, pairs, areas, site } from '../../data/site';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props;
+const pair = s.pair ? pairs[s.pair] : undefined;
+const related = services.filter((r) => s.related.includes(r.slug));
+const ogImage = pair ? pair.after : '/images/technician-moisture.jpg';
+---
+<Base
+  title={s.metaTitle}
+  description={s.metaDescription}
+  ogImage={ogImage}
+  schema={[
+    serviceSchema(s),
+    faqSchema(s.faqs),
+    breadcrumbSchema([{ name: 'Home', url: site.url + '/' }, { name: 'Services', url: site.url + '/services/' }, { name: s.name, url: `${site.url}/services/${s.slug}/` }]),
+  ]}
+>
+  <section class="page-hero">
+    <div class="container svc-hero">
+      <div>
+        <ol class="crumbs"><li><a href="/">Home</a></li><li><a href="/services/">Services</a></li><li>{s.name}</li></ol>
+        <p class="eyebrow">24/7 emergency response</p>
+        <h1>{s.h1}</h1>
+        <p class="lead">{s.intro}</p>
+        <div class="svc-hero__actions">
+          <a href={site.phoneHref} class="btn btn-primary btn-lg"><Icon name="phone" /> {site.phone}</a>
+          <a href="#estimate" class="btn btn-light">Free estimate</a>
+        </div>
+      </div>
+      <ul class="svc-hero__proof">
+        <li><Icon name="clock" /> <span><strong>On site fast</strong>Typically 60–90 minutes anywhere in our service area</span></li>
+        <li><Icon name="file" /> <span><strong>Insurance handled</strong>We scope, document and bill your carrier directly</span></li>
+        <li><Icon name="award" /> <span><strong>IICRC certified</strong>Industry-standard training and protocols</span></li>
+        <li><Icon name="hammer" /> <span><strong>Rebuild included</strong>In-house reconstruction, no second contractor</span></li>
+      </ul>
+    </div>
+  </section>
+
+  {pair && (
+    <section class="section section--white">
+      <div class="container">
+        <div class="reveal" style="max-width:720px;margin-bottom:1.5rem">
+          <p class="eyebrow">Scroll to reveal · drag to compare</p>
+          <h2>{pair.title}</h2>
+        </div>
+        <BeforeAfter pair={pair} eager class="reveal" />
+      </div>
+    </section>
+  )}
+
+  {s.emergency.length > 0 && (
+    <section class="section section--sand">
+      <div class="container emergency">
+        <div class="emergency__copy reveal">
+          <p class="eyebrow">Right now, before we arrive</p>
+          <h2>What to do in the first 30 minutes</h2>
+          <p class="lead">Small actions now can save thousands later and make your insurance claim far smoother.</p>
+        </div>
+        <ol class="emergency__list reveal">
+          {s.emergency.map((e) => <li><Icon name="check" size={20} /> <span>{e}</span></li>)}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--white">
+    <div class="container">
+      <div class="reveal" style="max-width:720px;margin-bottom:2.5rem">
+        <p class="eyebrow">Our process</p>
+        <h2>How we restore {s.name.toLowerCase().replace('restoration', '').replace('& rebuild', '').trim()} the right way</h2>
+      </div>
+      <ol class="steps">
+        {s.steps.map((st, i) => (
+          <li class="steps__item reveal" style={`transition-delay:${i * 60}ms`}>
+            <span class="steps__num">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3>{st.title}</h3><p>{st.body}</p></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--navy">
+    <div class="container local">
+      <div class="reveal">
+        <p class="eyebrow">Where we work</p>
+        <h2>{s.name} across Central PA</h2>
+        <p>Our crews dispatch from Johnstown and cover a 75-mile radius. We regularly handle {s.name.toLowerCase()} calls in:</p>
+        <ul class="local__list">
+          {areas.map((a) => <li><a href={`/service-areas/${a.slug}/`}>{a.name}, PA</a></li>)}
+        </ul>
+      </div>
+      <img class="reveal" src="/images/technician-moisture.jpg" alt="Certified Havok Restoration technician taking moisture readings with drying equipment running" width="1264" height="848" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+  <FAQ faqs={s.faqs} title={`${s.name}: common questions`} />
+
+  <section class="section section--sand" id="estimate">
+    <div class="container estimate">
+      <div class="reveal">
+        <p class="eyebrow">Free, no-obligation</p>
+        <h2>Get an estimate for {s.name.toLowerCase()}</h2>
+        <p class="lead">Tell us what happened. We will call you back, usually within minutes during business hours, and walk you through next steps and insurance.</p>
+        <h3 style="margin-top:2rem">Related services</h3>
+        <div class="grid" style="gap:0.75rem">
+          {related.map((r) => <ServiceCard service={r} />)}
+        </div>
+      </div>
+      <ContactForm compact heading={`Request ${s.name.toLowerCase()} estimate`} />
+    </div>
+  </section>
+
+  <CTABand />
+</Base>
+
+<style>
+  .svc-hero { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 1000px) { .svc-hero { grid-template-columns: 1.5fr 1fr; gap: 4rem; } }
+  .svc-hero__actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.5rem; }
+  .svc-hero__proof { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; align-self: center; }
+  .svc-hero__proof li { display: flex; gap: 0.9rem; align-items: flex-start; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 0.9rem 1rem; border-radius: var(--radius-sm); }
+  .svc-hero__proof svg { color: var(--amber-400); flex-shrink: 0; margin-top: 2px; }
+  .svc-hero__proof strong { display: block; color: var(--white); font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.05rem; }
+  .svc-hero__proof span span { font-size: 0.9rem; color: #c7d2e2; }
+
+  .emergency { display: grid; gap: 2rem; }
+  @media (min-width: 900px) { .emergency { grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: center; } }
+  .emergency__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+  .emergency__list li { display: flex; gap: 0.8rem; align-items: flex-start; background: var(--white); padding: 1rem 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--sand-200); font-weight: 500; }
+  .emergency__list svg { color: var(--success); flex-shrink: 0; margin-top: 3px; }
+
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+  .steps__item { display: flex; gap: 1rem; padding: 1.25rem; border-radius: var(--radius); background: var(--sand-50); border: 1px solid var(--sand-200); }
+  .steps__num { font-family: var(--font-display); font-weight: 800; font-size: 2rem; color: var(--orange-500); line-height: 1; }
+  .steps__item h3 { font-size: 1.25rem; margin-bottom: 0.3rem; }
+  .steps__item p { margin: 0; color: var(--ink-700); font-size: 0.95rem; }
+
+  .local { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 900px) { .local { grid-template-columns: 1.2fr 1fr; gap: 4rem; } }
+  .local img { border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+  .local__list { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .local__list a { display: inline-block; padding: 0.4rem 0.85rem; border-radius: 999px; background: rgba(255,255,255,0.08); color: var(--white); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+  .local__list a:hover { background: var(--orange-500); }
+
+  .estimate { display: grid; gap: 2.5rem; align-items: start; }
+  @media (min-width: 1000px) { .estimate { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+</style>

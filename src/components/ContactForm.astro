@@ -1,0 +1,71 @@
+---
+import { site, services } from '../data/site';
+import Icon from './Icon.astro';
+interface Props { compact?: boolean; heading?: string }
+const { compact = false, heading = 'Request a free estimate' } = Astro.props;
+---
+<form class={`cform ${compact ? 'cform--compact' : ''}`} method="POST" action={site.formEndpoint || '#'} data-endpoint={site.formEndpoint} data-email={site.email}>
+  <h3>{heading}</h3>
+  <p class="cform__note">Emergency? Do not wait on a form. <a href={site.phoneHref}>Call {site.phone}</a>. This form is for non-urgent estimates and questions.</p>
+  <div class="cform__row">
+    <label>Name <input name="name" type="text" required autocomplete="name" /></label>
+    <label>Phone <input name="phone" type="tel" required autocomplete="tel" /></label>
+  </div>
+  <div class="cform__row">
+    <label>Email <input name="email" type="email" autocomplete="email" /></label>
+    <label>Town / ZIP <input name="location" type="text" placeholder="e.g. Johnstown 15905" autocomplete="postal-code" /></label>
+  </div>
+  <label>What happened?
+    <select name="service" required>
+      <option value="">Choose one</option>
+      {services.map((s) => <option value={s.name}>{s.name}</option>)}
+      <option>Not sure / something else</option>
+    </select>
+  </label>
+  <label>Tell us more <textarea name="message" rows={compact ? 3 : 5} placeholder="When did it happen, which rooms, is water still coming in, have you called your insurance company?"></textarea></label>
+  <label class="cform__check"><input type="checkbox" name="insurance" value="yes" /> I plan to file an insurance claim</label>
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="sr-only" aria-hidden="true" />
+  <button type="submit" class="btn btn-primary btn-lg">Send request <Icon name="arrow" /></button>
+  <p class="cform__status" role="status" aria-live="polite"></p>
+</form>
+
+<style>
+  .cform { background: var(--white); border-radius: var(--radius); padding: clamp(1.5rem, 3vw, 2.25rem); box-shadow: var(--shadow-md); border: 1px solid var(--sand-200); display: flex; flex-direction: column; gap: 0.9rem; }
+  .cform h3 { font-size: 1.7rem; text-transform: uppercase; margin: 0; }
+  .cform__note { font-size: 0.9rem; color: var(--ink-500); margin: 0; }
+  .cform label { display: flex; flex-direction: column; gap: 0.3rem; font-weight: 600; font-size: 0.92rem; color: var(--navy-800); }
+  .cform input:not([type=checkbox]), .cform select, .cform textarea { font: inherit; padding: 0.75rem 0.9rem; border: 1.5px solid var(--sand-200); border-radius: var(--radius-sm); background: var(--sand-50); color: var(--ink-900); }
+  .cform input:focus, .cform select:focus, .cform textarea:focus { outline: 2px solid var(--orange-500); border-color: var(--orange-500); background: var(--white); }
+  .cform__row { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+  .cform__check { flex-direction: row !important; align-items: center; gap: 0.6rem !important; font-weight: 500 !important; }
+  .cform button { align-self: flex-start; }
+  .cform__status { margin: 0; font-size: 0.95rem; color: var(--success); font-weight: 600; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.cform').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      const endpoint = form.dataset.endpoint;
+      const status = form.querySelector<HTMLElement>('.cform__status')!;
+      const data = new FormData(form);
+      if (!endpoint) {
+        // No form service configured yet: open a pre-filled email instead.
+        e.preventDefault();
+        const body = Array.from(data.entries()).filter(([k]) => k !== '_gotcha').map(([k, v]) => `${k}: ${v}`).join('\n');
+        window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Estimate request from website')}&body=${encodeURIComponent(body)}`;
+        status.textContent = 'Opening your email app. If nothing happens, call (814) 809-9833.';
+        return;
+      }
+      e.preventDefault();
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error();
+        form.reset();
+        status.textContent = 'Got it. A member of our team will call you shortly.';
+      } catch {
+        status.textContent = 'Something went wrong. Please call (814) 809-9833.';
+      }
+    });
+  });
+</script>

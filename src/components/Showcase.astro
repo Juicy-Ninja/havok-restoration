@@ -1,0 +1,137 @@
+---
+/**
+ * Sticky scrollytelling showcase: the image stage pins while the visitor scrolls
+ * through six damage types. Each step wipes its own after-photo across the before-photo.
+ */
+import { pairs } from '../data/site';
+import Icon from './Icon.astro';
+const keys = Object.keys(pairs);
+---
+<section class="showcase section" data-showcase aria-labelledby="showcase-title">
+  <div class="container">
+    <div class="showcase__intro reveal">
+      <p class="eyebrow">Real damage. Real recoveries.</p>
+      <h2 id="showcase-title">Keep scrolling. Watch the house come back.</h2>
+      <p class="lead">Fire, flood, burst pipes, ice dams, biohazard and hoarding. Every job starts with a family on the worst day of their year and ends with keys handed back to a home that feels like theirs again.</p>
+    </div>
+
+    <div class="showcase__grid">
+      <div class="showcase__stage-wrap">
+        <div class="showcase__stage" data-stage>
+          {keys.map((k, i) => {
+            const p = pairs[k];
+            return (
+              <div class={`layer ${i === 0 ? 'is-active' : ''}`} data-layer={k} style="--pos:0">
+                <img class="layer__before" src={p.before} alt={p.altBefore} width="1376" height="768" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+                <div class="layer__after"><img src={p.after} alt={p.altAfter} width="1376" height="768" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" /></div>
+                <div class="layer__handle"><span></span></div>
+                <span class="layer__label layer__label--before">Before</span>
+                <span class="layer__label layer__label--after">After</span>
+              </div>
+            );
+          })}
+          <div class="stage__progress" aria-hidden="true">
+            {keys.map((k) => <span data-dot={k}>{pairs[k].label}</span>)}
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase__steps">
+        {keys.map((k, i) => {
+          const p = pairs[k];
+          return (
+            <article class="step" data-step={k}>
+              <span class="step__num">0{i + 1}</span>
+              <span class="pill pill--orange">{p.label}</span>
+              <h3>{p.title}</h3>
+              <p>{p.blurb}</p>
+              <a href={`/services/${p.service}/`} class="step__link">How we handle {p.label.toLowerCase()} <Icon name="arrow" size={18} /></a>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .showcase { background: var(--white); }
+  .showcase__intro { max-width: 760px; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .showcase__grid { display: grid; gap: 2rem; }
+  @media (min-width: 900px) {
+    .showcase__grid { grid-template-columns: 1.35fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  }
+  .showcase__stage-wrap { position: sticky; top: 86px; z-index: 5; }
+  @media (max-width: 899px) {
+    .showcase__stage-wrap { top: 80px; margin-inline: calc(-1 * var(--gutter)); }
+    .showcase__stage { border-radius: 0 !important; }
+  }
+  .showcase__stage { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; background: var(--navy-900); box-shadow: var(--shadow-lg); }
+  .layer { position: absolute; inset: 0; opacity: 0; transition: opacity 0.45s ease; }
+  .layer.is-active { opacity: 1; z-index: 2; }
+  .layer img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .layer__after { position: absolute; inset: 0; clip-path: inset(0 calc((100 - var(--pos)) * 1%) 0 0); }
+  .layer__handle { position: absolute; top: 0; bottom: 0; left: calc(var(--pos) * 1%); width: 3px; background: var(--white); transform: translateX(-50%); box-shadow: 0 0 0 1px rgba(0,0,0,0.25); }
+  .layer__handle span { position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; border-radius: 50%; background: var(--white); transform: translate(-50%,-50%); box-shadow: var(--shadow-md); }
+  .layer__handle span::before, .layer__handle span::after { content: ''; position: absolute; top: 50%; width: 8px; height: 8px; border-top: 3px solid var(--navy-800); border-left: 3px solid var(--navy-800); }
+  .layer__handle span::before { left: 11px; transform: translateY(-50%) rotate(-45deg); }
+  .layer__handle span::after { right: 11px; transform: translateY(-50%) rotate(135deg); }
+  .layer__label { position: absolute; top: 14px; padding: 0.35rem 0.75rem; border-radius: 999px; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.85rem; color: var(--white); }
+  .layer__label--before { right: 14px; background: rgba(7,20,40,0.75); }
+  .layer__label--after { left: 14px; background: var(--orange-500); opacity: calc(var(--pos) / 100 * 2); }
+  .stage__progress { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; display: flex; gap: 4px; padding: 10px 12px; background: linear-gradient(to top, rgba(7,20,40,0.85), transparent); }
+  .stage__progress span { flex: 1; text-align: center; font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); padding-top: 8px; position: relative; }
+  .stage__progress span::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.25); }
+  .stage__progress span.is-active { color: var(--white); }
+  .stage__progress span.is-active::before { background: var(--orange-500); }
+  @media (max-width: 480px) { .stage__progress span { font-size: 0; } .stage__progress span::before { height: 4px; } }
+
+  .showcase__steps { display: flex; flex-direction: column; }
+  .step { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; padding: 2rem 0; border-top: 1px solid var(--sand-200); opacity: 0.35; transition: opacity 0.35s ease; }
+  .step.is-active { opacity: 1; }
+  .step:first-child { border-top: 0; }
+  @media (max-width: 899px) { .step { min-height: 55vh; } }
+  .step__num { font-family: var(--font-display); font-weight: 800; font-size: 3rem; line-height: 1; color: var(--sand-200); margin-bottom: 0.5rem; }
+  .step .pill { align-self: flex-start; margin-bottom: 0.75rem; }
+  .step h3 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); text-transform: uppercase; }
+  .step p { color: var(--ink-700); font-size: 1.1rem; }
+  .step__link { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; color: var(--orange-600); text-decoration: none; margin-top: 0.25rem; }
+  .step__link:hover { gap: 0.7rem; }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-showcase]');
+  if (root) {
+    const steps = Array.from(root.querySelectorAll<HTMLElement>('[data-step]'));
+    const layers = new Map(Array.from(root.querySelectorAll<HTMLElement>('[data-layer]')).map((l) => [l.dataset.layer!, l]));
+    const dots = new Map(Array.from(root.querySelectorAll<HTMLElement>('[data-dot]')).map((d) => [d.dataset.dot!, d]));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const clamp = (n: number) => Math.max(0, Math.min(100, n));
+    let ticking = false;
+
+    const activate = (key: string) => {
+      layers.forEach((l, k) => l.classList.toggle('is-active', k === key));
+      dots.forEach((d, k) => d.classList.toggle('is-active', k === key));
+      steps.forEach((s) => s.classList.toggle('is-active', s.dataset.step === key));
+    };
+
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      const line = vh * 0.62; // the "read line": a step becomes active when its top crosses it
+      let activeKey = steps[0].dataset.step!;
+      steps.forEach((s) => {
+        const r = s.getBoundingClientRect();
+        const p = (line - r.top) / r.height; // 0 when top hits the line, 1 when bottom hits it
+        if (r.top <= line) activeKey = s.dataset.step!;
+        const layer = layers.get(s.dataset.step!);
+        if (layer) layer.style.setProperty('--pos', String(reduce ? 50 : clamp(p * 140)));
+      });
+      activate(activeKey);
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+</script>

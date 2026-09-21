@@ -1,0 +1,35 @@
+---
+interface Props { faqs: { q: string; a: string }[]; title?: string; eyebrow?: string }
+const { faqs, title = 'Questions homeowners ask us', eyebrow = 'Straight answers' } = Astro.props;
+---
+<section class="section section--white" aria-labelledby="faq-title">
+  <div class="container faq">
+    <div class="faq__head reveal">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 id="faq-title">{title}</h2>
+    </div>
+    <div class="faq__list reveal">
+      {faqs.map((f, i) => (
+        <details class="faq__item" open={i === 0}>
+          <summary><span>{f.q}</span><i aria-hidden="true"></i></summary>
+          <div class="faq__body"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq { display: grid; gap: 2rem; }
+  @media (min-width: 900px) { .faq { grid-template-columns: 1fr 1.6fr; gap: 4rem; } .faq__head { position: sticky; top: 100px; align-self: start; } }
+  .faq__item { border-bottom: 1px solid var(--sand-200); }
+  .faq__item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.1rem 0; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--navy-800); }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary i { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--orange-100); position: relative; transition: transform 0.2s ease; }
+  .faq__item summary i::before, .faq__item summary i::after { content: ''; position: absolute; background: var(--orange-600); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .faq__item summary i::before { width: 12px; height: 2px; }
+  .faq__item summary i::after { width: 2px; height: 12px; }
+  .faq__item[open] summary i { transform: rotate(45deg); }
+  .faq__body { padding: 0 0 1.25rem; color: var(--ink-700); max-width: 65ch; }
+  .faq__body p { margin: 0; }
+</style>

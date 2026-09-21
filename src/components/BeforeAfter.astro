@@ -1,0 +1,84 @@
+---
+/**
+ * Scroll-driven before/after reveal.
+ * As the block scrolls into view, the "after" image wipes across the "before".
+ * Users can also drag the handle (range input) to compare manually.
+ */
+import type { Pair } from '../data/site';
+interface Props { pair: Pair; eager?: boolean; caption?: boolean; class?: string }
+const { pair, eager = false, caption = true, class: cls = '' } = Astro.props;
+---
+<figure class={`ba ${cls}`} data-ba style="--pos: 0">
+  <div class="ba__frame">
+    <img class="ba__before" src={pair.before} alt={pair.altBefore} width="1376" height="768" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    <div class="ba__after"><img src={pair.after} alt={pair.altAfter} width="1376" height="768" loading={eager ? 'eager' : 'lazy'} decoding="async" /></div>
+    <div class="ba__handle" aria-hidden="true"><span></span></div>
+    <span class="ba__label ba__label--before" aria-hidden="true">Before</span>
+    <span class="ba__label ba__label--after" aria-hidden="true">After</span>
+    <input class="ba__range" type="range" min="0" max="100" value="0" aria-label={`Drag to compare before and after: ${pair.title}`} />
+  </div>
+  {caption && (
+    <figcaption class="ba__cap">
+      <span class="pill pill--orange">{pair.label}</span>
+      <strong>{pair.title}</strong>
+      <span>{pair.blurb}</span>
+    </figcaption>
+  )}
+</figure>
+
+<style is:global>
+  .ba { margin: 0; }
+  .ba__frame { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--navy-900); isolation: isolate; user-select: none; }
+  .ba__frame img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .ba__after { position: absolute; inset: 0; clip-path: inset(0 calc((100 - var(--pos)) * 1%) 0 0); will-change: clip-path; }
+  .ba__handle { position: absolute; top: 0; bottom: 0; left: calc(var(--pos) * 1%); width: 3px; background: var(--white); transform: translateX(-50%); box-shadow: 0 0 0 1px rgba(0,0,0,0.25); pointer-events: none; }
+  .ba__handle span { position: absolute; top: 50%; left: 50%; width: 48px; height: 48px; border-radius: 50%; background: var(--white); transform: translate(-50%, -50%); box-shadow: var(--shadow-md); display: grid; place-items: center; }
+  .ba__handle span::before, .ba__handle span::after { content: ''; position: absolute; top: 50%; width: 8px; height: 8px; border-top: 3px solid var(--navy-800); border-left: 3px solid var(--navy-800); }
+  .ba__handle span::before { left: 12px; transform: translateY(-50%) rotate(-45deg); }
+  .ba__handle span::after { right: 12px; transform: translateY(-50%) rotate(135deg); }
+  .ba__label { position: absolute; top: 14px; padding: 0.35rem 0.75rem; border-radius: 999px; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.85rem; color: var(--white); pointer-events: none; }
+  .ba__label--before { right: 14px; background: rgba(7,20,40,0.75); }
+  .ba__label--after { left: 14px; background: var(--orange-500); opacity: calc(var(--pos) / 100 * 2); }
+  .ba__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; -webkit-appearance: none; appearance: none; background: transparent; }
+  .ba__range::-webkit-slider-thumb { -webkit-appearance: none; width: 60px; height: 100%; }
+  .ba__range::-moz-range-thumb { width: 60px; height: 100%; border: 0; background: transparent; }
+  .ba__cap { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; padding: 0.9rem 0.25rem 0; font-size: 0.95rem; color: var(--ink-500); }
+  .ba__cap strong { color: var(--navy-800); font-family: var(--font-display); font-size: 1.2rem; text-transform: uppercase; }
+</style>
+
+<script>
+  const items = Array.from(document.querySelectorAll<HTMLElement>('[data-ba]'));
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (n: number) => Math.max(0, Math.min(100, n));
+
+  items.forEach((el) => {
+    const range = el.querySelector<HTMLInputElement>('.ba__range');
+    const set = (v: number) => { el.style.setProperty('--pos', String(clamp(v))); if (range) range.value = String(clamp(v)); };
+    if (reduce) set(50);
+    range?.addEventListener('input', () => { el.dataset.manual = '1'; set(Number(range.value)); });
+    range?.addEventListener('pointerdown', () => { el.dataset.manual = '1'; });
+    // Reset to scroll-driven when it leaves the viewport so the wipe replays next time.
+    new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting) delete el.dataset.manual; })).observe(el);
+  });
+
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const vh = window.innerHeight;
+    items.forEach((el) => {
+      if (el.dataset.manual || el.closest('[data-showcase]')) return;
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      // Wipe runs while the element travels from 92% of the viewport up to 30%.
+      const start = vh * 0.92, end = vh * 0.30;
+      const p = (start - r.top) / (start - end);
+      el.style.setProperty('--pos', String(clamp(p * 100)));
+    });
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  if (!reduce) {
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+</script>

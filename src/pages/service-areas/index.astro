@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import AreaGrid from '../../components/AreaGrid.astro';
+import CTABand from '../../components/CTABand.astro';
+import Process from '../../components/Process.astro';
+import { site } from '../../data/site';
+import { breadcrumbSchema } from '../../lib/schema';
+---
+<Base
+  title="Service Areas | Restoration Company Serving Johnstown, Altoona, State College & Central PA"
+  description="Havok Restoration of Central PA serves a 75-mile radius around Johnstown: Altoona, State College, Indiana, Greensburg, Jeannette, New Kensington, Butler and Uniontown. 24/7 response."
+  schema={[breadcrumbSchema([{ name: 'Home', url: site.url + '/' }, { name: 'Service Areas', url: site.url + '/service-areas/' }])]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <ol class="crumbs"><li><a href="/">Home</a></li><li>Service Areas</li></ol>
+      <p class="eyebrow">Headquartered in Johnstown, PA</p>
+      <h1>Where we work</h1>
+      <p class="lead">Nine hub communities, dozens of boroughs and townships, one dispatch line. If you are in the Laurel Highlands, the Allegheny Front or the Alle-Kiski Valley, we can be there tonight.</p>
+    </div>
+  </section>
+  <AreaGrid compact />
+  <Process dark={false} />
+  <CTABand />
+</Base>

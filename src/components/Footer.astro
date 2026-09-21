@@ -1,0 +1,78 @@
+---
+import { site, services, areas } from '../data/site';
+import Icon from './Icon.astro';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <p class="footer__name">Havok Restoration<span> of Central PA</span></p>
+        <p class="footer__tag">{site.tagline}</p>
+        <p>Locally owned and operated disaster restoration serving homeowners, landlords and businesses within {site.serviceRadiusMiles} miles of Johnstown, Pennsylvania.</p>
+        <address class="footer__nap">
+          <a href={site.phoneHref}><Icon name="phone" size={18} /> {site.phone}</a>
+          <a href={`mailto:${site.email}`}><Icon name="mail" size={18} /> {site.email}</a>
+          <span><Icon name="pin" size={18} /> {site.address.street ? `${site.address.street}, ` : ''}{site.address.city}, {site.address.region} {site.address.postal}</span>
+          <span><Icon name="clock" size={18} /> Open 24 hours, 7 days a week</span>
+        </address>
+        <div class="footer__badges">
+          <span class="pill">IICRC Certified</span>
+          <span class="pill">PA Registered Contractor</span>
+          <span class="pill">Insurance Approved</span>
+          <span class="pill">Licensed &amp; Insured</span>
+        </div>
+      </div>
+      <div>
+        <h3>Services</h3>
+        <ul>
+          {services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h3>Service Areas</h3>
+        <ul>
+          {areas.map((a) => <li><a href={`/service-areas/${a.slug}/`}>{a.name}, PA</a></li>)}
+          <li><a href="/service-areas/">All service areas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <ul>
+          <li><a href="/about/">About Havok</a></li>
+          <li><a href="/insurance-claims/">Insurance Claim Help</a></li>
+          <li><a href="/financing/">Financing Options</a></li>
+          <li><a href="/blog/">Restoration Blog</a></li>
+          <li><a href="/contact/">Contact / Free Estimate</a></li>
+          <li><a href="/rss.xml">RSS Feed</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; {year} {site.legalName}. All rights reserved. Part of the Havok Restoration family of locally owned franchises.</p>
+      <p><a href="/privacy/">Privacy</a> · <a href="/sitemap-index.xml">Sitemap</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--navy-900); color: #b9c6d8; padding: clamp(3rem, 6vw, 4.5rem) 0 2rem; margin-top: 0; }
+  .footer__grid { display: grid; gap: 2.5rem; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .footer__grid { grid-template-columns: 1.6fr 1fr 1fr; } }
+  @media (min-width: 1000px) { .footer__grid { grid-template-columns: 1.8fr 1fr 1fr 1fr; } }
+  .footer h3 { color: var(--white); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .footer ul { list-style: none; margin: 0; padding: 0; }
+  .footer li { margin-bottom: 0.45rem; }
+  .footer a { color: #d5dee9; text-decoration: none; font-size: 0.95rem; }
+  .footer a:hover { color: var(--amber-400); }
+  .footer__name { font-family: var(--font-display); font-weight: 800; font-size: 1.8rem; text-transform: uppercase; color: var(--white); margin: 0; line-height: 1; }
+  .footer__name span { color: var(--orange-500); }
+  .footer__tag { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.18em; color: var(--amber-400); font-weight: 700; margin: 0.4rem 0 1rem; }
+  .footer__nap { font-style: normal; display: grid; gap: 0.5rem; margin: 1rem 0; }
+  .footer__nap a, .footer__nap span { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .footer__nap svg { color: var(--orange-500); }
+  .footer__badges { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .footer__badges .pill { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: #e7edf5; }
+  .footer__bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2.5rem; padding-top: 1.25rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; font-size: 0.85rem; color: #8b9bb2; }
+  .footer__bottom p { margin: 0; }
+</style>

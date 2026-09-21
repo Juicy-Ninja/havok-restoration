@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import BeforeAfter from '../../components/BeforeAfter.astro';
+import Process from '../../components/Process.astro';
+import CTABand from '../../components/CTABand.astro';
+import { services, pairs, site } from '../../data/site';
+import { breadcrumbSchema } from '../../lib/schema';
+---
+<Base
+  title="Restoration Services in Johnstown & Central PA | Water, Fire, Mold, Biohazard | Havok"
+  description="Full-service damage restoration in Central Pennsylvania: water, fire, flood, storm, mold, hoarding, biohazard and unattended death cleanup plus in-house reconstruction. 24/7. (814) 809-9833."
+  schema={[breadcrumbSchema([{ name: 'Home', url: site.url + '/' }, { name: 'Services', url: site.url + '/services/' }])]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <ol class="crumbs"><li><a href="/">Home</a></li><li>Services</li></ol>
+      <p class="eyebrow">Residential · Commercial · Emergency</p>
+      <h1>Restoration services for Central Pennsylvania</h1>
+      <p class="lead">Mitigation, remediation and reconstruction under one roof. Whatever happened to your property, the first call and the last walk-through are with the same team.</p>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <div class="grid grid-3">
+        {services.map((s) => <ServiceCard service={s} class="reveal" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container">
+      <div class="reveal" style="max-width:720px;margin-bottom:2rem">
+        <p class="eyebrow">Drag or scroll to compare</p>
+        <h2>The difference a certified crew makes</h2>
+      </div>
+      <div class="grid grid-2">
+        {Object.values(pairs).map((p) => <BeforeAfter pair={p} class="reveal" />)}
+      </div>
+    </div>
+  </section>
+
+  <Process />
+  <CTABand />
+</Base>

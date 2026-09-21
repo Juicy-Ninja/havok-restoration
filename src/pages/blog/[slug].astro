@@ -1,0 +1,114 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import CTABand from '../../components/CTABand.astro';
+import FAQ from '../../components/FAQ.astro';
+import { getCollection, render } from 'astro:content';
+import { site, services } from '../../data/site';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const d = post.data;
+const url = `${site.url}/blog/${post.id}/`;
+const all = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const related = all.filter((p) => p.id !== post.id && (p.data.category === d.category || p.data.tags.some((t) => d.tags.includes(t)))).slice(0, 3);
+const fallback = all.filter((p) => p.id !== post.id && !related.includes(p)).slice(0, 3 - related.length);
+const catSlug = d.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const fmt = (x: Date) => x.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const toc = headings.filter((h) => h.depth === 2);
+const schema = [
+  articleSchema({ title: d.title, description: d.description, url, image: d.heroImage, pubDate: d.pubDate, updatedDate: d.updatedDate, author: d.author }),
+  breadcrumbSchema([{ name: 'Home', url: site.url + '/' }, { name: 'Blog', url: site.url + '/blog/' }, { name: d.title, url }]),
+];
+if (d.faq?.length) schema.push(faqSchema(d.faq));
+---
+<Base title={`${d.title} | Havok Restoration of Central PA`} description={d.description} ogImage={d.heroImage} ogType="article" schema={schema}>
+  <article>
+    <header class="page-hero">
+      <div class="container">
+        <ol class="crumbs"><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><a href={`/blog/category/${catSlug}/`}>{d.category}</a></li></ol>
+        <a href={`/blog/category/${catSlug}/`} class="pill pill--orange" style="text-decoration:none">{d.category}</a>
+        <h1 class="post-title">{d.title}</h1>
+        <p class="lead">{d.description}</p>
+        <p class="meta">By {d.author} · <time datetime={d.pubDate.toISOString()}>{fmt(d.pubDate)}</time>{d.updatedDate && <> · Updated <time datetime={d.updatedDate.toISOString()}>{fmt(d.updatedDate)}</time></>}</p>
+      </div>
+    </header>
+
+    <div class="container post-layout section">
+      <div class="post-main">
+        {d.heroImage && <img class="post-hero" src={d.heroImage} alt={d.heroAlt ?? ''} width="1264" height="848" loading="eager" fetchpriority="high" />}
+        <div class="prose">
+          <Content />
+        </div>
+        <div class="post-tags">{d.tags.map((t) => <span class="pill">#{t}</span>)}</div>
+        <div class="post-author">
+          <img src="/images/hero-crew.jpg" alt="" width="120" height="120" loading="lazy" />
+          <div>
+            <strong>{d.author}</strong>
+            <p>IICRC-certified restoration technicians based in Johnstown, PA. We write from the field, not from a marketing office. Have a question about your own situation? <a href={site.phoneHref}>Call {site.phone}</a> any time.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="post-side">
+        {toc.length > 1 && (
+          <nav class="toc card" aria-label="On this page">
+            <strong>In this article</strong>
+            <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </nav>
+        )}
+        <div class="side-cta">
+          <p class="eyebrow">Need help now?</p>
+          <h3>Crews on call 24/7 across Central PA</h3>
+          <a href={site.phoneHref} class="btn btn-primary"><Icon name="phone" /> {site.phone}</a>
+          <a href="/contact/" class="side-cta__link">Or request a free estimate <Icon name="arrow" size={16} /></a>
+        </div>
+        <div class="card side-services">
+          <strong>Our services</strong>
+          <ul>{services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}</ul>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  {d.faq?.length && <FAQ faqs={d.faq} title="Related questions" />}
+
+  <section class="section section--sand">
+    <div class="container">
+      <h2 style="margin-bottom:1.5rem">Keep reading</h2>
+      <div class="grid grid-3">{[...related, ...fallback].map((p) => <BlogCard post={p} />)}</div>
+    </div>
+  </section>
+  <CTABand />
+</Base>
+
+<style>
+  .post-title { text-transform: none; letter-spacing: -0.01em; font-size: clamp(2.2rem, 4.5vw, 3.6rem); max-width: 22ch; margin-top: 0.75rem; }
+  .meta { color: #9fb0c8; font-size: 0.9rem; margin: 0; }
+  .post-layout { display: grid; gap: 3rem; align-items: start; }
+  @media (min-width: 1000px) { .post-layout { grid-template-columns: minmax(0, 1fr) 320px; gap: 4rem; } }
+  .post-hero { border-radius: var(--radius); box-shadow: var(--shadow-md); margin-bottom: 2rem; }
+  .post-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 2rem 0; }
+  .post-author { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--sand-100); border-radius: var(--radius); padding: 1.5rem; }
+  .post-author img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .post-author strong { font-family: var(--font-display); font-size: 1.2rem; text-transform: uppercase; }
+  .post-author p { margin: 0.3rem 0 0; font-size: 0.95rem; color: var(--ink-700); }
+  .post-side { display: grid; gap: 1.25rem; position: sticky; top: 100px; }
+  .toc strong, .side-services strong { display: block; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.95rem; color: var(--orange-600); margin-bottom: 0.6rem; }
+  .toc ol { margin: 0; padding-left: 1.2rem; font-size: 0.92rem; }
+  .toc li { margin-bottom: 0.35rem; }
+  .toc a { color: var(--navy-800); text-decoration: none; }
+  .toc a:hover { color: var(--orange-600); }
+  .side-cta { background: var(--navy-800); color: var(--white); padding: 1.5rem; border-radius: var(--radius); display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+  .side-cta h3 { color: var(--white); text-transform: uppercase; font-size: 1.3rem; margin: 0; }
+  .side-cta__link { color: var(--amber-400); text-decoration: none; font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 0.3rem; }
+  .side-services ul { list-style: none; margin: 0; padding: 0; }
+  .side-services li { border-top: 1px solid var(--sand-200); }
+  .side-services a { display: block; padding: 0.5rem 0; text-decoration: none; color: var(--navy-800); font-size: 0.92rem; font-weight: 500; }
+  .side-services a:hover { color: var(--orange-600); }
+</style>

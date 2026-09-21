@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { post: CollectionEntry<'blog'>; }
+const { post } = Astro.props;
+const d = post.data;
+const date = d.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const catSlug = d.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+---
+<article class="post card">
+  <a href={`/blog/${post.id}/`} class="post__img" aria-hidden="true" tabindex="-1">
+    <img src={d.heroImage ?? '/images/technician-moisture.jpg'} alt="" width="1264" height="848" loading="lazy" decoding="async" />
+  </a>
+  <div class="post__body">
+    <div class="post__meta"><a href={`/blog/category/${catSlug}/`} class="pill pill--orange">{d.category}</a><time datetime={d.pubDate.toISOString()}>{date}</time></div>
+    <h3><a href={`/blog/${post.id}/`}>{d.title}</a></h3>
+    <p>{d.description}</p>
+  </div>
+</article>
+
+<style>
+  .post { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+  .post__img { display: block; aspect-ratio: 16 / 10; overflow: hidden; }
+  .post__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .post:hover .post__img img { transform: scale(1.04); }
+  .post__body { padding: 1.25rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .post__meta { display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: var(--ink-500); }
+  .post__meta a { text-decoration: none; }
+  .post h3 { font-size: 1.35rem; line-height: 1.15; margin: 0; }
+  .post h3 a { color: var(--navy-800); text-decoration: none; }
+  .post h3 a:hover { color: var(--orange-600); }
+  .post p { margin: 0; color: var(--ink-700); font-size: 0.95rem; }
+</style>

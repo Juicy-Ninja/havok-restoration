@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTABand from '../../components/CTABand.astro';
+import { site } from '../../data/site';
+import { faqSchema, breadcrumbSchema } from '../../lib/schema';
+const faqs = [
+  { q: 'What if my loss is not covered by insurance?', a: 'Floods from outside water, long-term leaks and some mold situations are commonly excluded. We provide a written line-item estimate, offer financing through third-party lenders, and can phase the work to fit your budget.' },
+  { q: 'Do you require payment before work starts?', a: 'For insured losses, no. We bill the carrier and collect your deductible. For self-pay work we typically ask for a deposit at signing with the balance due at completion or on a payment plan.' },
+  { q: 'Can I cover my deductible with financing?', a: 'Yes. Many homeowners finance the deductible or any upgrades they choose during the rebuild.' },
+  { q: 'Do you offer senior or veteran discounts?', a: 'Ask when you call. We work with many families on fixed incomes across Cambria, Blair and Somerset counties and will always tell you the most affordable path.' },
+];
+---
+<Base
+  title="Financing & Payment Options for Restoration | Havok Restoration of Central PA"
+  description="Flexible payment options for uninsured or partially covered restoration work in Johnstown and Central PA. Direct insurance billing, deductible financing and payment plans."
+  schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'Home', url: site.url + '/' }, { name: 'Financing', url: site.url + '/financing/' }])]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <ol class="crumbs"><li><a href="/">Home</a></li><li>Financing</li></ol>
+      <p class="eyebrow">Payment options</p>
+      <h1>Cost should never stop you from making your home safe</h1>
+      <p class="lead">Most of our work is billed to insurance. When it is not, we have options.</p>
+    </div>
+  </section>
+  <section class="section section--sand">
+    <div class="container grid grid-3">
+      <div class="card reveal"><span class="ic"><Icon name="file" /></span><h3>Direct insurance billing</h3><p>For covered losses you pay your deductible and nothing else. We handle the paperwork and collect from your carrier.</p></div>
+      <div class="card reveal"><span class="ic"><Icon name="dollar" /></span><h3>Financing plans</h3><p>Fixed monthly payments through our third-party lending partners, with approvals in minutes and promotional terms available for qualified applicants.</p></div>
+      <div class="card reveal"><span class="ic"><Icon name="check" /></span><h3>Phased work</h3><p>Not everything has to happen at once. We can complete the safety-critical mitigation now and schedule reconstruction when it fits your budget.</p></div>
+    </div>
+  </section>
+  <FAQ faqs={faqs} title="Payment questions" />
+  <CTABand title="Let us look before you worry about the bill." body="Estimates are free. We will tell you what is covered, what is not, and the most affordable way to get your home back." />
+</Base>
+<style>
+  .ic { width: 50px; height: 50px; border-radius: 12px; background: var(--orange-100); color: var(--orange-600); display: grid; place-items: center; margin-bottom: 0.9rem; }
+  .card p { margin: 0; color: var(--ink-700); }
+</style>

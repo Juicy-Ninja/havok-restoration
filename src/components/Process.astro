@@ -1,0 +1,44 @@
+---
+import Icon from './Icon.astro';
+interface Props { steps?: { title: string; body: string }[]; title?: string; eyebrow?: string; dark?: boolean }
+const defaults = [
+  { title: 'Call. Any hour.', body: 'A real person answers, asks the right questions, and dispatches a crew immediately. You will know when we are arriving before you hang up.' },
+  { title: 'We stop the damage.', body: 'Extraction, board-up, tarping, containment. Whatever it takes to stop the loss from getting worse tonight.' },
+  { title: 'We document everything.', body: 'Moisture maps, photos, line-item scope in the format your insurance carrier uses. We meet the adjuster so you do not have to argue.' },
+  { title: 'We restore and rebuild.', body: 'Drying, cleaning, deodorizing and full in-house reconstruction. One crew, one point of contact, one finished home.' },
+];
+const { steps = defaults, title = 'What happens when you call', eyebrow = 'A plan, not a panic', dark = true } = Astro.props;
+---
+<section class={`section ${dark ? 'section--navy' : 'section--sand'}`}>
+  <div class="container">
+    <div class="process__head reveal">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+    </div>
+    <ol class="process">
+      {steps.map((s, i) => (
+        <li class="process__step reveal" style={`transition-delay:${i * 80}ms`}>
+          <span class="process__num">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="process__cta reveal">
+      <a href="tel:+18148099833" class="btn btn-primary btn-lg"><Icon name="phone" /> (814) 809-9833</a>
+      <span>Free estimates · Direct insurance billing · No obligation</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process__head { max-width: 700px; margin-bottom: 2.5rem; }
+  .process { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); counter-reset: step; }
+  .process__step { position: relative; padding: 1.5rem 1.5rem 1.5rem; border-radius: var(--radius); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+  .section--sand .process__step { background: var(--white); border-color: var(--sand-200); }
+  .process__num { font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; color: var(--orange-500); line-height: 1; display: block; margin-bottom: 0.6rem; }
+  .process__step h3 { font-size: 1.4rem; text-transform: uppercase; }
+  .process__step p { margin: 0; font-size: 0.98rem; opacity: 0.9; }
+  .process__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin-top: 2.5rem; }
+  .process__cta span { font-size: 0.95rem; opacity: 0.85; }
+</style>

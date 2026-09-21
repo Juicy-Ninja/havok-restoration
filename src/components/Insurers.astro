@@ -1,0 +1,29 @@
+---
+import { insurers } from '../data/site';
+import Icon from './Icon.astro';
+---
+<section class="section section--tight section--white insurers">
+  <div class="container">
+    <div class="insurers__inner reveal">
+      <div class="insurers__text">
+        <p class="eyebrow">Insurance carrier approved</p>
+        <h2>We work with every major carrier in Pennsylvania</h2>
+        <p>Pennsylvania law lets you choose your own restoration contractor. We write estimates in the same software your adjuster uses, submit documentation directly, and bill the carrier so you only pay your deductible.</p>
+        <a href="/insurance-claims/" class="btn btn-dark">How the claim process works <Icon name="arrow" /></a>
+      </div>
+      <ul class="insurers__list" aria-label="Insurance carriers we work with">
+        {insurers.map((n) => <li>{n}</li>)}
+        <li class="insurers__all">+ any carrier</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .insurers__inner { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 900px) { .insurers__inner { grid-template-columns: 1.1fr 1fr; gap: 4rem; } }
+  .insurers__text p:not(.eyebrow) { color: var(--ink-700); margin-bottom: 1.5rem; }
+  .insurers__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.6rem; }
+  .insurers__list li { background: var(--sand-100); border: 1px solid var(--sand-200); border-radius: 10px; padding: 0.9rem 0.75rem; text-align: center; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--navy-800); font-size: 1rem; }
+  .insurers__all { background: var(--orange-100) !important; color: var(--orange-600) !important; border-color: transparent !important; }
+</style>

@@ -1,0 +1,37 @@
+---
+import { areas, site } from '../data/site';
+import Icon from './Icon.astro';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+<section class="section section--sand areas" aria-labelledby="areas-title">
+  <div class="container">
+    <div class="areas__head reveal">
+      <p class="eyebrow">Local crews, {site.serviceRadiusMiles}-mile response radius</p>
+      <h2 id="areas-title">Based in Johnstown. On the road across Central PA.</h2>
+      {!compact && <p class="lead">Our trucks are staged in Johnstown and roll toward Altoona, State College, Indiana, Greensburg, Butler, Uniontown and every borough in between. If you are within about 75 miles of the Conemaugh Valley, you are in our service area.</p>}
+    </div>
+    <ul class="areas__grid">
+      {areas.map((a, i) => (
+        <li class="reveal" style={`transition-delay:${i * 40}ms`}>
+          <a href={`/service-areas/${a.slug}/`} class="area card">
+            <span class="area__icon"><Icon name="pin" size={20} /></span>
+            <span class="area__name">{a.name}, PA</span>
+            <span class="area__meta">{a.county} · {a.driveTime}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="areas__foot reveal">Do not see your town? <a href="/contact/">Ask us.</a> We routinely serve Somerset, Ebensburg, Windber, Latrobe, Ligonier, Bedford, Huntingdon, Kittanning and more.</p>
+  </div>
+</section>
+
+<style>
+  .areas__head { max-width: 780px; margin-bottom: 2rem; }
+  .areas__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); }
+  .area { display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: inherit; padding: 1.1rem 1.2rem; }
+  .area__icon { color: var(--orange-500); margin-bottom: 0.3rem; }
+  .area__name { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; text-transform: uppercase; color: var(--navy-800); }
+  .area__meta { font-size: 0.85rem; color: var(--ink-500); }
+  .areas__foot { margin-top: 1.5rem; color: var(--ink-700); font-size: 0.95rem; }
+</style>
