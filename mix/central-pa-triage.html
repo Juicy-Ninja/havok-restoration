@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Havok Restoration of Central PA — The rooms nobody else will enter (Concept A)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=JetBrains+Mono:wght@500;600&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.hv{--f-display:"Archivo","Arial Black",system-ui,sans-serif;--f-body:"Sora",system-ui,sans-serif;--f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;--ease:cubic-bezier(.4,0,.2,1);--ease-lock:cubic-bezier(.2,.9,.1,1);--r:4px;--r-sm:2px;--amber:#D4892F;--amber-on:#1B2632;--dw:100%;--dwt:800;--dlh:.96;--dls:-.018em;
+ --ground:#16212C;--plate:#1D2A37;--plate-2:#253445;--text:#F7F7F6;--muted:#A9BBC7;--dim:#8796A3;--signal:#D4892F;--signal-ink:#1B2632;--signal-text:#D4892F;--scan:#8CC3E6;--ok:#7FD1A8;--danger:#F08A7E;--line:rgba(169,187,199,.14);--line-strong:rgba(169,187,199,.26);--grid:rgba(169,187,199,.06);--focus:#D4892F;--glass:rgba(29,42,55,.82);--shadow-plate:0 1px 0 rgba(0,0,0,.35),0 16px 40px rgba(6,10,14,.45);--shadow-lift:0 8px 24px rgba(6,10,14,.40);
+ background:var(--ground);color:var(--text);font:400 16px/26px var(--f-body);-webkit-font-smoothing:antialiased;counter-reset:sec}
+.hv.light{--ground:#F7F7F6;--plate:#FFFFFF;--plate-2:#EEF1F3;--text:#2E4154;--muted:#56697A;--dim:#56697A;--signal-text:#9A5A12;--scan:#2F6E95;--ok:#2F7A5B;--danger:#B23A2E;--line:rgba(46,65,84,.12);--line-strong:rgba(46,65,84,.22);--grid:rgba(46,65,84,.06);--focus:#9A5A12;--glass:rgba(255,255,255,.86);--shadow-plate:0 1px 2px rgba(46,65,84,.08),0 16px 40px rgba(46,65,84,.10);--shadow-lift:0 8px 24px rgba(46,65,84,.12)}
+:where(.hv) *,:where(.hv) *::before,:where(.hv) *::after{box-sizing:border-box}
+:where(.hv img){display:block}
+:where(.hv a){color:inherit;text-decoration:none}
+:where(.hv button,.hv input,.hv select){font:inherit;color:inherit}
+:where(.hv button){cursor:pointer;background:none;border:0;padding:0}
+:where(.hv) :focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:var(--r-sm)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+.d-xl,.d-l,.d-m,.d-s{font-family:var(--f-display);text-transform:uppercase;margin:0;text-wrap:balance;font-stretch:var(--dw)}
+.d-xl{font-weight:var(--dwt);font-size:clamp(38px,4.5vw,65px);line-height:var(--dlh);letter-spacing:var(--dls)}
+.d-l{font-weight:var(--dwt);font-size:clamp(32px,4vw,56px);line-height:1;letter-spacing:var(--dls)}
+.d-m{font-weight:800;font-size:clamp(24px,2.4vw,32px);line-height:.98}
+.d-s{font-weight:800;font-size:20px;line-height:1.05}
+.soft{color:var(--muted)}
+.lead{font-weight:300;font-size:17px;line-height:27px;color:var(--muted);margin:0;max-width:56ch}
+.lead b{color:var(--text);font-weight:600}
+.mono{font-family:var(--f-mono);font-weight:500;font-size:14px;line-height:20px;font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-weight:600;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal-text);display:inline-flex;align-items:center;gap:10px;margin:0}
+.eyebrow.dim{color:var(--dim)}
+.num .eyebrow::before{counter-increment:sec;content:counter(sec,decimal-leading-zero);color:var(--dim);padding-right:10px;border-right:1px solid var(--line-strong)}
+.dot{width:8px;height:8px;border-radius:999px;background:var(--signal);flex:none;animation:ping 2.4s var(--ease) infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(212,137,47,.55)}70%{box-shadow:0 0 0 8px rgba(212,137,47,0)}100%{box-shadow:0 0 0 0 rgba(212,137,47,0)}}
+.tbc{font-family:var(--f-mono);font-size:.82em;font-weight:600;background:rgba(212,137,47,.12);color:#E7B577;padding:1px 6px;border-radius:var(--r-sm);white-space:nowrap}
+.light .tbc{background:#F6EBD9;color:#7A4B07}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 20px;border-radius:var(--r);font:600 14px/20px var(--f-body);letter-spacing:.01em;border:1px solid transparent;transition:transform .2s var(--ease),background .2s var(--ease),border-color .2s var(--ease),box-shadow .2s var(--ease),color .2s var(--ease);white-space:nowrap}
+.btn svg{width:18px;height:18px;flex:none;transition:transform .2s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.btn:active{transform:translateY(1px) scale(.985)}
+.btn-signal{background:var(--signal);color:var(--signal-ink)}
+.btn-signal:hover{box-shadow:0 0 0 4px rgba(212,137,47,.22),0 10px 24px rgba(212,137,47,.28);transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line-strong);color:var(--text);background:transparent}
+.btn-ghost:hover{background:var(--plate-2);border-color:var(--muted);transform:translateY(-2px)}
+.btn-ghost.on-photo{color:#F7F7F6;border-color:rgba(247,247,246,.4)}
+.btn-ghost.on-photo:hover{background:rgba(247,247,246,.1);border-color:#F7F7F6}
+.btn-sm{height:40px;padding:0 14px}
+.btn-lg{height:56px;padding:0 26px;font-size:15px}
+.link{position:relative;color:var(--signal-text);font-weight:600}
+.link::after{content:"";position:absolute;left:50%;right:50%;bottom:-3px;height:2px;background:currentColor;transition:left .25s var(--ease),right .25s var(--ease)}
+.link:hover::after{left:0;right:0}
+.ubar{background:var(--amber);color:var(--amber-on);font:600 13px/20px var(--f-body)}
+.ubar .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px;min-height:36px;padding-top:6px;padding-bottom:6px}
+.ubar .tbc{background:rgba(27,38,50,.12);color:var(--amber-on)}
+.ubar a{font-weight:700}
+.ubar .r{display:flex;align-items:center;gap:18px}
+.ubar .r>span{opacity:.85}
+.site{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.site .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;min-height:72px;padding-top:12px;padding-bottom:12px}
+.logo{display:block;width:168px;flex:none}
+.logo img{width:100%;height:auto}
+.nav{display:flex;flex-wrap:wrap;align-items:center;gap:2px;margin-right:auto}
+.nav a{display:inline-flex;align-items:center;height:40px;padding:0 12px;border-radius:var(--r);font:600 14px/1 var(--f-body);color:var(--muted);white-space:nowrap;transition:color .2s var(--ease),background .2s var(--ease)}
+.nav a:hover{color:var(--text);background:var(--plate)}
+.nav a.cur{color:var(--text);box-shadow:inset 0 -2px 0 var(--signal)}
+.tools{display:flex;align-items:center;gap:8px}
+.hero{position:relative;padding:56px 0 80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.03);animation:drift 30s ease-in-out infinite alternate}
+@keyframes drift{to{transform:scale(1.09) translateX(-1.5%)}}
+.hero-bg::before{content:"";position:absolute;inset:0;z-index:2;opacity:.55;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.hero-bg::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,var(--ground) 0%,transparent 24%),linear-gradient(180deg,color-mix(in srgb,var(--ground) 72%,transparent) 0%,transparent 34%),linear-gradient(90deg,color-mix(in srgb,var(--ground) 84%,transparent) 0%,color-mix(in srgb,var(--ground) 58%,transparent) 48%,color-mix(in srgb,var(--ground) 74%,transparent) 100%)}
+.hero-grid{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:48px 56px;align-items:flex-start}
+.hero-grid>.l{flex:1.04 1 520px;min-width:0}
+.hero-grid>.r{flex:.96 1 460px;min-width:0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-bottom:26px}
+.hero-meta .mono{color:var(--dim);font-size:12px}
+.hero .lead{margin:26px 0 22px}
+.ticks{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px;font-size:15px;line-height:22px}
+.ticks li{display:grid;grid-template-columns:18px 1fr;gap:10px}
+.ticks li::before{content:"";width:8px;height:8px;margin-top:7px;background:var(--signal);transform:rotate(45deg)}
+.start-l{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:0 0 12px}
+.start-t{display:flex;align-items:center;gap:12px;margin:0;font:800 22px/1 var(--f-display);font-stretch:var(--dw);text-transform:uppercase}
+.start-t .n{width:30px;height:30px;display:grid;place-items:center;border-radius:var(--r);background:var(--signal);color:var(--signal-ink);font:800 15px/1 var(--f-mono)}
+.start-t small{font:500 14px/1 var(--f-body);text-transform:none;color:var(--muted)}
+.start-go{display:inline-flex;align-items:center;gap:8px;font:600 10px/14px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--signal-text)}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin-bottom:14px}
+.mode{position:relative;text-align:left;padding:13px 14px;min-height:64px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--plate-2);transition:transform .2s var(--ease),border-color .2s var(--ease),background .2s var(--ease),box-shadow .2s var(--ease)}
+.mode b{display:block;font:800 14px/1.1 var(--f-display);font-stretch:var(--dw);text-transform:uppercase;color:var(--text)}
+.mode small{display:block;margin-top:6px;font:600 10px/14px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.mode:hover{transform:translateY(-2px);border-color:var(--muted)}
+.mode.on{background:var(--signal);border-color:var(--signal);box-shadow:0 10px 28px -12px rgba(212,137,47,.75)}
+.mode.on b,.mode.on small{color:var(--signal-ink)}
+.mode.on::after{content:"";position:absolute;left:50%;bottom:-7px;width:12px;height:12px;background:var(--signal);transform:translateX(-50%) rotate(45deg)}
+.console{position:relative;background:var(--glass);border:1px solid var(--line-strong);border-radius:var(--r);box-shadow:var(--shadow-plate);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:22px}
+.console::before,.console::after,.frame::before,.frame::after{content:"";position:absolute;width:12px;height:12px;border:2px solid var(--signal);pointer-events:none;z-index:3}
+.console::before,.frame::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.console::after,.frame::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.c-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.c-head .mono{font-size:12px;color:var(--dim)}
+.field-l{display:block;font:600 11px/16px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border:1px solid var(--line-strong);border-radius:var(--r);font:600 13px/1 var(--f-body);color:var(--muted);transition:all .18s var(--ease)}
+.chip:hover{color:var(--text);border-color:var(--muted)}
+.chip.on{background:var(--text);color:var(--ground);border-color:var(--text)}
+.chip.lo{border-style:dashed}
+.say{margin:0 0 16px;padding:12px 14px;border-left:2px solid var(--signal);background:var(--plate-2);font-size:14px;line-height:21px;border-radius:0 var(--r) var(--r) 0}
+.say b{display:block;font:600 11px/16px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--signal-text);margin-bottom:4px}
+.row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:14px}
+.inp{width:100%;height:48px;padding:0 14px;background:var(--plate);border:1px solid var(--line-strong);border-radius:var(--r);font:400 16px/1 var(--f-body);transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
+.inp::placeholder{color:var(--dim)}
+.inp:hover{border-color:var(--muted)}
+.inp:focus{outline:none;border-color:var(--signal);box-shadow:0 0 0 3px rgba(212,137,47,.22)}
+.c-foot{display:flex;flex-wrap:wrap;gap:10px}
+.c-foot .btn{flex:1 1 200px}
+.c-alt{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.c-alt b{color:var(--text);font-weight:600}
+.frame{position:relative;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--plate);box-shadow:var(--shadow-plate)}
+.f-top,.f-bot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;font:600 11px/16px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.f-top{border-bottom:1px solid var(--line)}
+.f-bot{border-top:1px solid var(--line)}
+.marquee{border-block:1px solid var(--line);overflow:hidden;background:var(--plate)}
+.mq-track{display:flex;width:max-content;animation:mq 60s linear infinite}
+.marquee:hover .mq-track{animation-play-state:paused}
+.mq-item{display:flex;align-items:center;padding:16px 28px;font:600 12px/16px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.mq-item::after{content:"";width:6px;height:6px;background:var(--signal);transform:rotate(45deg);margin-left:56px}
+@keyframes mq{to{transform:translateX(-50%)}}
+.sec{padding:112px 0}
+.sec-head{display:flex;flex-wrap:wrap;gap:24px 64px;align-items:flex-end;justify-content:space-between;margin-bottom:60px}
+.sec-head>div{flex:7 1 520px;min-width:0}
+.sec-head .eyebrow{margin-bottom:18px}
+.sec-head .lead{flex:5 1 320px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));grid-auto-flow:dense;gap:12px}
+.tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:224px;padding:22px;border:1px solid var(--line);border-radius:var(--r);background:var(--plate);overflow:hidden;isolation:isolate;transition:transform .24s var(--ease),box-shadow .24s var(--ease),border-color .24s var(--ease),background .24s var(--ease)}
+.tile:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:var(--line-strong);background:var(--plate-2)}
+.tile p{margin:6px 0 0;font-size:14px;line-height:21px;color:var(--muted)}
+.tile .t-meta{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.go{width:36px;height:36px;border-radius:var(--r);border:1px solid var(--line-strong);display:grid;place-items:center;flex:none;transition:all .2s var(--ease)}
+.go svg{width:16px;height:16px}
+.tile:hover .go{background:var(--text);color:var(--ground);border-color:var(--text)}
+.tile.big{grid-column:span 2;grid-row:span 2;padding:30px}
+.tile.big .d-m{font-size:clamp(28px,3vw,40px)}
+.tile.wide{grid-column:span 2}
+.tile.ph{color:#F7F7F6;background:#131D27;border-color:rgba(169,187,199,.22)}
+.tile.ph:hover{background:#131D27;border-color:rgba(212,137,47,.7)}
+.t-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .7s var(--ease)}
+.tile.ph::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(11,17,23,.95) 0%,rgba(11,17,23,.8) 36%,rgba(11,17,23,.3) 100%);transition:opacity .3s var(--ease)}
+.tile.ph:hover .t-bg{transform:scale(1.07)}
+.tile.ph:hover::before{opacity:.86}
+.tile.ph p{color:rgba(247,247,246,.8)}
+.tile.ph .eyebrow.dim{color:rgba(247,247,246,.62)}
+.tile.ph .go{border-color:rgba(247,247,246,.4);background:rgba(11,17,23,.35)}
+.tile.ph:hover .go{background:#D4892F;border-color:#D4892F;color:#1B2632}
+.tile.amber{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
+.tile.amber p,.tile.amber .eyebrow{color:var(--signal-ink)}
+.tile.amber .go{border-color:rgba(27,38,50,.35)}
+.tile.amber:hover{background:#DD9640}
+.tile.amber:hover .go{background:var(--signal-ink);color:var(--signal);border-color:var(--signal-ink)}
+.card{background:var(--plate);border:1px solid var(--line);border-radius:var(--r);padding:26px;position:relative;transition:border-color .24s var(--ease),box-shadow .24s var(--ease),transform .24s var(--ease)}
+.card:hover{border-color:var(--line-strong);box-shadow:var(--shadow-lift);transform:translateY(-2px)}
+.cell-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--plate)}
+.cell-grid>*{padding:18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cell-grid .k{display:block;font:600 10px/14px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.cell-grid .v{display:block;margin-top:6px;font:800 17px/1.1 var(--f-display);font-stretch:var(--dw);text-transform:uppercase}
+.standard{border-radius:var(--r);padding:72px 64px;background:var(--plate);border:1px solid var(--line);border-top:4px solid var(--amber)}
+.std-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));border-top:1px solid var(--line-strong)}
+.std{padding:28px 28px 30px 0;border-bottom:1px solid var(--line-strong)}
+.std .n{font:600 11px/16px var(--f-mono);letter-spacing:.14em;color:var(--signal-text);text-transform:uppercase}
+.std h3{font:800 22px/1.05 var(--f-display);font-stretch:var(--dw);text-transform:uppercase;margin:14px 0 10px}
+.std p{margin:0;font-size:14px;line-height:22px;color:var(--muted)}
+.lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.lane h3{margin:14px 0 8px;font:800 20px/1.05 var(--f-display);font-stretch:var(--dw);text-transform:uppercase}
+.lane p{margin:0;font-size:14px;line-height:22px;color:var(--muted)}
+.also{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--plate)}
+.also>*{flex:1 1 220px;padding:22px 24px;border-right:1px solid var(--line);display:flex;gap:16px;align-items:center;transition:background .2s var(--ease)}
+.also>a:hover{background:var(--plate-2)}
+.also h4{margin:0;font:800 18px/1.05 var(--f-display);font-stretch:var(--dw);text-transform:uppercase}
+.also span.s{display:block;margin-top:4px;font-size:13px;color:var(--muted)}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font:600 17px/1.4 var(--f-body);transition:color .2s var(--ease)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{color:var(--signal-text)}
+.faq summary i{width:28px;height:28px;flex:none;border:1px solid var(--line-strong);border-radius:var(--r);position:relative}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:2px;background:currentColor;transform:translate(-50%,-50%)}
+.faq summary i::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .25s var(--ease)}
+.faq details[open] summary i::after{transform:translate(-50%,-50%) rotate(0)}
+.faq .ans{padding:0 48px 24px 0;color:var(--muted);font-size:15px;line-height:25px}
+.close{position:relative;border:1px solid var(--line-strong);border-radius:var(--r);padding:80px 64px;overflow:hidden;display:flex;flex-wrap:wrap;gap:40px 48px;align-items:flex-end;justify-content:space-between;background:var(--plate);isolation:isolate}
+.close .acts{display:flex;flex-direction:column;gap:12px;flex:0 1 320px}
+.close .acts small{font-size:13px;color:var(--muted);text-align:center}
+.foot{border-top:1px solid var(--line);margin-top:112px;padding:64px 0 40px;font-size:14px;color:var(--muted)}
+.f-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px}
+.f-grid h5{margin:0 0 14px;font:600 11px/16px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.f-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.f-grid a:hover{color:var(--text)}
+.family{margin-top:22px;display:grid;gap:8px}
+.family a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);transition:border-color .2s var(--ease),background .2s var(--ease)}
+.family a:hover{border-color:var(--line-strong);background:var(--plate)}
+.family b{color:var(--text);font-weight:600}
+.family small{font-size:12px;color:var(--dim)}
+.foot-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}
+.illus{position:absolute;left:12px;bottom:12px;font:600 10px/14px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--glass);padding:3px 7px;border-radius:2px}
+@media (max-width:760px){.wrap{padding:0 16px}.site .nav,.site .tools .btn-ghost{display:none}.site .wrap{min-height:64px;justify-content:space-between}.start-go,.start-t small{display:none}.logo{width:132px}.sec{padding:84px 0}.tile.big,.tile.wide{grid-column:auto;grid-row:auto}.standard,.close{padding:40px 24px}}
+@media (prefers-reduced-motion:reduce){.hv *{animation:none!important;transition:none!important}}
+
+
+
+/* ---------- service-mix switcher ---------- */
+.ubar{position:relative;z-index:70}
+.mix{position:relative}
+.mix-btn{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;margin:-4px 0;border:1px solid rgba(27,38,50,.35);border-radius:4px;background:transparent;color:#1B2632;font:700 13px/1 "Sora",system-ui,sans-serif;cursor:pointer;transition:background .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1)}
+.mix-btn svg{width:12px;height:12px;transition:transform .2s cubic-bezier(.4,0,.2,1)}
+.mix-btn:hover{background:rgba(27,38,50,.1);border-color:#1B2632}
+.mix-btn[aria-expanded="true"]{background:#1B2632;color:#D4892F;border-color:#1B2632}
+.mix-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mix-btn:focus-visible{outline:2px solid #1B2632;outline-offset:2px}
+.mix-menu{position:absolute;right:0;top:calc(100% + 10px);width:min(420px,calc(100vw - 24px));max-height:min(640px,calc(100vh - 80px));overflow:auto;overscroll-behavior:contain;padding:8px;background:#1D2A37;color:#F7F7F6;border:1px solid rgba(169,187,199,.26);border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.35),0 16px 40px rgba(6,10,14,.45);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s cubic-bezier(.4,0,.2,1),transform .2s cubic-bezier(.4,0,.2,1),visibility 0s linear .2s;text-align:left}
+.mix-menu.open{opacity:1;visibility:visible;transform:none;transition:opacity .2s cubic-bezier(.4,0,.2,1),transform .2s cubic-bezier(.4,0,.2,1)}
+.mix-menu::before,.mix-menu::after{content:"";position:absolute;width:12px;height:12px;border:2px solid #D4892F;pointer-events:none}
+.mix-menu::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.mix-menu::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.mix-h{margin:12px 10px 6px;font:600 11px/16px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#8796A3}
+.mix-menu a{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px;border-radius:4px;color:#F7F7F6;text-decoration:none;transition:background .2s cubic-bezier(.4,0,.2,1)}
+.mix-menu a:hover,.mix-menu a:focus-visible{background:#253445;outline:none}
+.mix-menu a .k{height:32px;display:grid;place-items:center;border:1px solid rgba(169,187,199,.26);border-radius:4px;font:600 11px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;color:#A9BBC7}
+.mix-menu a b{display:block;font:800 14px/1.15 "Archivo","Arial Black",sans-serif;text-transform:uppercase;letter-spacing:-.005em}
+.mix-menu a small{display:block;margin-top:3px;font:400 12px/16px "Sora",system-ui,sans-serif;color:#A9BBC7}
+.mix-menu a .now{font:600 10px/14px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#7FD1A8}
+.mix-menu a[aria-current="page"] .k{background:#D4892F;border-color:#D4892F;color:#1B2632}
+.mix-menu a svg{width:14px;height:14px;opacity:0;transition:opacity .2s,transform .2s}
+.mix-menu a:hover svg{opacity:1;transform:translateX(2px)}
+.mix-sep{height:1px;margin:6px 10px;background:rgba(169,187,199,.14)}
+.mix-soon{margin:6px 10px 6px;font:400 12px/16px "Sora",system-ui,sans-serif;color:#8796A3}
+@media (max-width:640px){.ubar .ub-r,.ubar .r{display:flex!important}.ubar .ub-r>*:not(.mix),.ubar .r>*:not(.mix){display:none!important}.mix-menu{right:-8px}}
+@media (prefers-reduced-motion:reduce){.mix-menu,.mix-btn,.mix-btn svg{transition:none}}
+
+.hv img[loading]{content-visibility:auto}
+</style>
+</head>
+<body>
+<div class="hv">
+<div class="ubar" role="region" aria-label="Emergency line"><div class="wrap">
+<div><b>Crews on call 24/7</b> &#160;·&#160; Dispatch <a href="tel:8143214851">(814) 321-4851</a></div>
+<div class="r"><span>Central PA · Locally owned &amp; operated</span><div class="mix" data-mix><button class="mix-btn" type="button" aria-haspopup="true" aria-expanded="false">Change service mix<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><div class="mix-menu" role="menu" aria-label="Service mix versions"><p class="mix-h">Havok · Central PA · specialty first</p><a role="menuitem" href="../mix/central-pa-triage.html" aria-current="page"><span class="k">01</span><span><b>Central PA · A · Triage</b><small>Dark · situation picker</small></span><span class="now">Viewing</span></a><a role="menuitem" href="../mix/central-pa-discretion.html"><span class="k">02</span><span><b>Central PA · B · Discretion</b><small>Light · family-facing</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../mix/central-pa-field-manual.html"><span class="k">03</span><span><b>Central PA · C · Field Manual</b><small>Dark · two lanes + matrix</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Habio · specialty cleaning &amp; decon</p><a role="menuitem" href="../mix/habio/light.html"><span class="k">04</span><span><b>Habio · Light</b><small>Full site prototype · private request flow</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../mix/habio/dark.html"><span class="k">05</span><span><b>Habio · Dark</b><small>Same site, night theme</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Framewell · reconstruction</p><a role="menuitem" href="../mix/framewell/home.html"><span class="k">06</span><span><b>Framewell · Rebuild site</b><small>10-page prototype · intake, projects, insurance</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><div class="mix-sep"></div><p class="mix-h">Havok · standard mix</p><a role="menuitem" href="../index.html"><span class="k">STD</span><span><b>Bay Area · Standard mix</b><small>Water, fire, mold &amp; storm · current demo</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-soon">More service mixes are being added here.</p></div></div></div>
+</div></div><header class="site"><div class="wrap">
+<a href="../index.html" class="logo" aria-label="Havok Restoration home"><img src="../media/cpa/logo-night.svg" alt="Havok Restoration"></a>
+<nav class="nav" aria-label="Primary"><a href="#services" class="cur">Specialty cleaning</a><a href="#also">Water &amp; weather</a><a href="#who">Who we serve</a><a href="#faq">Insurance</a><a href="#areas">Areas</a></nav>
+<div class="tools"><a class="btn btn-ghost btn-sm" href="tel:8143214851">Call (814) 321-4851</a><a class="btn btn-signal btn-sm" href="#start">Request dispatch</a></div>
+</div></header>
+<section class="hero" id="top">
+<div class="hero-bg" aria-hidden="true"><img src="../media/cpa/tech.webp" alt="" style="object-position: 70% 30%"></div>
+<div class="wrap hero-grid">
+<div class="l">
+<div class="hero-meta"><p class="eyebrow"><span class="dot"></span>Dispatch open · 24/7</p><span class="mono">Central PA · Altoona to Uniontown</span></div>
+<h1 class="d-xl"><span style="display:block">The rooms</span><span style="display:block">nobody else</span><span style="display:block"><span class="soft">will</span> enter.</span></h1>
+<p class="lead"><b>Biohazard, unattended death, hoarding, sewage and mold.</b> Certified crews arrive in unmarked vans, do the work nobody should have to do themselves, and leave a written clearance report. Burst pipes and storm damage, too.</p>
+<ul class="ticks">
+<li>A person answers, day and night. No phone tree.</li>
+<li>Bloodborne-pathogen trained, full PPE, sealed disposal</li>
+<li>Every surface tested before we call it clean</li>
+<li>We bill your insurance directly when it's covered</li>
+</ul>
+</div>
+<div class="r" id="start">
+<div class="start-l"><p class="start-t"><span class="n">1</span>Start here<small>What's going on?</small></p><span class="start-go">Pick one <svg viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></span></div>
+<div class="modes" role="tablist" aria-label="What's going on" id="aModes"></div>
+<form class="console" aria-label="Request dispatch">
+<div class="c-head"><p class="eyebrow" id="aHead"></p><span class="mono">Three answers</span></div>
+<span class="field-l" id="aAsk"></span>
+<div class="chips" id="aChips" role="group"></div>
+<p class="say"><b>What happens next</b><span id="aNext" aria-live="polite"></span></p>
+<div class="row2">
+<label><span class="field-l">Address or ZIP</span><input class="inp" type="text" autocomplete="street-address" placeholder="Street, town or ZIP"></label>
+<label><span class="field-l">Phone</span><input class="inp" type="tel" autocomplete="tel" placeholder="Best number to reach you"></label>
+</div>
+<div class="c-foot"><button type="button" class="btn btn-signal btn-lg"><span id="aCta"></span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><a class="btn btn-ghost btn-lg" href="tel:8143214851">Call (814) 321-4851</a></div>
+<div class="c-alt"><span><b>Insurance details can wait.</b> We will ask on site.</span><span>Unmarked vans on request</span></div>
+</form>
+</div>
+</div>
+</section>
+
+<div class="marquee" aria-label="Services and service area"><div class="mq-track">
+<span class="mq-item">Biohazard &amp; trauma</span><span class="mq-item">Unattended death</span><span class="mq-item">Hoarding cleanouts</span><span class="mq-item">Sewage backup</span><span class="mq-item">Mold remediation</span><span class="mq-item">Bloodborne pathogen trained</span><span class="mq-item">Altoona</span><span class="mq-item">State College</span><span class="mq-item">Johnstown</span><span class="mq-item">Greensburg</span><span class="mq-item">Uniontown</span>
+<span class="mq-item">Biohazard &amp; trauma</span><span class="mq-item">Unattended death</span><span class="mq-item">Hoarding cleanouts</span><span class="mq-item">Sewage backup</span><span class="mq-item">Mold remediation</span><span class="mq-item">Bloodborne pathogen trained</span><span class="mq-item">Altoona</span><span class="mq-item">State College</span><span class="mq-item">Johnstown</span><span class="mq-item">Greensburg</span><span class="mq-item">Uniontown</span>
+</div></div>
+
+<section class="sec num" id="services"><div class="wrap">
+<div class="sec-head"><div><p class="eyebrow">Specialty cleaning</p><h2 class="d-l">What Central PA<br>calls us for.</h2></div><p class="lead">Ordered by how often the phone rings for it. Every specialty job ends with a surface test and a written clearance report you can hand to a landlord, buyer, insurer or family.</p></div>
+<div class="tiles">
+<a class="tile ph big" href="#biohazard" id="biohazard"><img class="t-bg" loading="lazy" decoding="async" src="../media/cpa/atp.webp" alt=""><p class="eyebrow">C-01 · Dispatch 24/7</p><div class="t-meta"><div><h3 class="d-m">Biohazard &amp; trauma scenes</h3><p style="max-width:44ch">Blood and bodily fluids, accident and crime scenes, needle sweeps. Contained, removed, disinfected and tested. We coordinate the scene release with police so you don't have to.</p></div><span class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span></div></a>
+<a class="tile wide" href="#unattended-death" id="unattended-death"><p class="eyebrow">C-02 · Dispatch 24/7</p><div class="t-meta"><div><h3 class="d-s">Unattended death</h3><p>We work with the coroner and funeral home, remove what's affected and treat odor at its source. Belongings are set aside for the family.</p></div><span class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span></div></a>
+<a class="tile ph" href="#hoarding" id="hoarding"><img class="t-bg" loading="lazy" decoding="async" src="../media/cpa/hoard-before.webp" alt=""><p class="eyebrow dim">C-03 · Scheduled</p><div class="t-meta"><div><h3 class="d-s">Hoarding &amp; gross filth</h3><p>Room-by-room, no judgment. You decide what stays.</p></div><span class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span></div></a>
+<a class="tile ph" href="#sewage" id="sewage"><img class="t-bg" loading="lazy" decoding="async" src="../media/cpa/sewage.webp" alt=""><p class="eyebrow dim">C-04 · Dispatch 24/7</p><div class="t-meta"><div><h3 class="d-s">Sewage backup</h3><p>Category 3 water. Extract, remove, disinfect, dry.</p></div><span class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span></div></a>
+<a class="tile ph" href="#mold" id="mold"><img class="t-bg" loading="lazy" decoding="async" src="../media/cpa/mold.webp" alt=""><p class="eyebrow dim">C-05 · Scheduled</p><div class="t-meta"><div><h3 class="d-s">Mold remediation</h3><p>Containment, HEPA air, removal, and the leak that caused it.</p></div><span class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span></div></a>
+<a class="tile amber" href="#start"><p class="eyebrow">Not sure what it is?</p><div class="t-meta"><div><h3 class="d-s">Describe it. We'll sort it.</h3><p>Pick "Not sure" and a dispatcher works it out with you.</p></div><span class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span></div></a>
+</div>
+<div class="also" id="also" style="margin-top:12px">
+<div style="flex:0 1 240px"><div><p class="eyebrow dim">Also handled</p><span class="s" style="font-size:14px">Same crews, same 24/7 line.</span></div></div>
+<a href="#water" id="water"><img src="../media/cpa/pipe.webp" alt="" style="width:64px;height:64px;object-fit:cover;border-radius:4px;flex:none"><div><h4>Water &amp; frozen pipes</h4><span class="s">Extraction and metered drying</span></div></a>
+<a href="#storm" id="storm"><div><h4>Storm &amp; weather</h4><span class="s">Wind, hail, ice dams, tarping</span></div></a>
+<a href="#fire" id="fire" style="border-right:0"><div><h4>Fire &amp; smoke</h4><span class="s">Soot and odor removal</span></div></a>
+</div>
+</div></section>
+
+<section class="num" style="padding-bottom:112px"><div class="wrap">
+<div class="standard">
+<div class="sec-head" style="margin-bottom:40px"><div><p class="eyebrow">The clearance standard</p><h2 class="d-l">We don't say clean.<br><span class="soft">We test it.</span></h2></div><p class="lead">Five steps on every specialty job, in the same order, documented with photos and readings.</p></div>
+<div class="std-grid">
+<div class="std"><span class="n">01 · Contain</span><h3>Seal it off</h3><p>Poly barriers and negative air keep it from spreading to the rest of the house.</p></div>
+<div class="std"><span class="n">02 · Remove</span><h3>Take it out</h3><p>Affected materials are bagged, manifested and disposed of under PA rules.</p></div>
+<div class="std"><span class="n">03 · Disinfect</span><h3>Treat every surface</h3><p>EPA-registered disinfectants, applied and given the full dwell time.</p></div>
+<div class="std"><span class="n">04 · Verify</span><h3>Test it</h3><p>ATP surface tests and odor checks. If it doesn't pass, we clean again.</p></div>
+<div class="std"><span class="n">05 · Report</span><h3>Put it in writing</h3><p>A clearance report with photos and readings, sent to you and your adjuster.</p></div>
+</div>
+</div>
+</div></section>
+
+<section class="sec num" id="who" style="padding-top:0"><div class="wrap">
+<div class="sec-head"><div><p class="eyebrow">Who calls us</p><h2 class="d-l">Professionals get<br>a direct line.</h2></div><p class="lead">Set up a standing account once. After that, one call puts a crew on the way and the paperwork comes to you.</p></div>
+<div class="lanes">
+<a class="card lane" href="#coroners"><p class="eyebrow dim">Lane 01</p><h3>Coroners &amp; funeral homes</h3><p>A family-first process you can hand over with confidence.</p></a>
+<a class="card lane" href="#police"><p class="eyebrow dim">Lane 02</p><h3>Police &amp; first responders</h3><p>Scene release to cleanup, vehicle decon, holding cells.</p></a>
+<a class="card lane" href="#pm"><p class="eyebrow dim">Lane 03</p><h3>Property managers</h3><p>Hoarded units, sewage events, tenant turnovers. One invoice per unit.</p></a>
+<a class="card lane" href="#health"><p class="eyebrow dim">Lane 04</p><h3>Healthcare &amp; facilities</h3><p>Infection-control cleaning with documented verification.</p></a>
+<a class="card lane" href="#hotels"><p class="eyebrow dim">Lane 05</p><h3>Hotels &amp; rentals</h3><p>Fast room returns, quiet arrival, no guest-facing signage.</p></a>
+<a class="card lane" href="#gov"><p class="eyebrow dim">Lane 06</p><h3>Government &amp; agencies</h3><p>Public facilities, encampment cleanups, standing contracts.</p></a>
+</div>
+</div></section>
+
+<section class="sec num" id="faq" style="padding-top:0"><div class="wrap" style="display:flex;flex-wrap:wrap;gap:40px 64px">
+<div style="flex:5 1 320px;min-width:0"><p class="eyebrow" style="margin-bottom:18px">Before you call</p><h2 class="d-l">Straight answers.</h2></div>
+<div class="faq" style="flex:7 1 480px;min-width:0">
+<details open><summary>Does insurance cover this?<i aria-hidden="true"></i></summary><div class="ans">Often, depending on the cause and your policy. We check before we start and bill your carrier directly. If it isn't covered, you get a written price before any work begins.</div></details>
+<details><summary>Will the neighbors know?<i aria-hidden="true"></i></summary><div class="ans">Not from us. We arrive in unmarked vans on request and never post your address or photos of your home.</div></details>
+<details><summary>What happens to belongings?<i aria-hidden="true"></i></summary><div class="ans">Photos, documents, cash, jewelry and anything you name are set aside before anything is removed. Nothing is thrown out without your say.</div></details>
+<details><summary>Do I need to be there?<i aria-hidden="true"></i></summary><div class="ans">No. Many families live out of state. We work from a lockbox and send photo updates and the final report.</div></details>
+</div>
+</div></section>
+
+<section id="areas"><div class="wrap">
+<div class="close"><img src="../media/cpa/tech.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 30%;z-index:-2;opacity:.28"><div style="position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--plate) 30%,transparent)"></div>
+<div style="flex:1 1 520px;min-width:0"><p class="eyebrow" style="margin-bottom:18px"><span class="dot"></span>Dispatch open</p><h2 class="d-l">You don't have to<br>clean this up.</h2><p class="lead" style="margin-top:20px">Call and a person answers. Altoona, State College, Johnstown, Indiana, Greensburg, Butler, New Kensington, Uniontown and Jeannette.</p></div>
+<div class="acts"><a class="btn btn-signal btn-lg" href="#start">Request dispatch <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a class="btn btn-ghost btn-lg" href="tel:8143214851">Call (814) 321-4851</a><small>Insurance details can wait.</small></div>
+</div>
+</div></section>
+<footer class="foot"><div class="wrap">
+<div class="f-grid">
+<div><a href="../index.html" class="logo" style="width:200px;margin-bottom:18px" aria-label="Havok Restoration home"><img src="../media/cpa/logo-night.svg" alt="Havok Restoration"></a>
+<p style="margin:0">Havok Restoration of Central PA.<br>Dispatch <a href="tel:8143214851" style="color:var(--text);font-weight:600">(814) 321-4851</a><br><a href="mailto:CentralPA@HavokRestoration.com">CentralPA@HavokRestoration.com</a></p></div>
+<div><h5>Specialty cleaning</h5><ul><li><a href="#biohazard">Biohazard &amp; trauma</a></li><li><a href="#unattended-death">Unattended death</a></li><li><a href="#hoarding">Hoarding &amp; gross filth</a></li><li><a href="#sewage">Sewage backup</a></li><li><a href="#mold">Mold remediation</a></li></ul></div>
+<div><h5>Water &amp; weather</h5><ul><li><a href="#water">Water damage</a></li><li><a href="#frozen-pipes">Burst &amp; frozen pipes</a></li><li><a href="#storm">Storm damage</a></li><li><a href="#fire">Fire &amp; smoke</a></li></ul></div>
+<div><h5>Areas</h5><ul><li>Altoona · State College</li><li>Johnstown · Indiana</li><li>Greensburg · Butler</li><li>New Kensington · Uniontown</li><li>Jeannette</li></ul></div>
+<div><h5>The family</h5><div class="family" style="margin-top:0">
+<a href="#habio"><b>Habio</b><small>Specialty cleaning &amp; decon</small></a>
+<a href="#framewell"><b>Framewell</b><small>Reconstruction</small></a></div></div>
+</div>
+<div class="foot-bot"><span><span style="color:var(--text)">Havok Restoration</span> · Habio Specialty Cleaning &amp; Decon · Framewell Reconstruction</span><span>IICRC-certified · BBB listed · Locally owned</span></div>
+</div></footer>
+
+</div>
+<script>
+(function(){document.querySelectorAll('[data-mix]').forEach(function(m){var b=m.querySelector('.mix-btn'),p=m.querySelector('.mix-menu'),items=[].slice.call(p.querySelectorAll('a'));
+function set(o){p.classList.toggle('open',o);b.setAttribute('aria-expanded',o);if(o)(p.querySelector('[aria-current]')||items[0]).focus()}
+b.addEventListener('click',function(e){e.stopPropagation();set(b.getAttribute('aria-expanded')!=='true')});
+document.addEventListener('click',function(e){if(!m.contains(e.target))set(false)});
+m.addEventListener('keydown',function(e){var i=items.indexOf(document.activeElement);if(e.key==='Escape'){set(false);b.focus()}else if(e.key==='ArrowDown'){e.preventDefault();items[(i+1)%items.length].focus()}else if(e.key==='ArrowUp'){e.preventDefault();items[(i-1+items.length)%items.length].focus()}});});})();
+</script>
+<script>
+
+const M = {
+  now: { label: "It's urgent", sub: 'Dispatch 24/7', head: 'Request dispatch · step 1 of 2', ask: 'What did you find?', cta: 'Request dispatch',
+    chips: [['bio','Blood or biohazard',"A crew is dispatched now. Don't clean anything yourself. If police are involved, we coordinate the scene release with them."],
+      ['death','Unattended death','We work with the coroner and funeral home. Belongings are set aside for the family before anything is removed.'],
+      ['sewage','Sewage backup','Stay out of the water and keep children and pets away. A crew is dispatched now for extraction and disinfection.'],
+      ['water','Water or burst pipe','Shut off the main if you can. A crew is dispatched now with extraction and drying equipment.'],
+      ['storm','Storm damage','We tarp and board up first, then document everything for your adjuster.'],
+      ['fire','Fire or smoke','Once the fire department releases the property, we secure it and start soot and odor removal.'],
+      ['unsure','Not sure','Describe what you see. A dispatcher sorts it out with you on the phone.']] },
+  clean: { label: 'I need a cleanout', sub: 'Scheduled', head: 'Private walkthrough · step 1 of 2', ask: 'What kind of cleanout?', cta: 'Book a private walkthrough',
+    chips: [['hoard','Hoarding','We schedule a private walkthrough within [X] days and give you a written plan and price before any work begins.'],
+      ['filth','Gross filth or animal waste','We assess, quote in writing, and bring the PPE and equipment to make it safe again.'],
+      ['mold','Mold','We find the moisture source, then quote containment and removal in writing.'],
+      ['estate','Estate or move-out','We sort with you, set aside what matters, and clear the rest room by room.']] },
+  pro: { label: "I'm a professional", sub: 'Account line', head: 'Professional account · step 1 of 2', ask: 'Who are you calling for?', cta: 'Open an account',
+    chips: [['coroner','Coroner or funeral home','Referral cards and a family-first process. One call dispatches a crew to the family.'],
+      ['police','Police or first responders','Scene release to cleanup, vehicle decon and holding cells. Paperwork sent to your agency.'],
+      ['pm','Property manager','Hoarded units, sewage events and turnovers. One invoice per unit.'],
+      ['facility','Facility or hotel','Infection-control cleaning and room returns, with documented verification.']] }
+};
+let mode = 'now', chip = 'bio';
+const $ = (id) => document.getElementById(id);
+function render(){
+  const cur = M[mode];
+  $('aModes').innerHTML = Object.keys(M).map(k => `<button type="button" role="tab" class="mode${k===mode?' on':''}" aria-selected="${k===mode}" data-m="${k}"><b>${M[k].label}</b><small>${M[k].sub}</small></button>`).join('');
+  const f = cur.chips.find(c => c[0]===chip) || cur.chips[0]; chip = f[0];
+  $('aChips').innerHTML = cur.chips.map(c => `<button type="button" class="chip${c[0]===chip?' on':''}" aria-pressed="${c[0]===chip}" data-c="${c[0]}">${c[1]}</button>`).join('');
+  $('aHead').textContent = cur.head; $('aAsk').textContent = cur.ask; $('aCta').textContent = cur.cta; $('aNext').textContent = f[2];
+}
+$('aModes').addEventListener('click', e => { const b = e.target.closest('[data-m]'); if(!b) return; mode = b.dataset.m; chip = M[mode].chips[0][0]; render(); });
+$('aChips').addEventListener('click', e => { const b = e.target.closest('[data-c]'); if(!b) return; chip = b.dataset.c; render(); });
+render();
+
+</script>
+</body>
+</html>

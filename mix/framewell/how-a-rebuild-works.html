@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>How a rebuild works · Framewell Reconstruction</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="From the Havok hand-off to the final walkthrough: the six phases of a Framewell rebuild, the live schedule, inspections, living through it and the warranty.">
+<meta name="theme-color" content="#F7F7F6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232E4154'/%3E%3Crect x='7' y='7' width='18' height='2' fill='%23D4892F'/%3E%3Ctext x='16' y='26' font-family='Georgia,serif' font-size='17' font-weight='700' fill='%23F7F7F6' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{var t=localStorage.getItem("fw-theme");if(t)document.documentElement.setAttribute("data-theme",t);if(sessionStorage.getItem("fw-nav")==="1")document.documentElement.classList.add("is-arriving")}catch(e){}</script>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=JetBrains+Mono:wght@500;600&family=Sora:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- service-mix switcher ---------- */
+.ubar{position:relative;z-index:70}
+.mix{position:relative}
+.mix-btn{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;margin:-4px 0;border:1px solid rgba(27,38,50,.35);border-radius:4px;background:transparent;color:#1B2632;font:700 13px/1 "Sora",system-ui,sans-serif;cursor:pointer;transition:background .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1)}
+.mix-btn svg{width:12px;height:12px;transition:transform .2s cubic-bezier(.4,0,.2,1)}
+.mix-btn:hover{background:rgba(27,38,50,.1);border-color:#1B2632}
+.mix-btn[aria-expanded="true"]{background:#1B2632;color:#D4892F;border-color:#1B2632}
+.mix-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mix-btn:focus-visible{outline:2px solid #1B2632;outline-offset:2px}
+.mix-menu{position:absolute;right:0;top:calc(100% + 10px);width:min(420px,calc(100vw - 24px));max-height:min(640px,calc(100vh - 80px));overflow:auto;overscroll-behavior:contain;padding:8px;background:#1D2A37;color:#F7F7F6;border:1px solid rgba(169,187,199,.26);border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.35),0 16px 40px rgba(6,10,14,.45);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s cubic-bezier(.4,0,.2,1),transform .2s cubic-bezier(.4,0,.2,1),visibility 0s linear .2s;text-align:left}
+.mix-menu.open{opacity:1;visibility:visible;transform:none;transition:opacity .2s cubic-bezier(.4,0,.2,1),transform .2s cubic-bezier(.4,0,.2,1)}
+.mix-menu::before,.mix-menu::after{content:"";position:absolute;width:12px;height:12px;border:2px solid #D4892F;pointer-events:none}
+.mix-menu::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.mix-menu::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.mix-h{margin:12px 10px 6px;font:600 11px/16px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#8796A3}
+.mix-menu a{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px;border-radius:4px;color:#F7F7F6;text-decoration:none;transition:background .2s cubic-bezier(.4,0,.2,1)}
+.mix-menu a:hover,.mix-menu a:focus-visible{background:#253445;outline:none}
+.mix-menu a .k{height:32px;display:grid;place-items:center;border:1px solid rgba(169,187,199,.26);border-radius:4px;font:600 11px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;color:#A9BBC7}
+.mix-menu a b{display:block;font:800 14px/1.15 "Archivo","Arial Black",sans-serif;text-transform:uppercase;letter-spacing:-.005em}
+.mix-menu a small{display:block;margin-top:3px;font:400 12px/16px "Sora",system-ui,sans-serif;color:#A9BBC7}
+.mix-menu a .now{font:600 10px/14px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#7FD1A8}
+.mix-menu a[aria-current="page"] .k{background:#D4892F;border-color:#D4892F;color:#1B2632}
+.mix-menu a svg{width:14px;height:14px;opacity:0;transition:opacity .2s,transform .2s}
+.mix-menu a:hover svg{opacity:1;transform:translateX(2px)}
+.mix-sep{height:1px;margin:6px 10px;background:rgba(169,187,199,.14)}
+.mix-soon{margin:6px 10px 6px;font:400 12px/16px "Sora",system-ui,sans-serif;color:#8796A3}
+@media (max-width:640px){.ubar .ub-r,.ubar .r{display:flex!important}.ubar .ub-r>*:not(.mix),.ubar .r>*:not(.mix){display:none!important}.mix-menu{right:-8px}}
+@media (prefers-reduced-motion:reduce){.mix-menu,.mix-btn,.mix-btn svg{transition:none}}
+
+.demobar{position:fixed;top:0;left:0;right:0;height:40px;z-index:70;background:#16212C;color:#A9BBC7;font:500 13px/20px "Sora",system-ui,sans-serif;border-bottom:1px solid rgba(169,187,199,.14)}
+.demobar .in{max-width:1320px;height:40px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+body{padding-top:40px}
+.demobar .lab{display:flex;align-items:center;gap:10px;font:600 11px/16px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+.demobar .lab a{color:#F7F7F6;text-decoration:none}
+.demobar .lab a:hover{color:#D4892F}
+.demobar .lab i{width:6px;height:6px;background:#D4892F;transform:rotate(45deg);display:inline-block}
+.demobar .mix-btn{color:#F7F7F6;border-color:rgba(169,187,199,.35)}
+.demobar .mix-btn:hover{background:rgba(169,187,199,.1);border-color:#F7F7F6}
+.demobar .mix-btn[aria-expanded="true"]{background:#D4892F;color:#1B2632;border-color:#D4892F}
+.demobar .mix-btn:focus-visible{outline-color:#D4892F}
+@media (max-width:640px){.demobar .lab span{display:none}}
+.top{top:40px!important}</style>
+</head>
+<body>
+<div class="demobar" role="region" aria-label="Demo versions"><div class="in"><p class="lab" style="margin:0"><i></i><a href="../../index.html">Havok demo</a><span>· Framewell prototype</span></p><div class="mix" data-mix><button class="mix-btn" type="button" aria-haspopup="true" aria-expanded="false">Change service mix<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><div class="mix-menu" role="menu" aria-label="Service mix versions"><p class="mix-h">Havok · Central PA · specialty first</p><a role="menuitem" href="../../mix/central-pa-triage.html"><span class="k">01</span><span><b>Central PA · A · Triage</b><small>Dark · situation picker</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../../mix/central-pa-discretion.html"><span class="k">02</span><span><b>Central PA · B · Discretion</b><small>Light · family-facing</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../../mix/central-pa-field-manual.html"><span class="k">03</span><span><b>Central PA · C · Field Manual</b><small>Dark · two lanes + matrix</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Habio · specialty cleaning &amp; decon</p><a role="menuitem" href="../../mix/habio/light.html"><span class="k">04</span><span><b>Habio · Light</b><small>Full site prototype · private request flow</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../../mix/habio/dark.html"><span class="k">05</span><span><b>Habio · Dark</b><small>Same site, night theme</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Framewell · reconstruction</p><a role="menuitem" href="../../mix/framewell/home.html" aria-current="page"><span class="k">06</span><span><b>Framewell · Rebuild site</b><small>10-page prototype · intake, projects, insurance</small></span><span class="now">Viewing</span></a><div class="mix-sep"></div><p class="mix-h">Havok · standard mix</p><a role="menuitem" href="../../index.html"><span class="k">STD</span><span><b>Bay Area · Standard mix</b><small>Water, fire, mold &amp; storm · current demo</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-soon">More service mixes are being added here.</p></div></div></div></div>
+
+<main id="main">
+<section class="hero hero--page"><div class="wrap">
+  <ol class="crumbs" data-lock><li><a href="home.html">Home</a></li><li aria-current="page">How a rebuild works</li></ol>
+  <div class="hero__grid">
+    <div class="hero__copy"><p class="eyebrow eyebrow--hero" data-lock>How a rebuild works</p><h1 class="d-xl" data-lock>You see the schedule we&nbsp;see.</h1>
+    <p class="lede" data-lock>One file from the day the water stopped. One project lead. Six phases, inspected between. Here is the whole path, before you sign anything.</p></div>
+    <figure class="frame" data-lock style="min-height:420px"><img src="img/framing.webp" alt="Carpenter fastening new wall framing in a dried-out room" style="position:absolute;inset:0" decoding="async"><figcaption>Phase 02 · Framing</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="sec--tight"><div class="wrap docgrid">
+  <nav class="toc" aria-label="On this page"><a href="#handoff">The hand-off</a><a href="#phases">Six phases</a><a href="#schedule">Your schedule</a><a href="#living">Living through it</a><a href="#walkthrough">Walkthrough and keys</a></nav>
+  <div class="stack" style="--g:clamp(72px,8vw,112px)">
+    <section id="handoff" class="stack" style="--g:24px"><p class="eyebrow rv">01 · The hand-off</p><h2 class="d-l rv">Nothing gets lost between&nbsp;companies.</h2>
+      <div class="prose rv"><p>Mitigation and reconstruction are two different contracts, and most homeowners get passed between two companies who never talk. When Havok dries your home, every moisture reading, photo, measurement and removed material goes into one ClaimTrak file.</p><p>Framewell opens that same file. Your project lead carries over. We start from the verified-dry readings, not a guess, and from the adjuster's estimate line by line.</p></div>
+      <div class="note rv"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6' aria-hidden='true'><circle cx='12' cy='12' r='9'/><path d='M12 11v6M12 7.5v.5'/></svg><span>You're never required to use Framewell after Havok. If you choose another contractor, we hand over the full mitigation file.</span></div>
+    </section>
+    <section id="phases" class="stack" style="--g:28px"><p class="eyebrow rv">02 · Six phases</p><h2 class="d-l rv">Built in layers. Inspected&nbsp;between.</h2><ol data-block="phases" data-detail></ol></section>
+    <section id="schedule" class="stack" style="--g:24px"><p class="eyebrow rv">03 · Your schedule</p><h2 class="d-l rv">The same plan the crew works&nbsp;from.</h2>
+      <p class="lede rv">Your schedule lives in ClaimTrak. It updates as each trade finishes, inspections are marked, and if a date moves you get the reason the same day.</p>
+      <div data-block="gantt"></div></section>
+    <section id="living" class="stack" style="--g:24px"><p class="eyebrow rv">04 · Living through it</p><h2 class="d-l rv">Stay home or move out?</h2>
+      <div class="split split--top" style="--g:28px"><div class="prose rv"><p>Many families stay. We set up dust containment, protect floors and paths, keep a working bathroom where we can, and leave a swept site every day.</p><p>When the kitchen or only bathroom is out of service, your policy may cover additional living expenses. We'll talk it through at the walkthrough and give your adjuster the timeline they need.</p></div>
+      <ul class="checks rv"><li><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='square' aria-hidden='true'><path d='M4 12.5l5 5L20 6.5'/></svg><span>Work hours agreed before we start</span></li><li><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='square' aria-hidden='true'><path d='M4 12.5l5 5L20 6.5'/></svg><span>Containment with zip doors and negative air where needed</span></li><li><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='square' aria-hidden='true'><path d='M4 12.5l5 5L20 6.5'/></svg><span>Kids, pets and work-from-home planned around</span></li><li><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='square' aria-hidden='true'><path d='M4 12.5l5 5L20 6.5'/></svg><span>Daily photo update from your project lead</span></li></ul></div></section>
+    <section id="walkthrough" class="stack" style="--g:24px"><p class="eyebrow rv">05 · Walkthrough and keys</p><h2 class="d-l rv">Punch list, then&nbsp;keys.</h2>
+      <div class="split split--top"><div class="prose rv"><p>Final inspection first, then a walkthrough with you, room by room. Anything on the list gets fixed before we call the job done. Your warranty starts the day you sign off.</p><p>You keep the job file: permits, inspection cards, photos and the drying record. It's the paperwork buyers ask for if you ever sell.</p><p><a class="link" href="about.html#warranty">What the warranty covers <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></p></div>
+      <figure class="frame rv" style="aspect-ratio:4/5"><img src="img/living-after.webp" alt="Finished living room after the rebuild" loading="lazy" decoding="async" style="position:absolute;inset:0"><figcaption>Phase 06 · Walkthrough</figcaption></figure></div></section>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap"><div class="cta rv">
+  <div class="stack" style="--g:22px"><p class="eyebrow">Ready to rebuild</p><h2 class="d-l">Start with a walkthrough.</h2><p class="lede">We measure, photograph and review your estimate with you. You get a written scope and schedule before anything is signed.</p></div>
+  <div class="cta__act"><button class="btn btn--primary" type="button" data-intake data-cursor="START">Start a rebuild <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button><a class="link" href="tel:+19255550142">Or call a builder <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+</div></div></section>
+</main>
+<script src="data.js"></script>
+<script src="site.js"></script>
+<script src="blocks.js"></script>
+<script>
+
+FW.renderBlocks();
+
+FW.boot();
+</script>
+<script>
+(function(){document.querySelectorAll('[data-mix]').forEach(function(m){var b=m.querySelector('.mix-btn'),p=m.querySelector('.mix-menu'),items=[].slice.call(p.querySelectorAll('a'));
+function set(o){p.classList.toggle('open',o);b.setAttribute('aria-expanded',o);if(o)(p.querySelector('[aria-current]')||items[0]).focus()}
+b.addEventListener('click',function(e){e.stopPropagation();set(b.getAttribute('aria-expanded')!=='true')});
+document.addEventListener('click',function(e){if(!m.contains(e.target))set(false)});
+m.addEventListener('keydown',function(e){var i=items.indexOf(document.activeElement);if(e.key==='Escape'){set(false);b.focus()}else if(e.key==='ArrowDown'){e.preventDefault();items[(i+1)%items.length].focus()}else if(e.key==='ArrowUp'){e.preventDefault();items[(i-1+items.length)%items.length].focus()}});});})();
+</script>
+</body>
+</html>

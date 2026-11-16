@@ -1152,6 +1152,36 @@ header.site .h-call .tbc{display:none}
   .modes{grid-template-columns:1fr 1fr}
   .mode:first-child{grid-column:1/-1}
 }
+
+/* ---------- service-mix switcher ---------- */
+.ubar{position:relative;z-index:70}
+.mix{position:relative}
+.mix-btn{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;margin:-4px 0;border:1px solid rgba(27,38,50,.35);border-radius:4px;background:transparent;color:#1B2632;font:700 13px/1 "Sora",system-ui,sans-serif;cursor:pointer;transition:background .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1)}
+.mix-btn svg{width:12px;height:12px;transition:transform .2s cubic-bezier(.4,0,.2,1)}
+.mix-btn:hover{background:rgba(27,38,50,.1);border-color:#1B2632}
+.mix-btn[aria-expanded="true"]{background:#1B2632;color:#D4892F;border-color:#1B2632}
+.mix-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mix-btn:focus-visible{outline:2px solid #1B2632;outline-offset:2px}
+.mix-menu{position:absolute;right:0;top:calc(100% + 10px);width:min(420px,calc(100vw - 24px));max-height:min(640px,calc(100vh - 80px));overflow:auto;overscroll-behavior:contain;padding:8px;background:#1D2A37;color:#F7F7F6;border:1px solid rgba(169,187,199,.26);border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.35),0 16px 40px rgba(6,10,14,.45);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s cubic-bezier(.4,0,.2,1),transform .2s cubic-bezier(.4,0,.2,1),visibility 0s linear .2s;text-align:left}
+.mix-menu.open{opacity:1;visibility:visible;transform:none;transition:opacity .2s cubic-bezier(.4,0,.2,1),transform .2s cubic-bezier(.4,0,.2,1)}
+.mix-menu::before,.mix-menu::after{content:"";position:absolute;width:12px;height:12px;border:2px solid #D4892F;pointer-events:none}
+.mix-menu::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.mix-menu::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.mix-h{margin:12px 10px 6px;font:600 11px/16px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#8796A3}
+.mix-menu a{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px;border-radius:4px;color:#F7F7F6;text-decoration:none;transition:background .2s cubic-bezier(.4,0,.2,1)}
+.mix-menu a:hover,.mix-menu a:focus-visible{background:#253445;outline:none}
+.mix-menu a .k{height:32px;display:grid;place-items:center;border:1px solid rgba(169,187,199,.26);border-radius:4px;font:600 11px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;color:#A9BBC7}
+.mix-menu a b{display:block;font:800 14px/1.15 "Archivo","Arial Black",sans-serif;text-transform:uppercase;letter-spacing:-.005em}
+.mix-menu a small{display:block;margin-top:3px;font:400 12px/16px "Sora",system-ui,sans-serif;color:#A9BBC7}
+.mix-menu a .now{font:600 10px/14px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#7FD1A8}
+.mix-menu a[aria-current="page"] .k{background:#D4892F;border-color:#D4892F;color:#1B2632}
+.mix-menu a svg{width:14px;height:14px;opacity:0;transition:opacity .2s,transform .2s}
+.mix-menu a:hover svg{opacity:1;transform:translateX(2px)}
+.mix-sep{height:1px;margin:6px 10px;background:rgba(169,187,199,.14)}
+.mix-soon{margin:6px 10px 6px;font:400 12px/16px "Sora",system-ui,sans-serif;color:#8796A3}
+@media (max-width:640px){.ubar .ub-r,.ubar .r{display:flex!important}.ubar .ub-r>*:not(.mix),.ubar .r>*:not(.mix){display:none!important}.mix-menu{right:-8px}}
+@media (prefers-reduced-motion:reduce){.mix-menu,.mix-btn,.mix-btn svg{transition:none}}
+
 </style>
 </head>
 <body>
@@ -1190,7 +1220,7 @@ header.site .h-call .tbc{display:none}
 <div class="ubar" role="region" aria-label="Emergency line">
   <div class="wrap">
     <div><b>Crews on call 24/7</b> &nbsp;·&nbsp; Dispatch <span class="tbc">[DISPATCH NUMBER]</span></div>
-    <div class="ub-r"><a class="ub-rate" href="#h-reviews" aria-label="Google rating, see reviews"><span class="stars" aria-hidden="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg></span><span><span class="tbc" data-g-rating>[RATING]</span> on Google</span></a><span>Bay Area · Owner-run territory</span><a class="link" style="color:inherit" href="#locations">Change market</a></div>
+    <div class="ub-r"><a class="ub-rate" href="#h-reviews" aria-label="Google rating, see reviews"><span class="stars" aria-hidden="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg></span><span><span class="tbc" data-g-rating>[RATING]</span> on Google</span></a><span>Bay Area · Owner-run territory</span><div class="mix" data-mix><button class="mix-btn" type="button" aria-haspopup="true" aria-expanded="false">Change service mix<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><div class="mix-menu" role="menu" aria-label="Service mix versions"><p class="mix-h">Havok · Central PA · specialty first</p><a role="menuitem" href="mix/central-pa-triage.html"><span class="k">01</span><span><b>Central PA · A · Triage</b><small>Dark · situation picker</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="mix/central-pa-discretion.html"><span class="k">02</span><span><b>Central PA · B · Discretion</b><small>Light · family-facing</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="mix/central-pa-field-manual.html"><span class="k">03</span><span><b>Central PA · C · Field Manual</b><small>Dark · two lanes + matrix</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Habio · specialty cleaning &amp; decon</p><a role="menuitem" href="mix/habio/light.html"><span class="k">04</span><span><b>Habio · Light</b><small>Full site prototype · private request flow</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="mix/habio/dark.html"><span class="k">05</span><span><b>Habio · Dark</b><small>Same site, night theme</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Framewell · reconstruction</p><a role="menuitem" href="mix/framewell/home.html"><span class="k">06</span><span><b>Framewell · Rebuild site</b><small>10-page prototype · intake, projects, insurance</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><div class="mix-sep"></div><p class="mix-h">Havok · standard mix</p><a role="menuitem" href="index.html" aria-current="page"><span class="k">STD</span><span><b>Bay Area · Standard mix</b><small>Water, fire, mold &amp; storm · current demo</small></span><span class="now">Viewing</span></a><p class="mix-soon">More service mixes are being added here.</p></div></div></div>
   </div>
 </div>
 
@@ -2604,6 +2634,13 @@ if(!reduce&&homeV&&!homeV.hidden){$$('.hero h1 .ln>span').forEach((s,i)=>s.anima
 if(!reduce){const w1=$('#wave1'),w2=$('#wave2');let ph=0;(function wv(){ph+=.012;const a=Math.sin(ph)*16,b=Math.cos(ph*1.3)*14;const d=`M0 ${120+a*.4} C 100 ${90+a}, 200 ${150-b}, 300 ${120+b*.3} S 500 ${90-a}, 600 ${120+a*.5}`;w2.setAttribute('d',d);w1.setAttribute('d',d+' V300 H0Z');requestAnimationFrame(wv)})()}
 })();
 
+</script>
+<script>
+(function(){document.querySelectorAll('[data-mix]').forEach(function(m){var b=m.querySelector('.mix-btn'),p=m.querySelector('.mix-menu'),items=[].slice.call(p.querySelectorAll('a'));
+function set(o){p.classList.toggle('open',o);b.setAttribute('aria-expanded',o);if(o)(p.querySelector('[aria-current]')||items[0]).focus()}
+b.addEventListener('click',function(e){e.stopPropagation();set(b.getAttribute('aria-expanded')!=='true')});
+document.addEventListener('click',function(e){if(!m.contains(e.target))set(false)});
+m.addEventListener('keydown',function(e){var i=items.indexOf(document.activeElement);if(e.key==='Escape'){set(false);b.focus()}else if(e.key==='ArrowDown'){e.preventDefault();items[(i+1)%items.length].focus()}else if(e.key==='ArrowUp'){e.preventDefault();items[(i-1+items.length)%items.length].focus()}});});})();
 </script>
 </body>
 </html>

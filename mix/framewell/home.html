@@ -1,0 +1,166 @@
+<!doctype html><html><head>
+<meta name="robots" content="noindex"><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=JetBrains+Mono:wght@500;600&family=Sora:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- service-mix switcher ---------- */
+.ubar{position:relative;z-index:70}
+.mix{position:relative}
+.mix-btn{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;margin:-4px 0;border:1px solid rgba(27,38,50,.35);border-radius:4px;background:transparent;color:#1B2632;font:700 13px/1 "Sora",system-ui,sans-serif;cursor:pointer;transition:background .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1)}
+.mix-btn svg{width:12px;height:12px;transition:transform .2s cubic-bezier(.4,0,.2,1)}
+.mix-btn:hover{background:rgba(27,38,50,.1);border-color:#1B2632}
+.mix-btn[aria-expanded="true"]{background:#1B2632;color:#D4892F;border-color:#1B2632}
+.mix-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mix-btn:focus-visible{outline:2px solid #1B2632;outline-offset:2px}
+.mix-menu{position:absolute;right:0;top:calc(100% + 10px);width:min(420px,calc(100vw - 24px));max-height:min(640px,calc(100vh - 80px));overflow:auto;overscroll-behavior:contain;padding:8px;background:#1D2A37;color:#F7F7F6;border:1px solid rgba(169,187,199,.26);border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.35),0 16px 40px rgba(6,10,14,.45);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s cubic-bezier(.4,0,.2,1),transform .2s cubic-bezier(.4,0,.2,1),visibility 0s linear .2s;text-align:left}
+.mix-menu.open{opacity:1;visibility:visible;transform:none;transition:opacity .2s cubic-bezier(.4,0,.2,1),transform .2s cubic-bezier(.4,0,.2,1)}
+.mix-menu::before,.mix-menu::after{content:"";position:absolute;width:12px;height:12px;border:2px solid #D4892F;pointer-events:none}
+.mix-menu::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.mix-menu::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.mix-h{margin:12px 10px 6px;font:600 11px/16px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#8796A3}
+.mix-menu a{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px;border-radius:4px;color:#F7F7F6;text-decoration:none;transition:background .2s cubic-bezier(.4,0,.2,1)}
+.mix-menu a:hover,.mix-menu a:focus-visible{background:#253445;outline:none}
+.mix-menu a .k{height:32px;display:grid;place-items:center;border:1px solid rgba(169,187,199,.26);border-radius:4px;font:600 11px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;color:#A9BBC7}
+.mix-menu a b{display:block;font:800 14px/1.15 "Archivo","Arial Black",sans-serif;text-transform:uppercase;letter-spacing:-.005em}
+.mix-menu a small{display:block;margin-top:3px;font:400 12px/16px "Sora",system-ui,sans-serif;color:#A9BBC7}
+.mix-menu a .now{font:600 10px/14px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#7FD1A8}
+.mix-menu a[aria-current="page"] .k{background:#D4892F;border-color:#D4892F;color:#1B2632}
+.mix-menu a svg{width:14px;height:14px;opacity:0;transition:opacity .2s,transform .2s}
+.mix-menu a:hover svg{opacity:1;transform:translateX(2px)}
+.mix-sep{height:1px;margin:6px 10px;background:rgba(169,187,199,.14)}
+.mix-soon{margin:6px 10px 6px;font:400 12px/16px "Sora",system-ui,sans-serif;color:#8796A3}
+@media (max-width:640px){.ubar .ub-r,.ubar .r{display:flex!important}.ubar .ub-r>*:not(.mix),.ubar .r>*:not(.mix){display:none!important}.mix-menu{right:-8px}}
+@media (prefers-reduced-motion:reduce){.mix-menu,.mix-btn,.mix-btn svg{transition:none}}
+
+.demobar{position:fixed;top:0;left:0;right:0;height:40px;z-index:70;background:#16212C;color:#A9BBC7;font:500 13px/20px "Sora",system-ui,sans-serif;border-bottom:1px solid rgba(169,187,199,.14)}
+.demobar .in{max-width:1320px;height:40px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+body{padding-top:40px}
+.demobar .lab{display:flex;align-items:center;gap:10px;font:600 11px/16px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+.demobar .lab a{color:#F7F7F6;text-decoration:none}
+.demobar .lab a:hover{color:#D4892F}
+.demobar .lab i{width:6px;height:6px;background:#D4892F;transform:rotate(45deg);display:inline-block}
+.demobar .mix-btn{color:#F7F7F6;border-color:rgba(169,187,199,.35)}
+.demobar .mix-btn:hover{background:rgba(169,187,199,.1);border-color:#F7F7F6}
+.demobar .mix-btn[aria-expanded="true"]{background:#D4892F;color:#1B2632;border-color:#D4892F}
+.demobar .mix-btn:focus-visible{outline-color:#D4892F}
+@media (max-width:640px){.demobar .lab span{display:none}}
+.top{top:40px!important}</style>
+</head><body>
+<div class="demobar" role="region" aria-label="Demo versions"><div class="in"><p class="lab" style="margin:0"><i></i><a href="../../index.html">Havok demo</a><span>· Framewell prototype</span></p><div class="mix" data-mix><button class="mix-btn" type="button" aria-haspopup="true" aria-expanded="false">Change service mix<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><div class="mix-menu" role="menu" aria-label="Service mix versions"><p class="mix-h">Havok · Central PA · specialty first</p><a role="menuitem" href="../../mix/central-pa-triage.html"><span class="k">01</span><span><b>Central PA · A · Triage</b><small>Dark · situation picker</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../../mix/central-pa-discretion.html"><span class="k">02</span><span><b>Central PA · B · Discretion</b><small>Light · family-facing</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../../mix/central-pa-field-manual.html"><span class="k">03</span><span><b>Central PA · C · Field Manual</b><small>Dark · two lanes + matrix</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Habio · specialty cleaning &amp; decon</p><a role="menuitem" href="../../mix/habio/light.html"><span class="k">04</span><span><b>Habio · Light</b><small>Full site prototype · private request flow</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../../mix/habio/dark.html"><span class="k">05</span><span><b>Habio · Dark</b><small>Same site, night theme</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Framewell · reconstruction</p><a role="menuitem" href="../../mix/framewell/home.html" aria-current="page"><span class="k">06</span><span><b>Framewell · Rebuild site</b><small>10-page prototype · intake, projects, insurance</small></span><span class="now">Viewing</span></a><div class="mix-sep"></div><p class="mix-h">Havok · standard mix</p><a role="menuitem" href="../../index.html"><span class="k">STD</span><span><b>Bay Area · Standard mix</b><small>Water, fire, mold &amp; storm · current demo</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-soon">More service mixes are being added here.</p></div></div></div></div>
+
+<title>Framewell Reconstruction</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Framewell Reconstruction, a Havok Restoration company: insurance rebuilds from bare studs to move-in ready, with one project lead, a live schedule and claim work kept apart from upgrades.">
+<meta name="theme-color" content="#F7F7F6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232E4154'/%3E%3Crect x='7' y='7' width='18' height='2' fill='%23D4892F'/%3E%3Ctext x='16' y='26' font-family='Georgia,serif' font-size='17' font-weight='700' fill='%23F7F7F6' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{var t=localStorage.getItem("fw-theme");if(t)document.documentElement.setAttribute("data-theme",t);if(sessionStorage.getItem("fw-nav")==="1")document.documentElement.classList.add("is-arriving")}catch(e){}</script>
+<main id="main">
+<section class="hero"><div class="wrap hero__grid">
+  <div class="hero__copy">
+    <p class="eyebrow eyebrow--hero" data-lock>Reconstruction · Bay Area</p>
+    <h1 class="d-xl" data-lock>From bare studs to move&#8209;in ready.</h1>
+    <p class="lede" data-lock>Framewell is the rebuild side of Havok Restoration. Same file, same project lead, from the day the water stopped to the day you get your keys back.</p>
+    <div class="hero__ctas" data-lock><button class="btn btn--primary" type="button" data-intake data-cursor="START">Start a rebuild <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button><a class="link" href="how-a-rebuild-works.html">See how a rebuild works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    <div class="tblock" data-lock>
+      <div><span class="k">Built to</span><span class="v">Your approved insurance scope</span></div>
+      <div><span class="k">Project lead</span><span class="v">Carries over from mitigation</span></div>
+      <div><span class="k">Permits</span><span class="v">Pulled, posted and inspected</span></div>
+      <div><span class="k">Schedule</span><span class="v">Live in ClaimTrak</span></div>
+    </div>
+  </div>
+  <div class="stack" style="--g:12px;min-width:0" data-lock>
+    <div class="dim"><span>14'-0" · Kitchen</span></div>
+    <div data-ba-hero style="position:relative;height:clamp(420px,62vh,680px)"></div>
+    <div class="row" style="justify-content:space-between"><span class="mono muted">Sample project · FW-1182 · Pleasanton</span><span class="mono muted">Drag to compare</span></div>
+  </div>
+</div></section>
+
+<div data-block="marquee"></div>
+
+<section class="sec" id="handoff"><div class="wrap">
+  <div class="sh sh--split"><div class="stack" style="--g:22px"><p class="eyebrow rv">How it works</p><h2 class="d-l rv">One file. Start&nbsp;to&nbsp;finish.</h2></div>
+  <p class="lede rv" data-d=".1">Most homeowners get passed from a cleanup company to a contractor who starts from zero. With Framewell, nothing gets lost in the handoff.</p></div>
+  <div class="handoff rv">
+    <article class="ho"><div class="ho__k"><span class="mono muted">Phase 1</span><span class="chip">Havok</span></div><h3>Mitigate</h3><p>Water out, structure dried and verified. Every reading, photo and removed material is logged.</p><span class="ho__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></article>
+    <article class="ho ho--mid"><div class="ho__k"><span class="mono muted">The handoff</span><span class="chip">ClaimTrak</span></div><h3>Same file</h3><p>Framewell opens the same job file. Your project lead, photos, measurements and insurance scope carry straight over.</p><span class="ho__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></article>
+    <article class="ho"><div class="ho__k"><span class="mono muted">Phase 2</span><span class="chip">Framewell</span></div><h3>Rebuild</h3><p>Framing, drywall, finishes, final walkthrough. Built to the approved scope, on a schedule you can see.</p></article>
+  </div>
+</div></section>
+
+<section class="sec sec--band"><div class="wrap">
+  <div class="sh sh--split"><div class="stack" style="--g:22px"><p class="eyebrow rv">What we rebuild</p><h2 class="d-l rv">Every room the loss&nbsp;touched.</h2></div>
+  <p class="lede rv" data-d=".1">Ten kinds of rebuild, one way of working: scope first, permits handled, every layer inspected before the next one covers it.</p></div>
+  <div data-block="services"></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sh sh--split"><div class="stack" style="--g:22px"><p class="eyebrow rv">The six phases</p><h2 class="d-l rv">Built in layers. Inspected&nbsp;between.</h2></div>
+  <p class="lede rv" data-d=".1">The same order on every job. You always know which phase you're in and what comes next.</p></div>
+  <ol data-block="phases" data-now="4"></ol>
+  <div class="mt-l" data-block="gantt"></div>
+  <p class="caption mt-s">Sample job shown. Your schedule lives in ClaimTrak and updates as each trade finishes. If a date moves, you know why the same day.</p>
+</div></section>
+
+<section class="sec sec--band" id="scope"><div class="wrap">
+  <div class="sh sh--split"><div class="stack" style="--g:22px"><p class="eyebrow rv">Your estimate</p><h2 class="d-l rv">Claim work and upgrades, kept&nbsp;apart.</h2></div>
+  <p class="lede rv" data-d=".1">We build what your insurance approved. Anything you add is priced on its own line, so your claim stays clean and you always know who's paying for what.</p></div>
+  <div data-block="estimate"></div>
+  <p class="mt-m rv"><a class="link" href="working-with-insurance.html">How we work with your insurance <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></p>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sh sh--split"><div class="stack" style="--g:22px"><p class="eyebrow rv">Projects</p><h2 class="d-l rv">The patch you can't&nbsp;find.</h2></div>
+  <p class="lede rv" data-d=".1">Texture, trim profiles and paint sheen matched to the rooms that weren't damaged, so the repair disappears.</p></div>
+  <div data-block="projects" data-limit="3"></div>
+  <p class="mt-m rv"><a class="link" href="projects.html">All projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></p>
+</div></section>
+
+<section class="sec sec--band"><div class="wrap split split--rev">
+  <figure class="frame rv" style="aspect-ratio:5/4"><img src="img/selections.webp" alt="Floor plan, tape measure and finish samples laid out on a workbench" loading="lazy" decoding="async"><figcaption>Selections · before the first wall closes</figcaption></figure>
+  <div class="stack" style="--g:28px"><div class="stack" style="--g:22px"><p class="eyebrow rv">How we build</p><h2 class="d-l rv">Measured twice.</h2></div>
+    <div class="craft">
+      <article class="rv"><span class="n">01</span><h3 class="h3">Matched, not approximated</h3><p>Texture, trim and sheen sampled and approved before a full wall is finished.</p></article>
+      <article class="rv" data-d=".06"><span class="n">02</span><h3 class="h3">Permits handled</h3><p>We pull them, schedule inspections and keep the signed cards with your job file.</p></article>
+      <article class="rv"><span class="n">03</span><h3 class="h3">A clean site</h3><p>Dust containment, floor protection and a swept site at the end of every day you're living there.</p></article>
+      <article class="rv" data-d=".06"><span class="n">04</span><h3 class="h3">Punch list, then keys</h3><p>A final walkthrough with you. Anything on the list gets fixed before we call it done.</p></article>
+    </div></div>
+</div></section>
+
+<section class="sec"><div class="wrap split">
+  <div class="stack" style="--g:28px"><div class="stack" style="--g:22px"><p class="eyebrow rv">Service area</p><h2 class="d-l rv">Rebuilding across the Tri&#8209;Valley and East Bay.</h2>
+    <p class="lede rv">Crews and suppliers run from our Livermore shop. Twelve launch areas today, with new cities added each month.</p></div>
+    <div data-block="zones" data-limit="6"></div>
+    <a class="link rv" href="bay-area.html">See the whole service area <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+  <div data-block="ring"></div>
+</div></section>
+
+<section class="sec sec--band" id="faq"><div class="wrap split split--top">
+  <div class="stack" style="--g:22px"><p class="eyebrow rv">Questions</p><h2 class="d-l rv">Before you sign anything.</h2><p class="lede rv">Plain answers to what homeowners ask us most.</p></div>
+  <div data-block="faq" data-items='[["Do I have to use Framewell after Havok?", "No. You choose who rebuilds your home. If you pick another contractor, we hand over the full mitigation file so they&#39;re not starting blind."], ["How long does a rebuild take?", "It depends on scope, permits and materials. A single room can be a couple of weeks; a kitchen often takes longer because of cabinets and counters. You get a written schedule before work starts."], ["Can I upgrade while you&#39;re rebuilding?", "Yes. Upgrades are priced as the difference over what insurance approved, on separate lines you pay directly."], ["What if the insurance estimate is too low?", "We compare it against the real scope and send documented supplements to your adjuster. You don&#39;t have to argue line items yourself."], ["Can I stay in the house during the work?", "Often, yes. We contain dust and keep the site safe. If the kitchen or only bathroom is out of service, your policy may cover temporary housing. We&#39;ll talk it through at the walkthrough."]]'></div>
+</div></section>
+
+<section class="sec"><div class="wrap"><div class="cta rv">
+  <div class="stack" style="--g:22px"><p class="eyebrow">Ready to rebuild</p><h2 class="d-l">Let's get you home.</h2><p class="lede">Send us what needs rebuilding. If Havok handled the cleanup, we'll pull your file today.</p></div>
+  <div class="cta__act"><button class="btn btn--primary" type="button" data-intake data-cursor="START">Start a rebuild <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button><a class="link" href="tel:+19255550142">Or call a builder <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+</div></div></section>
+</main>
+<script src="data.js"></script>
+<script src="site.js"></script>
+<script src="blocks.js"></script>
+<script>
+
+FW.renderBlocks();
+var h=FW.$("[data-ba-hero]");h.innerHTML=FW.baHTML("img/kitchen-before.webp","img/kitchen-after.webp",{sweep:true,style:"position:absolute;inset:0",lb:"After mitigation",la:"Rebuilt",altBefore:"Kitchen stripped to studs and subfloor after mitigation",altAfter:"Rebuilt kitchen with light oak cabinets and white counters"});
+FW.boot();
+</script>
+
+<script>
+(function(){document.querySelectorAll('[data-mix]').forEach(function(m){var b=m.querySelector('.mix-btn'),p=m.querySelector('.mix-menu'),items=[].slice.call(p.querySelectorAll('a'));
+function set(o){p.classList.toggle('open',o);b.setAttribute('aria-expanded',o);if(o)(p.querySelector('[aria-current]')||items[0]).focus()}
+b.addEventListener('click',function(e){e.stopPropagation();set(b.getAttribute('aria-expanded')!=='true')});
+document.addEventListener('click',function(e){if(!m.contains(e.target))set(false)});
+m.addEventListener('keydown',function(e){var i=items.indexOf(document.activeElement);if(e.key==='Escape'){set(false);b.focus()}else if(e.key==='ArrowDown'){e.preventDefault();items[(i+1)%items.length].focus()}else if(e.key==='ArrowUp'){e.preventDefault();items[(i-1+items.length)%items.length].focus()}});});})();
+</script>
+</body></html>
