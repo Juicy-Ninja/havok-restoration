@@ -1122,6 +1122,36 @@ html[data-type="o"] .hero .d-xl{font-size:clamp(38px,4.9vw,72px)}
 @media (max-width:980px){.hero-bg img{object-position:62% 30%}.hero-bg::after{background:linear-gradient(0deg,var(--ground) 0%,var(--ground) 38%,color-mix(in srgb,var(--ground) 70%,transparent) 70%,color-mix(in srgb,var(--ground) 80%,transparent) 100%)}}
 @media (prefers-reduced-motion:reduce){.hero-bg img{animation:none}}
 @media (max-width:640px){.rate-hint{font-size:11px;gap:6px;padding:0 8px}.rate-hint .stars svg{width:12px;height:12px}.rate-hint [data-g-count],.rate-hint .cnt{display:none}}
+
+/* ============ v11: JOB TRACKER IN THE HEADER ============ */
+.modes{grid-template-columns:repeat(3,minmax(0,1fr))}
+.jt{position:relative}
+header.site .h-track{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px;border:1px solid var(--line-strong);border-radius:var(--r);font:600 13px/1 var(--f-body);color:var(--text);white-space:nowrap;transition:transform .2s var(--ease),border-color .2s var(--ease),background .2s var(--ease)}
+header.site .h-track svg{width:18px;height:18px;color:var(--signal-text);flex:none;transition:transform .5s var(--ease-lock)}
+header.site .h-track:hover{border-color:var(--signal);background:var(--plate);transform:translateY(-1px)}
+header.site .h-track:hover svg{transform:rotate(90deg)}
+header.site .h-track:active{transform:translateY(1px) scale(.985)}
+header.site .h-track[aria-expanded="true"]{border-color:var(--signal);background:var(--plate-2)}
+.jt-pop{position:absolute;right:0;top:calc(100% + 14px);z-index:70;width:320px;padding:22px;border:1px solid var(--signal);border-top-width:3px;border-radius:var(--r);background:var(--plate-2);box-shadow:var(--shadow-lift),0 30px 60px -30px rgba(0,0,0,.7);display:grid;gap:10px;animation:paneIn .28s var(--ease-lock)}
+.jt-pop::before{content:"";position:absolute;right:48px;top:-9px;width:12px;height:12px;background:var(--signal);transform:rotate(45deg)}
+.jt-pop .eyebrow{margin:0}
+.jt-lead{margin:0 0 6px;font-size:14px;line-height:21px;color:var(--muted)}
+.jt-pop .field-l{margin:0}
+.jt-pop .inp{background:var(--ground)}
+.jt-pop .btn{width:100%;margin-top:4px}
+.jt-note{margin:4px 0 0;font-size:12px;line-height:18px;color:var(--dim)}
+header.site .h-call .tbc{display:none}
+@media (max-width:1180px) and (min-width:1081px){header.site .h-tools{gap:6px}header.site .nav-trig{font-size:13px;padding-inline:6px}}
+@media (max-width:1280px) and (min-width:1081px){header.site .h-track span,header.site .h-call>span{display:none}header.site .h-track,header.site .h-call{width:40px;padding:0;justify-content:center}}
+@media (max-width:640px){
+  header.site .h-track span{display:none}
+  header.site .h-track{width:40px;padding:0;justify-content:center}
+  .jt{position:static}
+  .jt-pop{position:fixed;left:12px;right:12px;top:118px;width:auto}
+  .jt-pop::before{display:none}
+  .modes{grid-template-columns:1fr 1fr}
+  .mode:first-child{grid-column:1/-1}
+}
 </style>
 </head>
 <body>
@@ -1217,7 +1247,18 @@ html[data-type="o"] .hero .d-xl{font-size:clamp(38px,4.9vw,72px)}
       <div class="nav-item"><button class="nav-trig" data-nav="loc" aria-expanded="false" aria-haspopup="true">Locations<svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><div class="drop-p" role="menu"><a href="#bay-area" role="menuitem" class="loc-main"><b>Bay Area</b><small>Livermore shop · 12 areas · dispatch 24/7</small></a><div class="loc-zones"><a href="#bay-area-livermore" role="menuitem">Livermore</a><a href="#bay-area-pleasanton" role="menuitem">Pleasanton</a><a href="#bay-area-dublin" role="menuitem">Dublin</a><a href="#bay-area-san-ramon" role="menuitem">San Ramon</a><a href="#bay-area-fremont" role="menuitem">Fremont</a><a href="#bay-area-hayward" role="menuitem">Hayward</a><a href="#bay-area-castro-valley" role="menuitem">Castro Valley</a><a href="#bay-area-danville" role="menuitem">Danville · Alamo</a><a href="#bay-area-union-city" role="menuitem">Union City</a><a href="#bay-area-tracy" role="menuitem">Tracy · Mountain House</a><a href="#bay-area-milpitas" role="menuitem">Milpitas</a><a href="#bay-area-brentwood" role="menuitem">Brentwood</a></div><a href="#locations" role="menuitem"><b>All locations</b><small>Central PA opening</small></a></div></div>
     </nav>
     <div class="h-tools">
-      <a class="h-track" href="#track-your-job" data-cursor="LIVE TRACK">Track my job</a>
+      <div class="jt" id="jt">
+        <button class="h-track" id="jtBtn" type="button" aria-expanded="false" aria-controls="jtPop" data-cursor="LIVE TRACK"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" opacity=".55"/><path d="M12 12 18 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg><span>Job Tracker</span></button>
+        <form class="jt-pop" id="jtPop" novalidate hidden>
+          <p class="eyebrow"><span class="dot"></span>Job Tracker</p>
+          <p class="jt-lead">Already working with us? See your readings, photos, costs and project lead.</p>
+          <label class="field-l" for="jtJob">Job number</label>
+          <input class="inp" id="jtJob" autocomplete="off" placeholder="HV-2417">
+          <span class="err" id="jtJobE" aria-live="polite"></span>
+          <button class="btn btn-signal" type="submit" data-cursor="LIVE TRACK">Open my tracker <svg class="arr"><use href="#i-arr"/></svg></button>
+          <p class="jt-note">It starts with HV and is in the text dispatch sent you. <a class="link" href="#track-your-job">See a sample job</a></p>
+        </form>
+      </div>
       <a class="h-call" href="#call" data-call data-cursor="CALL NOW" aria-label="Call dispatch"><svg><use href="#i-phone"/></svg><span>Call</span><span class="tbc">[DISPATCH NUMBER]</span></a>
       <button class="icon-btn" id="themeBtn" aria-label="Switch to day theme" data-cursor="THEME"><svg><use href="#i-sun"/></svg></button>
       <button class="btn btn-signal btn-sm h-cta" data-open-dispatch data-cursor="DISPATCH NOW">Request dispatch</button>
@@ -1267,7 +1308,6 @@ html[data-type="o"] .hero .d-xl{font-size:clamp(38px,4.9vw,72px)}
         <button class="mode" role="tab" type="button" id="m-now" aria-selected="true" aria-controls="quick" data-mode="now" data-cursor="DISPATCH NOW"><b>It's happening now</b><small>Dispatch 24/7</small></button>
         <button class="mode" role="tab" type="button" id="m-after" aria-selected="false" aria-controls="quick" data-mode="after" tabindex="-1" data-cursor="ASSESS"><b>It's stopped</b><small>Hidden damage</small></button>
         <button class="mode" role="tab" type="button" id="m-rebuild" aria-selected="false" aria-controls="quick" data-mode="rebuild" tabindex="-1" data-cursor="REBUILD"><b>I need it rebuilt</b><small>Buildback</small></button>
-        <button class="mode" role="tab" type="button" id="m-track" aria-selected="false" aria-controls="quick" data-mode="track" tabindex="-1" data-cursor="LIVE TRACK"><b>I have a job</b><small>My tracker</small></button>
       </div>
       <form class="console" id="quick" novalidate aria-labelledby="qh" role="tabpanel">
         <div class="c-head">
@@ -2485,8 +2525,7 @@ let mode='now';
 const MODES={
  now:{lead:"Water, fire, mold or storm: if it's happening now, start here. A dispatcher calls you back, a trained Havok crew comes to your door, and every reading, photo and dollar shows up on your phone.",eb:'Request dispatch · step 1 of 2',meta:'Three answers',cta:'Request dispatch',cur:'DISPATCH NOW',note:'You approve every cost before any work starts.',nx:[['Now','You send three answers'],['Next','A dispatcher calls you back'],['Then','A crew rolls. Your lead\'s name arrives by text'],['On site','Your tracker goes live']]},
  after:{lead:"The water's off or the fire's out. Now what? Damage keeps moving where you can't see it. Tell us what happened and a dispatcher sets a time to map it, wall by wall, so you know what you're dealing with.",eb:'Request an assessment · step 1 of 2',meta:'Three answers',cta:'Request an assessment',cur:'ASSESS',note:'You see the readings before you decide anything.',nx:[['Now','You send three answers'],['Next','A dispatcher calls to set a time'],['On site','We map every wall with meters'],['After','You get the readings and a written scope']]},
- rebuild:{lead:"Dry is half the job. Framewell Reconstruction, a Havok Restoration company, rebuilds from the same claim file and the same tracker, so you never start over with a new contractor.",eb:'Start a rebuild · step 1 of 2',meta:'Buildback · Framewell',cta:'Request a walk-through',cur:'REBUILD',note:'Claim work and upgrades are quoted separately, in writing.',nx:[['Now','You tell us where things stand'],['Next','A rebuild lead calls you back'],['Walk-through','Scope written from your claim file'],['Build','Schedule and photos on your tracker']]},
- track:{lead:"Already working with us? Your readings, photos, costs and project lead are one job number away.",eb:'Job lookup',meta:'From your dispatch text',cta:'Open my tracker',cur:'LIVE TRACK',note:'Your job number starts with HV. It is in the text dispatch sent you.',nx:null}};
+ rebuild:{lead:"Dry is half the job. Framewell Reconstruction, a Havok Restoration company, rebuilds from the same claim file and the same tracker, so you never start over with a new contractor.",eb:'Start a rebuild · step 1 of 2',meta:'Buildback · Framewell',cta:'Request a walk-through',cur:'REBUILD',note:'Claim work and upgrades are quoted separately, in writing.',nx:[['Now','You tell us where things stand'],['Next','A rebuild lead calls you back'],['Walk-through','Scope written from your claim file'],['Build','Schedule and photos on your tracker']]}};
 const WAIT_X={
  'Sewage backup':[['Stay out of it','Keep children and pets away from affected areas.'],['Stop using water','No flushing, showers or laundry until the line is cleared.'],['Turn off HVAC','So it does not spread odor and contaminants.'],['Call your insurer','Sewer backup often needs a separate endorsement.']],
  'Not sure':[['Get everyone safe','If water is near outlets or anything smells like burning, move people out of the room.'],['Stop what you can','If water is involved, shut off the main valve if you can reach it safely.'],['Photograph it','Wide shots and close-ups. A dispatcher can tell a lot from a photo.'],['Tell us what you see','Call or send it. We\'ll tell you straight what it is and what it needs.']],
@@ -2541,6 +2580,16 @@ gFill(document);gReviews();media(document);
  const el=document.createElement('div');el.className='typick';el.setAttribute('role','group');el.setAttribute('aria-label','Headline style');
  el.innerHTML='<span>Headline style</span>'+opts.map(o=>`<button type="button" data-t="${o[0]}" aria-pressed="${(root.dataset.type||'a')===o[0]}">${o[1]}</button>`).join('');
  document.body.appendChild(el);el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;set(b.dataset.t);$$('button',el).forEach(x=>x.setAttribute('aria-pressed',x===b))})})();
+
+
+/* ---------- v11: job tracker popover ---------- */
+(function(){const btn=$('#jtBtn'),pop=$('#jtPop');if(!btn||!pop)return;
+ const set=o=>{pop.hidden=!o;btn.setAttribute('aria-expanded',o);if(o){snd('click');setTimeout(()=>$('#jtJob').focus(),60)}};
+ btn.addEventListener('click',e=>{e.stopPropagation();set(pop.hidden)});
+ document.addEventListener('click',e=>{if(!pop.hidden&&!e.target.closest('#jt'))set(false)});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pop.hidden){set(false);btn.focus()}});
+ pop.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+ pop.addEventListener('submit',e=>{e.preventDefault();const j=$('#jtJob');if(!vField(j,$('#jtJobE'),/^HV-?\d{3,5}$/.test(j.value.trim().toUpperCase()),'Use the job number from your text, like HV-2417.')){j.focus();return}set(false);location.hash='track-your-job'})})();
 
 /* ---------- mobile bar ---------- */
 const mbar=$('#mbar');addEventListener('scroll',()=>mbar.classList.toggle('show',scrollY>420),{passive:true});
