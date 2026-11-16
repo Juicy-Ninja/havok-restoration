@@ -1172,6 +1172,7 @@ header.site .h-call .tbc{display:none}
     <symbol id="i-sewage" viewBox="0 0 40 40"><path d="M6 10h12v10a6 6 0 0 0 12 0v-2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M26 18h8" stroke="currentColor" stroke-width="2.2"/><path d="M24 34h10M6 34h10" stroke="#D4892F" stroke-width="2.2"/></symbol>
     <symbol id="i-restore" viewBox="0 0 40 40"><path d="M8 30 22 16l4 4-14 14H8Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="m24 14 4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M10 8v6M7 11h6M31 24v6M28 27h6" stroke="#D4892F" stroke-width="2.2" stroke-linecap="square"/></symbol>
     <symbol id="i-build" viewBox="0 0 40 40"><path d="M6 34V18L20 7l14 11v16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M14 34V22M20 34V22M26 34V22" stroke="currentColor" stroke-width="2.2"/><path d="M11 22h18" stroke="#D4892F" stroke-width="2.4" stroke-linecap="square"/></symbol>
+    <symbol id="i-bio" viewBox="0 0 40 40"><path d="M20 5 34 12v9c0 7.5-5.6 12.4-14 15-8.4-2.6-14-7.5-14-15v-9Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M20 14v8M20 27v.5" stroke="#D4892F" stroke-width="2.6" stroke-linecap="square"/></symbol>
     <symbol id="i-q" viewBox="0 0 40 40"><path d="M14 15a6 6 0 1 1 8 5.6c-1.4.6-2 1.6-2 3V26" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="18.6" y="30" width="2.8" height="2.8" fill="currentColor"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2" stroke="currentColor" stroke-width="1.8"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
@@ -1321,11 +1322,10 @@ header.site .h-call .tbc{display:none}
           <label class="chip"><input type="radio" name="qt" value="Water" checked><span><svg viewBox="0 0 40 40"><use href="#i-water"/></svg>Water</span></label>
 <label class="chip"><input type="radio" name="qt" value="Burst pipe"><span><svg viewBox="0 0 40 40"><use href="#i-pipe"/></svg>Burst pipe</span></label>
 <label class="chip"><input type="radio" name="qt" value="Fire"><span><svg viewBox="0 0 40 40"><use href="#i-fire"/></svg>Fire</span></label>
-<label class="chip"><input type="radio" name="qt" value="Smoke &amp; soot"><span><svg viewBox="0 0 40 40"><use href="#i-smoke"/></svg>Smoke &amp; soot</span></label>
 <label class="chip"><input type="radio" name="qt" value="Mold"><span><svg viewBox="0 0 40 40"><use href="#i-mold"/></svg>Mold</span></label>
 <label class="chip"><input type="radio" name="qt" value="Storm"><span><svg viewBox="0 0 40 40"><use href="#i-storm"/></svg>Storm</span></label>
 <label class="chip"><input type="radio" name="qt" value="Sewage backup"><span><svg viewBox="0 0 40 40"><use href="#i-sewage"/></svg>Sewage backup</span></label>
-<label class="chip alt"><input type="radio" name="qt" value="Not sure"><span>Not sure</span></label>
+<label class="chip"><input type="radio" name="qt" value="Biohazard cleanup"><span><svg viewBox="0 0 40 40"><use href="#i-bio"/></svg>Biohazard cleanup</span></label>
         </fieldset>
         <fieldset class="chips" id="qStage" hidden>
           <legend class="field-l">Where do things stand?</legend>
@@ -1880,7 +1880,7 @@ header.site .h-call .tbc{display:none}
 <form class="qbar" id="qbar" novalidate aria-label="Quick dispatch request">
   <div class="wrap">
     <span class="eyebrow"><span class="dot"></span>Need help now?</span>
-    <select class="inp" id="qbType" aria-label="What happened?"><option>Water</option><option>Burst pipe</option><option>Fire</option><option value="Smoke &amp; soot">Smoke &amp; soot</option><option>Mold</option><option>Storm</option><option>Sewage backup</option><option>Rebuild</option><option>Not sure</option></select>
+    <select class="inp" id="qbType" aria-label="What happened?"><option>Water</option><option>Burst pipe</option><option>Fire</option><option>Mold</option><option>Storm</option><option>Sewage backup</option><option>Biohazard cleanup</option><option>Rebuild</option></select>
     <input class="inp" id="qbPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Your mobile number" aria-label="Mobile number">
     <button class="btn btn-signal" type="submit" data-cursor="DISPATCH NOW">Request dispatch <svg class="arr"><use href="#i-arr"/></svg></button>
     <span class="or">or <a class="link" href="#call" data-call>call <span class="tbc">[DISPATCH NUMBER]</span></a></span>
@@ -1915,6 +1915,7 @@ header.site .h-call .tbc{display:none}
 <label class="chip"><input type="radio" name="dt" value="Mold"><span><svg viewBox="0 0 40 40"><use href="#i-mold"/></svg>Mold</span></label>
 <label class="chip"><input type="radio" name="dt" value="Storm"><span><svg viewBox="0 0 40 40"><use href="#i-storm"/></svg>Storm</span></label>
 <label class="chip"><input type="radio" name="dt" value="Sewage backup"><span><svg viewBox="0 0 40 40"><use href="#i-sewage"/></svg>Sewage backup</span></label>
+<label class="chip"><input type="radio" name="dt" value="Biohazard cleanup"><span><svg viewBox="0 0 40 40"><use href="#i-bio"/></svg>Biohazard cleanup</span></label>
 <label class="chip"><input type="radio" name="dt" value="Rebuild"><span>Rebuild</span></label>
 <label class="chip alt"><input type="radio" name="dt" value="Not sure"><span>Not sure</span></label>
         </fieldset>
@@ -2490,7 +2491,7 @@ function openSheet(from,opts={}){opener=from||document.activeElement;sheet.class
     const base=innerWidth<=640?'':'translate(-50%,-50%) ';sheet.animate([{transform:`${base}translate(${dx}px,${dy}px) scale(${sx},${sy})`,opacity:.6},{transform:`${base}`,opacity:1}],{duration:420,easing:'cubic-bezier(.2,.9,.1,1)'})}
   showStep(opts.step||1);snd('swipe')}
 function closeSheet(){sheet.classList.remove('open');scrim.classList.remove('open');document.body.style.overflow='';if(opener&&opener.focus)opener.focus()}
-function habioNote(){const t=$('#habioTip');if(chipVal('dType')==='Sewage backup'){t.style.display='block';t.innerHTML='Sewage backups are handled by <b>Habio Specialty Cleaning</b>, a Havok Restoration company. Same dispatch, same tracker, a crew trained for it.'}else if(chipVal('dType')==='Rebuild'){t.style.display='block';t.innerHTML='Rebuilds are run by <b>Framewell Reconstruction</b>, a Havok Restoration company. Same claim file, same tracker, a rebuild lead by name.'}else t.style.display='none'}
+function habioNote(){const t=$('#habioTip');if(chipVal('dType')==='Sewage backup'){t.style.display='block';t.innerHTML='Sewage backups are handled by <b>Habio Specialty Cleaning</b>, a Havok Restoration company. Same dispatch, same tracker, a crew trained for it.'}else if(chipVal('dType')==='Biohazard cleanup'){t.style.display='block';t.innerHTML='Biohazard cleanup is handled by <b>Habio Specialty Cleaning</b>, a Havok Restoration company. Share only what you are comfortable sharing; the crew is trained for it and discreet.'}else if(chipVal('dType')==='Rebuild'){t.style.display='block';t.innerHTML='Rebuilds are run by <b>Framewell Reconstruction</b>, a Havok Restoration company. Same claim file, same tracker, a rebuild lead by name.'}else t.style.display='none'}
 $$('#dType input').forEach(i=>i.addEventListener('change',habioNote));
 document.addEventListener('click',e=>{const b=e.target.closest('[data-open-dispatch]');if(b){e.preventDefault();const ph=b.hasAttribute('data-photo');openSheet(b,{type:b.dataset.type||undefined,step:ph&&$('#dAddr').value&&$('#dPhone').value?2:1});return}
   const t=e.target.closest('.tile[data-type]');if(t){openSheet(t,{type:t.dataset.type});return}
@@ -2528,13 +2529,14 @@ const MODES={
  rebuild:{lead:"Dry is half the job. Framewell Reconstruction, a Havok Restoration company, rebuilds from the same claim file and the same tracker, so you never start over with a new contractor.",eb:'Start a rebuild · step 1 of 2',meta:'Buildback · Framewell',cta:'Request a walk-through',cur:'REBUILD',note:'Claim work and upgrades are quoted separately, in writing.',nx:[['Now','You tell us where things stand'],['Next','A rebuild lead calls you back'],['Walk-through','Scope written from your claim file'],['Build','Schedule and photos on your tracker']]}};
 const WAIT_X={
  'Sewage backup':[['Stay out of it','Keep children and pets away from affected areas.'],['Stop using water','No flushing, showers or laundry until the line is cleared.'],['Turn off HVAC','So it does not spread odor and contaminants.'],['Call your insurer','Sewer backup often needs a separate endorsement.']],
+ 'Biohazard cleanup':[['Keep everyone out','Close the door if you can. Keep children and pets away from the area.'],['Don\'t clean it yourself','Household cleaners do not make it safe, and contact carries a real health risk.'],['Turn off the HVAC','So nothing is carried to other rooms.'],['Tell us what you can','Only what you are comfortable sharing. We handle the rest with discretion.']],
  'Not sure':[['Get everyone safe','If water is near outlets or anything smells like burning, move people out of the room.'],['Stop what you can','If water is involved, shut off the main valve if you can reach it safely.'],['Photograph it','Wide shots and close-ups. A dispatcher can tell a lot from a photo.'],['Tell us what you see','Call or send it. We\'ll tell you straight what it is and what it needs.']],
  'Rebuild':[['Find your claim number','And your adjuster\'s name and number, if a claim is open.'],['Gather the drying records','The verified-dry report if we dried it, or whatever the last company left you.'],['Photograph each room','As it stands today, plus any photos from before the loss.'],['List what you\'d change','Upgrades are welcome. We quote them separately so they never tangle the claim.']]};
 function renderWait(){const box=$('#wait');if(mode==='track'){box.hidden=true;return}box.hidden=false;
  const key=mode==='rebuild'?'Rebuild':(chipVal('qType')||'Water');const svc=SERVICES.find(x=>x.type===key);const list=(WAIT_X[key]||(svc&&svc.next)||WAIT_X['Not sure']).slice(0,4);
  $('#waitE').innerHTML=mode==='rebuild'?'Before the walk-through':mode==='after'?'Before we get there':'<span class="dot"></span>While help is on the way';
  $('#waitT').textContent=mode==='rebuild'?'Have these four things ready':`${key==='Not sure'?'Not sure yet':key}: ${mode==='after'?'four things worth doing today':'do these four things'}`;
- $('#waitG').hidden=mode==='rebuild';
+ {const g=$('#waitG'),bio=key==='Biohazard cleanup';g.hidden=mode==='rebuild';g.textContent=bio?'Someone hurt, or a possible crime scene? Call 911 first and wait until the scene is released.':'Smell gas or see sparks? Leave the house and call 911 first.'}
  $('#waitL').innerHTML=list.map((n,i)=>`<li><span class="n">0${i+1}</span><h3>${n[0]}</h3><p>${n[1]}</p></li>`).join('')}
 function setMode(m,focus){mode=m;const c=MODES[m],q=$('#quick');
  $$('.mode').forEach(b=>{const on=b.dataset.mode===m;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;if(on&&focus)b.focus()});
