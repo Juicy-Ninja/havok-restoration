@@ -1108,6 +1108,20 @@ html[data-type="o"] .hero .d-xl{font-size:clamp(38px,4.9vw,72px)}
 .typick button:hover{transform:translateY(-1px);border-color:var(--muted)}
 .typick button[aria-pressed="true"]{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
 @media (max-width:640px){.typick{left:8px;right:8px;bottom:84px;flex-wrap:wrap}.typick span{flex-basis:100%;padding:4px 6px}}
+
+/* ============ v10: HERO BACKGROUND PHOTO ============ */
+.hero.bp{background-image:none}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 46%;transform:scaleX(-1) scale(1.03);animation:heroDrift 30s ease-in-out infinite alternate}
+@keyframes heroDrift{to{transform:scaleX(-1) scale(1.09)}}
+.hero-bg::before{content:"";position:absolute;inset:0;z-index:2;opacity:.55;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.hero-bg::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,var(--ground) 0%,transparent 24%),linear-gradient(180deg,color-mix(in srgb,var(--ground) 72%,transparent) 0%,transparent 34%),linear-gradient(90deg,color-mix(in srgb,var(--ground) 84%,transparent) 0%,color-mix(in srgb,var(--ground) 58%,transparent) 48%,color-mix(in srgb,var(--ground) 74%,transparent) 100%)}
+[data-theme="light"] .hero-bg::after,.theme-light .hero-bg::after{background:linear-gradient(0deg,var(--ground) 0%,transparent 24%),linear-gradient(90deg,color-mix(in srgb,var(--ground) 93%,transparent) 0%,color-mix(in srgb,var(--ground) 80%,transparent) 48%,color-mix(in srgb,var(--ground) 88%,transparent) 100%)}
+.hero .lead{color:color-mix(in srgb,var(--text) 82%,var(--muted))}
+.hero-bg+.hero-grid .hero-ticks li{color:var(--text)}
+@media (max-width:980px){.hero-bg img{object-position:62% 30%}.hero-bg::after{background:linear-gradient(0deg,var(--ground) 0%,var(--ground) 38%,color-mix(in srgb,var(--ground) 70%,transparent) 70%,color-mix(in srgb,var(--ground) 80%,transparent) 100%)}}
+@media (prefers-reduced-motion:reduce){.hero-bg img{animation:none}}
+@media (max-width:640px){.rate-hint{font-size:11px;gap:6px;padding:0 8px}.rate-hint .stars svg{width:12px;height:12px}.rate-hint [data-g-count],.rate-hint .cnt{display:none}}
 </style>
 </head>
 <body>
@@ -1224,11 +1238,12 @@ html[data-type="o"] .hero .d-xl{font-size:clamp(38px,4.9vw,72px)}
 <main id="main"><div id="home-view">
 <!-- ============ HERO ============ -->
 <section class="hero bp" id="h-top" aria-labelledby="h1">
+  <div class="hero-bg" aria-hidden="true"><img src="media/hero-bg.webp" alt="" width="1920" height="1072" decoding="async" fetchpriority="high"></div>
   <div class="wrap hero-grid">
     <div>
       <div class="hero-meta">
         <p class="eyebrow"><span class="dot"></span>Dispatch open · 24/7</p>
-        <a class="rate-hint" href="#h-reviews" data-cursor="READ REVIEWS" aria-label="Google rating, see reviews"><span class="stars" aria-hidden="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg></span><span><span class="tbc" data-g-rating>[RATING]</span> on Google · <span class="tbc" data-g-count>[COUNT]</span> reviews</span></a>
+        <a class="rate-hint" href="#h-reviews" data-cursor="READ REVIEWS" aria-label="Google rating, see reviews"><span class="stars" aria-hidden="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8L10 14.6 4.9 17.4 6 11.6l-4.3-4 5.8-.7Z"/></svg></span><span><span class="tbc" data-g-rating>[RATING]</span> on Google<span class="cnt"> · <span class="tbc" data-g-count>[COUNT]</span> reviews</span></span></a>
         <span class="mono" id="clock">Bay Area · --:--:--</span>
       </div>
       <h1 class="d-xl" id="h1">
