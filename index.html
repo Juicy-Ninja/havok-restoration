@@ -1035,7 +1035,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 .mode[aria-selected="true"]::after{content:"";position:absolute;left:50%;bottom:-7px;width:12px;height:12px;background:var(--signal);transform:translateX(-50%) rotate(45deg)}
 .mode{overflow:visible}
 #quick{border:1px solid var(--signal);border-top-width:3px;background:color-mix(in srgb,var(--plate-2) 88%,transparent);box-shadow:0 0 0 4px rgba(212,137,47,.10),0 30px 70px -28px rgba(212,137,47,.55),var(--shadow-plate);overflow:hidden}
-#quick::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 38%,rgba(246,201,135,.20) 50%,transparent 62%);transform:translateX(-110%);animation:sweep 1.5s var(--ease-lock) 1.1s 1 both;pointer-events:none}
+#quick::after{content:"";position:absolute;inset:0;width:auto;height:auto;border:0;background:linear-gradient(100deg,transparent 38%,rgba(246,201,135,.20) 50%,transparent 62%);transform:translateX(-110%);animation:sweep 1.5s var(--ease-lock) 1.1s 1 both;pointer-events:none}
 @keyframes sweep{to{transform:translateX(110%)}}
 #quick::before{display:none}
 #quick .c-head .eyebrow{font-size:12px}
@@ -1065,6 +1065,32 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
   .mode[aria-selected="true"]::after{display:none}
   #quick{padding:18px}
 }
+
+/* ============ v7: CALMER HERO, FORM ON THE RIGHT ============ */
+.hero{padding-top:56px}
+.hero-grid{align-items:start}
+.hero .d-xl{font-size:clamp(38px,4.9vw,72px)}
+.hero-meta{margin-bottom:22px}
+.hero .lead{margin:28px 0 0;font-size:19px;line-height:31px;max-width:34em}
+.hero .lead b{color:var(--text);font-weight:600}
+.hero-ticks{margin:28px 0 0;display:grid;gap:12px;font-size:16px}
+#start{margin-top:0}
+.q-intro{margin:0 0 16px;font-size:14px;line-height:21px;color:var(--muted)}
+#quick .c-alt{justify-content:flex-start}
+.wait{margin-top:56px}
+.scan-row{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:12px;align-items:stretch}
+.scan-row .frame{opacity:1}
+.scan-side{display:flex;flex-direction:column;gap:12px}
+.scan-row{align-items:start}
+.scan-row .scan-stage{aspect-ratio:16/10}
+.scan-side .hstats{grid-template-columns:1fr;margin:0}
+.scan-side .hstats>*{border-left:0;border-top:1px solid var(--line);padding:22px 24px}
+.scan-side .hstats>*:first-child{border-top:0}
+.scan-side .btn{width:100%}
+.scan-side .resp{margin:0}
+.scan-note{margin:0;font-size:13px;line-height:19px;color:var(--dim)}
+@media (max-width:980px){.scan-row{grid-template-columns:1fr}.scan-side .hstats{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.hero{padding-top:32px}.hero .lead{font-size:17px;line-height:27px;margin-top:20px}.hero-ticks{display:none}.scan-side .hstats{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1193,6 +1219,16 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
         <span class="ln"><span>strikes,</span></span>
         <span class="ln"><span><span class="soft">we're</span> ready.</span></span>
       </h1>
+      <p class="lead" id="heroLead"><b>We clean up and repair homes and buildings after water, fire, mold and storm damage.</b> We stop the damage, dry and clean the property, rebuild what had to come out, and work with your insurance adjuster along the way.</p>
+      <ul class="ticks hero-ticks">
+        <li>Emergency crews on call, day and night</li>
+        <li>Drying, cleanup and rebuild from one company</li>
+        <li>Every reading and photo documented for your claim</li>
+        <li>Progress and costs on your phone, approved by you</li>
+      </ul>
+    </div>
+
+    <div>
       <div id="start">
       <div class="start-l"><p id="modesL"><span class="n">1</span>Start here<small>Where are you right now?</small></p><span class="start-go" aria-hidden="true">Pick one <svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></span></div>
       <div class="modes" role="tablist" aria-labelledby="modesL">
@@ -1206,6 +1242,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
           <p class="eyebrow" id="qh">Request dispatch · step 1 of 2</p>
           <span class="mono" id="qMeta">Three answers</span>
         </div>
+        <p class="q-intro" id="qIntro" hidden></p>
         <div class="c-body">
         <fieldset class="chips" id="qType">
           <legend class="field-l">What happened?</legend>
@@ -1250,41 +1287,11 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
         </div>
         <div class="c-alt" id="qAlt">
           <span>Easier to show us? <button class="link" type="button" data-open-dispatch data-photo data-cursor="SEND PHOTO">Text us a photo</button></span>
-          <span>A dispatcher answers. Not a phone tree.</span>
         </div>
       </form>
       <p class="field-l nx-l" id="nxL">What happens after you send</p>
       <ol class="nx" id="nx" aria-labelledby="nxL"></ol>
       </div>
-      <p class="lead" id="heroLead">Water, fire, mold or storm: if it's happening now, start here. A dispatcher calls you back, a trained Havok crew comes to your door, and every reading, photo and dollar shows up on your phone.</p>
-      <div class="resp">
-        <span class="dot ok"></span>
-        <span>Live average response, last 30 days: <span class="mono">[__] min</span> <span class="tbc">set by ops before launch</span></span>
-      </div>
-    </div>
-
-    <div>
-      <div class="frame" id="scanFrame">
-        <div class="scan-top"><span>Moisture map · Living room</span><span class="legend"><span>Dry</span><i></i><span>Wet</span></span></div>
-        <div class="scan-stage" id="scan" data-cursor="DRAG TO SCAN" role="slider" tabindex="0" aria-label="Scan divider. Drag or use arrow keys to compare what you see with what our meters see." aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-          <canvas id="scanCv"></canvas>
-          <span class="scan-tag l">What you see</span>
-          <span class="scan-tag r">What we see</span>
-          <div class="scan-handle" id="scanHandle"><span class="knob" aria-hidden="true"><svg><use href="#i-drag"/></svg></span></div>
-          <div class="readout" id="readout" aria-live="polite">
-            <div class="k">Wood moisture</div>
-            <div class="v" id="roV">9.0% MC</div>
-            <div class="s" id="roS" style="color:var(--ok)">DRY</div>
-          </div>
-        </div>
-        <div class="scan-bot"><span id="scanXY">X 50.0 · Y 72.0</span><span>Target 9% MC</span></div>
-      </div>
-      <p class="scan-cap">We find the water you can't see. Drywall can look dry while the studs behind it hold water for weeks. We map every wall on day one and check it every day until it reads dry. <span style="color:var(--dim)">Illustrative photo and readings, not a job.</span></p>
-      <dl class="hstats">
-        <div><dt>Who answers</dt><dd>A dispatcher</dd></div>
-        <div><dt>Who runs it</dt><dd>1 named lead</dd></div>
-        <div><dt>Surprise costs</dt><dd>0 without your OK</dd></div>
-      </dl>
     </div>
   </div>
   <div class="wrap">
@@ -1307,7 +1314,50 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 </div>
 
 <!-- ============ WHAT HAPPENED ============ -->
-<section class="sec" id="h-services" aria-labelledby="sv-h">
+<!-- ============ SCAN ============ -->
+<section class="sec" id="h-scan" aria-labelledby="sc-h">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <p class="eyebrow">What we see</p>
+        <h2 class="d-l" id="sc-h">We find the water you can't see.</h2>
+      </div>
+      <p class="lead">Drywall can look dry while the studs behind it hold water for weeks. We map every wall on day one and check it every day until it reads dry. Drag the divider to compare.</p>
+    </div>
+    <div class="scan-row">
+      <div class="frame" id="scanFrame">
+        <div class="scan-top"><span>Moisture map · Living room</span><span class="legend"><span>Dry</span><i></i><span>Wet</span></span></div>
+        <div class="scan-stage" id="scan" data-cursor="DRAG TO SCAN" role="slider" tabindex="0" aria-label="Scan divider. Drag or use arrow keys to compare what you see with what our meters see." aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+          <canvas id="scanCv"></canvas>
+          <span class="scan-tag l">What you see</span>
+          <span class="scan-tag r">What we see</span>
+          <div class="scan-handle" id="scanHandle"><span class="knob" aria-hidden="true"><svg><use href="#i-drag"/></svg></span></div>
+          <div class="readout" id="readout" aria-live="polite">
+            <div class="k">Wood moisture</div>
+            <div class="v" id="roV">9.0% MC</div>
+            <div class="s" id="roS" style="color:var(--ok)">DRY</div>
+          </div>
+        </div>
+        <div class="scan-bot"><span id="scanXY">X 50.0 · Y 72.0</span><span>Target 9% MC</span></div>
+      </div>
+      <aside class="scan-side">
+      <dl class="hstats">
+        <div><dt>Who answers</dt><dd>A dispatcher</dd></div>
+        <div><dt>Who runs it</dt><dd>1 named lead</dd></div>
+        <div><dt>Surprise costs</dt><dd>0 without your OK</dd></div>
+      </dl>
+      <div class="resp">
+        <span class="dot ok"></span>
+        <span>Live average response, last 30 days: <span class="mono">[__] min</span> <span class="tbc">set by ops before launch</span></span>
+      </div>
+        <button class="btn btn-signal btn-lg" data-open-dispatch data-type="Water" data-cursor="DISPATCH NOW">Have us map your walls <svg class="arr"><use href="#i-arr"/></svg></button>
+        <p class="scan-note">Illustrative photo and readings, not a job.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec band" id="h-services" aria-labelledby="sv-h">
   <div class="wrap">
     <div class="sec-head rv">
       <div>
@@ -1383,7 +1433,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 </section>
 
 <!-- ============ REVIEWS ============ -->
-<section class="sec band" id="h-reviews" aria-labelledby="rw-h">
+<section class="sec" id="h-reviews" aria-labelledby="rw-h">
   <div class="wrap">
     <div class="sec-head rv">
       <div>
@@ -1409,7 +1459,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 </section>
 
 <!-- ============ TRACKER ============ -->
-<section class="sec" id="h-track" aria-labelledby="tr-h">
+<section class="sec band" id="h-track" aria-labelledby="tr-h">
   <div class="wrap">
     <div class="sec-head rv">
       <div>
@@ -1494,7 +1544,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 </section>
 
 <!-- ============ PILLARS ============ -->
-<section class="sec band" aria-labelledby="pl-h">
+<section class="sec" aria-labelledby="pl-h">
   <div class="wrap">
     <div class="sec-head rv">
       <div>
@@ -1521,7 +1571,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 </section>
 
 <!-- ============ STANDARD ============ -->
-<section class="sec" id="h-standard" aria-labelledby="st-h">
+<section class="sec band" id="h-standard" aria-labelledby="st-h">
   <div class="wrap">
     <div class="standard rv" id="stdPanel">
       <div class="sec-head">
@@ -1545,7 +1595,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 </section>
 
 <!-- ============ OWNER + AREAS ============ -->
-<section class="sec band" id="h-areas" aria-labelledby="ar-h">
+<section class="sec" id="h-areas" aria-labelledby="ar-h">
   <div class="wrap">
     <div class="sec-head rv">
       <div>
@@ -1572,7 +1622,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 </section>
 
 <!-- ============ SCOPE LADDER ============ -->
-<section class="sec" id="h-claims" aria-labelledby="cl-h">
+<section class="sec band" id="h-claims" aria-labelledby="cl-h">
   <div class="wrap">
     <div class="sec-head rv">
       <div>
@@ -1608,7 +1658,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 </section>
 
 <!-- ============ BUILDBACK ============ -->
-<section class="sec band" id="h-buildback" aria-labelledby="bb-h">
+<section class="sec" id="h-buildback" aria-labelledby="bb-h">
   <div class="wrap">
     <div class="bb">
       <div class="ba rv" data-cursor="DRAG TO COMPARE"><img src="media/bb-after.webp" alt="The same kitchen rebuilt: new cabinets, counters and flooring" loading="lazy" decoding="async" width="1264" height="848"><img class="ba-b" src="media/bb-before.webp" alt="A kitchen after drying, lower walls open to the studs" loading="lazy" decoding="async" width="1264" height="848"><span class="scan-tag l">After drying</span><span class="scan-tag r">After buildback</span><input type="range" min="0" max="100" value="50" aria-label="Compare before and after buildback"><div class="ba-line"><span><svg><use href="#i-drag"/></svg></span></div></div><p class="ba-cap">Drag to compare. Illustrative images, not a job photo.</p>
@@ -1654,7 +1704,7 @@ a.mkt:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-colo
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="sec faq" id="h-faq" aria-labelledby="fq-h">
+<section class="sec faq band" id="h-faq" aria-labelledby="fq-h">
   <div class="wrap faq-grid">
     <div class="rv">
       <p class="eyebrow" style="margin-bottom:18px">Fair questions</p>
@@ -2417,7 +2467,7 @@ function renderWait(){const box=$('#wait');if(mode==='track'){box.hidden=true;re
  $('#waitL').innerHTML=list.map((n,i)=>`<li><span class="n">0${i+1}</span><h3>${n[0]}</h3><p>${n[1]}</p></li>`).join('')}
 function setMode(m,focus){mode=m;const c=MODES[m],q=$('#quick');
  $$('.mode').forEach(b=>{const on=b.dataset.mode===m;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;if(on&&focus)b.focus()});
- $('#heroLead').textContent=c.lead;$('#qh').textContent=c.eb;$('#qMeta').textContent=c.meta;$('#qGoT').textContent=c.cta;$('#qGo').dataset.cursor=c.cur;$('#qNote').textContent=c.note;
+ {const qi=$('#qIntro');qi.textContent=m==='now'?'':c.lead;qi.hidden=m==='now'}$('#qh').textContent=c.eb;$('#qMeta').textContent=c.meta;$('#qGoT').textContent=c.cta;$('#qGo').dataset.cursor=c.cur;$('#qNote').textContent=c.note;
  $('#qType').hidden=!(m==='now'||m==='after');$('#qStage').hidden=m!=='rebuild';$('#qRow').hidden=m==='track';$('#qTrack').hidden=m!=='track';$('#qAlt').hidden=m==='track'||m==='rebuild';
  q.setAttribute('aria-labelledby','m-'+m);
  const nx=$('#nx');nx.hidden=$('#nxL').hidden=!c.nx;if(c.nx)nx.innerHTML=c.nx.map((s,i)=>`<li><span class="mono">0${i+1} · ${s[0]}</span><b>${s[1]}</b></li>`).join('');
