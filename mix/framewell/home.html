@@ -43,6 +43,50 @@ body{padding-top:40px}
 .demobar .mix-btn:focus-visible{outline-color:#D4892F}
 @media (max-width:640px){.demobar .lab span{display:none}}
 .top{top:40px!important}</style>
+<style>
+/* ---------- Framewell hero: drawing sheet + phase elevation ---------- */
+.fwh{padding:calc(76px + clamp(28px,4vw,64px)) 0 clamp(48px,6vw,88px)}
+.fwh__sheet{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 40px;padding-bottom:22px;border-bottom:2px solid var(--rule)}
+.fwh__tb{display:grid;grid-template-columns:repeat(4,auto);margin:0;border:1px solid var(--hairline-strong);background:var(--surface)}
+.fwh__tb div{padding:10px 16px;border-right:1px solid var(--hairline)}
+.fwh__tb div:last-child{border-right:0}
+.fwh__tb dt{font:500 .5625rem/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-muted)}
+.fwh__tb dd{margin:6px 0 0;font:500 .8125rem/1 var(--f-mono);letter-spacing:.06em;color:var(--ink)}
+.fwh__h1{max-width:none;margin-top:clamp(28px,3.4vw,48px);font-size:clamp(2.6rem,1.2rem + 5.2vw,6.25rem);line-height:.98;letter-spacing:-.02em}
+.fwh__h1 em{display:block;color:var(--ink-muted)}
+.fwh__elev{position:relative;margin-top:clamp(36px,4.4vw,64px);padding:0 clamp(16px,2.4vw,40px)}
+.fwh__dimline{position:relative;display:flex;justify-content:center;margin:0 0 14px;height:16px}
+.fwh__dimline::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--hairline-strong)}
+.fwh__dimline::after{content:"";position:absolute;inset:0;background:linear-gradient(var(--rule),var(--rule)) left center/1px 16px no-repeat,linear-gradient(var(--rule),var(--rule)) right center/1px 16px no-repeat}
+.fwh__dimline span{position:relative;z-index:1;padding:0 14px;background:var(--ground);font:500 .625rem/16px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.fwh__panels{display:flex;gap:6px;height:clamp(320px,46vh,540px)}
+.fwh__p{position:relative;flex:1 1 0;min-width:0;overflow:hidden;border-radius:var(--r);background:#16212C;color:#F7F7F6;text-decoration:none;isolation:isolate;transition:flex-grow .7s cubic-bezier(.22,1,.36,1)}
+.fwh__p img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s cubic-bezier(.22,1,.36,1),filter .6s cubic-bezier(.22,1,.36,1);filter:saturate(.85)}
+.fwh__p--draw img{object-fit:cover;object-position:50% 45%}
+.fwh__p::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(14,20,27,.82) 0%,rgba(14,20,27,.2) 42%,rgba(14,20,27,0) 70%)}
+.fwh__p::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.fwh__panels:hover .fwh__p{flex-grow:.8}
+.fwh__panels .fwh__p:hover,.fwh__panels .fwh__p:focus-visible{flex-grow:1.7}
+.fwh__p:hover img,.fwh__p:focus-visible img{transform:scale(1.04);filter:saturate(1)}
+.fwh__p:hover::after,.fwh__p:focus-visible::after{transform:none}
+.fwh__p:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.fwh__cap{position:absolute;left:clamp(16px,2vw,28px);right:16px;bottom:clamp(16px,2vw,26px);display:flex;align-items:flex-end;gap:16px}
+.fwh__cap b{font:500 .6875rem/1 var(--f-mono);letter-spacing:.14em;color:#F7F7F6;padding:6px 7px;border:1px solid rgba(247,247,246,.5);border-radius:var(--r)}
+.fwh__cap strong{display:block;font:600 clamp(1.5rem,1.1rem + 1vw,2.25rem)/1 var(--f-display);color:#F7F7F6}
+.fwh__cap small{display:block;margin-top:8px;font:400 .8125rem/1.35 var(--f-sans);color:rgba(247,247,246,.78);max-width:28ch}
+.fwh__foot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:end;padding-top:clamp(36px,4.4vw,64px)}
+.fwh__copy{display:flex;flex-direction:column;gap:26px}
+@media (max-width:900px){
+  .fwh__foot{grid-template-columns:1fr}
+  .fwh__panels{flex-direction:column;height:auto}
+  .fwh__p{flex:none;height:180px}
+  .fwh__panels:hover .fwh__p,.fwh__panels .fwh__p:hover{flex-grow:0}
+  .fwh__tb{grid-template-columns:repeat(2,auto)}
+  .fwh__tb div:nth-child(2){border-right:0}
+  .fwh__tb div:nth-child(-n+2){border-bottom:1px solid var(--hairline)}
+}
+@media (prefers-reduced-motion:reduce){.fwh__p,.fwh__p img,.fwh__p::after{transition:none}}
+</style>
 </head><body>
 <div class="demobar" role="region" aria-label="Demo versions"><div class="in"><p class="lab" style="margin:0"><i></i><a href="../../index.html">Havok demo</a><span>· Framewell prototype</span></p><div class="mix" data-mix><button class="mix-btn" type="button" aria-haspopup="true" aria-expanded="false">Change service mix<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><div class="mix-menu" role="menu" aria-label="Service mix versions"><p class="mix-h">Havok · Central PA · specialty first</p><a role="menuitem" href="../../mix/central-pa-triage.html"><span class="k">01</span><span><b>Central PA · A · Triage</b><small>Dark · situation picker</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../../mix/central-pa-discretion.html"><span class="k">02</span><span><b>Central PA · B · Discretion</b><small>Light · family-facing</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../../mix/central-pa-field-manual.html"><span class="k">03</span><span><b>Central PA · C · Field Manual</b><small>Dark · two lanes + matrix</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Habio · specialty cleaning &amp; decon</p><a role="menuitem" href="../../mix/habio/light.html"><span class="k">04</span><span><b>Habio · Light</b><small>Full site prototype · private request flow</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a role="menuitem" href="../../mix/habio/dark.html"><span class="k">05</span><span><b>Habio · Dark</b><small>Same site, night theme</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-h">Framewell · reconstruction</p><a role="menuitem" href="../../mix/framewell/home.html" aria-current="page"><span class="k">06</span><span><b>Framewell · Rebuild site</b><small>10-page prototype · intake, projects, insurance</small></span><span class="now">Viewing</span></a><div class="mix-sep"></div><p class="mix-h">Havok · standard mix</p><a role="menuitem" href="../../index.html"><span class="k">STD</span><span><b>Bay Area · Standard mix</b><small>Water, fire, mold &amp; storm · current demo</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><p class="mix-soon">More service mixes are being added here.</p></div></div></div></div>
 
@@ -57,25 +101,51 @@ body{padding-top:40px}
 <link rel="stylesheet" href="site.css">
 <script>try{var t=localStorage.getItem("fw-theme");if(t)document.documentElement.setAttribute("data-theme",t);if(sessionStorage.getItem("fw-nav")==="1")document.documentElement.classList.add("is-arriving")}catch(e){}</script>
 <main id="main">
-<section class="hero"><div class="wrap hero__grid">
-  <div class="hero__copy">
-    <p class="eyebrow eyebrow--hero" data-lock>Reconstruction · Bay Area</p>
-    <h1 class="d-xl" data-lock>From bare studs to move&#8209;in ready.</h1>
-    <p class="lede" data-lock>Framewell is the rebuild side of Havok Restoration. Same file, same project lead, from the day the water stopped to the day you get your keys back.</p>
-    <div class="hero__ctas" data-lock><button class="btn btn--primary" type="button" data-intake data-cursor="START">Start a rebuild <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button><a class="link" href="how-a-rebuild-works.html">See how a rebuild works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
-    <div class="tblock" data-lock>
+<section class="hero fwh" aria-labelledby="fwh-title">
+  <div class="wrap">
+    <div class="fwh__sheet" data-lock>
+      <p class="eyebrow eyebrow--hero">Reconstruction · Bay Area</p>
+      <dl class="fwh__tb" aria-label="Drawing title block">
+        <div><dt>Sheet</dt><dd>A-101</dd></div>
+        <div><dt>Set</dt><dd>Rebuild</dd></div>
+        <div><dt>Project</dt><dd>FW-1182</dd></div>
+        <div><dt>Scale</dt><dd>1 : 1</dd></div>
+      </dl>
+    </div>
+    <h1 class="d-xl fwh__h1" id="fwh-title" data-lock>From bare studs <em>to move&#8209;in ready.</em></h1>
+  </div>
+
+  <div class="fwh__elev" data-lock>
+    <div class="fwh__dimline" aria-hidden="true"><span>One file · one project lead · three phases</span></div>
+    <div class="fwh__panels">
+      <a class="fwh__p fwh__p--draw" href="how-a-rebuild-works.html" data-cursor="SCOPE">
+        <img src="img/wireframe.webp" alt="Line drawing of a two-story house frame" loading="eager" decoding="async">
+        <span class="fwh__cap"><b>01</b><span><strong>Drawn</strong><small>Scope approved with your adjuster</small></span></span>
+      </a>
+      <a class="fwh__p" href="how-a-rebuild-works.html" data-cursor="BUILD">
+        <img src="img/framing.webp" alt="Carpenter measuring new wall framing" loading="eager" decoding="async">
+        <span class="fwh__cap"><b>02</b><span><strong>Framed</strong><small>Permits pulled, rough-in inspected</small></span></span>
+      </a>
+      <a class="fwh__p" href="projects.html" data-cursor="PROJECTS">
+        <img src="img/living-after.webp" alt="Finished living room with oak floors and a wide window" loading="eager" decoding="async">
+        <span class="fwh__cap"><b>03</b><span><strong>Finished</strong><small>Walkthrough, punch list, keys back</small></span></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="wrap fwh__foot">
+    <div class="fwh__copy" data-lock>
+      <p class="lede">Framewell is the rebuild side of Havok Restoration. Same file, same project lead, from the day the water stopped to the day you get your keys back.</p>
+      <div class="hero__ctas"><button class="btn btn--primary" type="button" data-intake data-cursor="START">Start a rebuild <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button><a class="link" href="how-a-rebuild-works.html">See how a rebuild works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="tblock fwh__spec" data-lock>
       <div><span class="k">Built to</span><span class="v">Your approved insurance scope</span></div>
       <div><span class="k">Project lead</span><span class="v">Carries over from mitigation</span></div>
       <div><span class="k">Permits</span><span class="v">Pulled, posted and inspected</span></div>
       <div><span class="k">Schedule</span><span class="v">Live in ClaimTrak</span></div>
     </div>
   </div>
-  <div class="stack" style="--g:12px;min-width:0" data-lock>
-    <div class="dim"><span>14'-0" · Kitchen</span></div>
-    <div data-ba-hero style="position:relative;height:clamp(420px,62vh,680px)"></div>
-    <div class="row" style="justify-content:space-between"><span class="mono muted">Sample project · FW-1182 · Pleasanton</span><span class="mono muted">Drag to compare</span></div>
-  </div>
-</div></section>
+</section>
 
 <div data-block="marquee"></div>
 
@@ -152,7 +222,7 @@ body{padding-top:40px}
 <script>
 
 FW.renderBlocks();
-var h=FW.$("[data-ba-hero]");h.innerHTML=FW.baHTML("img/kitchen-before.webp","img/kitchen-after.webp",{sweep:true,style:"position:absolute;inset:0",lb:"After mitigation",la:"Rebuilt",altBefore:"Kitchen stripped to studs and subfloor after mitigation",altAfter:"Rebuilt kitchen with light oak cabinets and white counters"});
+var h=FW.$("[data-ba-hero]");if(h)h.innerHTML=FW.baHTML("img/kitchen-before.webp","img/kitchen-after.webp",{sweep:true,style:"position:absolute;inset:0",lb:"After mitigation",la:"Rebuilt",altBefore:"Kitchen stripped to studs and subfloor after mitigation",altAfter:"Rebuilt kitchen with light oak cabinets and white counters"});
 FW.boot();
 </script>
 
