@@ -2,6 +2,13 @@
 (function () {
   var doc = document.documentElement;
 
+  // always open a post or the index at the top (unless a #section was asked for)
+  try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
+  function toTop() { if (!location.hash || /^#cat-/.test(location.hash)) window.scrollTo(0, 0); }
+  toTop();
+  window.addEventListener("load", toTop);
+  window.addEventListener("pageshow", function (ev) { if (ev.persisted) toTop(); });
+
   // theme (shares the 'havok-theme' key with the home page)
   var tbtn = document.querySelector("[data-theme-toggle]");
   if (tbtn) tbtn.addEventListener("click", function () {

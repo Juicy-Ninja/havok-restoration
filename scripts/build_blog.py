@@ -26,11 +26,19 @@ import sys
 
 import markdown
 import yaml
+import hashlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "blog-src" / "posts"
 OUT_DIR = ROOT / "blog"
 MEDIA = "media/blog"
+
+def _ver():
+    h = hashlib.sha1()
+    for n in ("blog.css", "blog.js"):
+        h.update((pathlib.Path(__file__).resolve().parent.parent / "blog" / n).read_bytes())
+    return h.hexdigest()[:8]
+VER = _ver()
 
 # ---- site settings (change BASE_URL when this moves to havokrestoration.com) ----
 BASE_URL = "https://demo-site.havokrestoration.com"
@@ -135,7 +143,7 @@ def head(title, desc, canonical, rel, extra=""):
 <meta name="theme-color" content="#16212C">
 {THEME_BOOT}
 {FONTS}
-<link rel="stylesheet" href="{rel}blog/blog.css">
+<link rel="stylesheet" href="{rel}blog/blog.css?v={VER}">
 {extra}
 </head>"""
 
@@ -176,7 +184,7 @@ def chrome_bottom(rel):
   </div>
   <div class="f-bot"><span>© {dt.date.today().year} {BRAND}. Images on this blog are illustrative.</span><a href="{rel}blog/feed.xml">RSS feed</a></div>
 </div></footer>
-<script src="{rel}blog/blog.js" defer></script>
+<script src="{rel}blog/blog.js?v={VER}" defer></script>
 </body></html>"""
 
 
