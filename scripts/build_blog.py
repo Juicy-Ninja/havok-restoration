@@ -36,7 +36,7 @@ MEDIA = "media/blog"
 BASE_URL = "https://demo-site.havokrestoration.com"
 BRAND = "Havok Restoration"
 AUTHOR = "Havok Restoration, Bay Area"
-DISPATCH_PATH = "index.html#start"          # the home page's dispatch start box
+DISPATCH_PATH = "index.html#dispatch"       # opens home at the top with the dispatch sheet up
 LOGO_NIGHT = "media/cpa/logo-night.svg"
 LOGO_DAY = "media/cpa/logo-day.svg"
 CATEGORIES = ["Water damage", "Insurance", "Mold", "Fire and smoke", "Storm"]
@@ -338,7 +338,7 @@ def build_index(posts):
   <p class="b-empty" data-empty hidden>No guides match that yet. Try another word, or <a class="link" href="{DISPATCH_PATH}">ask us directly</a>.</p>
 </section>
 <section class="wrap b-topics" aria-labelledby="top-h"><div class="b-sec-h"><p class="eyebrow">Browse by topic</p><h2 class="d-m" id="top-h">Start with what happened.</h2></div>
-  <div class="b-topic-grid">{''.join(f'<a class="b-topic" id="cat-{slugify(c)}" href="#cat-{slugify(c)}" data-jump="{slugify(c)}"><span class="eyebrow dim">{n} {"guide" if n == 1 else "guides"}</span><b>{e(c)}</b>{ARR}</a>' for c, n in counts.items())}</div>
+  <div class="b-topic-grid">{''.join(f'<a class="b-topic" href="#cat-{slugify(c)}" data-jump="{slugify(c)}"><span class="eyebrow dim">{n} {"guide" if n == 1 else "guides"}</span><b>{e(c)}</b>{ARR}</a>' for c, n in counts.items())}</div>
 </section>
 </main>
 {chrome_bottom(rel)}"""

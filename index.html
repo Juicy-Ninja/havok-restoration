@@ -2495,7 +2495,7 @@ function route(){const h=decodeURIComponent(location.hash.slice(1));const res=h&
   if(res){view.innerHTML=res[0];homeV.hidden=true;view.hidden=false;document.title=`${res[1]} — Havok Restoration`;$$('.standard',view).forEach(s=>s.classList.add(root.dataset.theme==='dark'?'theme-light':'theme-dark'));
     observe(view);tilt(view);$$('svg[data-map]',view).forEach(drawMap);bindTrack();window.scrollTo(0,0);bindGates(h);media(view);gFill(view);const h1=$('h1',view);if(h1){h1.setAttribute('tabindex','-1');h1.focus({preventScroll:true})}
     const top=h.startsWith('bay-area')||h==='locations'?'loc':SVC[h]||h==='services'||h==='sewage-cleanup'||h==='buildback'||h==='restoration'?'svc':['insurance-claims','pricing','the-havok-standard'].includes(h)?'ins':['how-it-works','track-your-job'].includes(h)||h.startsWith('protrak')?'how':AUD[h]||h==='commercial'?'pro':'';const n=$(`nav.main [data-nav="${top}"]`);if(n)n.classList.add('is-cur')}
-  else{view.hidden=true;view.innerHTML='';homeV.hidden=false;document.title="Havok Restoration — When disaster strikes, we're ready.";if(h&&h!=='home'){const el=document.getElementById(h);if(el)setTimeout(()=>el.scrollIntoView(),0)}else if(!h||h==='home')window.scrollTo(0,0);requestAnimationFrame(sizeScan)}
+  else{view.hidden=true;view.innerHTML='';homeV.hidden=false;document.title="Havok Restoration — When disaster strikes, we're ready.";if(h==='dispatch'){window.scrollTo(0,0);history.replaceState(null,'',location.pathname);setTimeout(()=>openSheet(null),350)}else if(h&&h!=='home'){const el=document.getElementById(h);if(el)setTimeout(()=>el.scrollIntoView(),0)}else if(!h||h==='home')window.scrollTo(0,0);requestAnimationFrame(sizeScan)}
   closeMenus()}
 addEventListener('hashchange',route);
 
