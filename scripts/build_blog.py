@@ -156,7 +156,7 @@ def chrome_top(rel, current="blog"):
 <div class="b-progress" aria-hidden="true"><i data-progress></i></div>
 <div class="ubar" role="region" aria-label="Emergency line"><div class="wrap">
   <div><b>Crews on call 24/7</b> &nbsp;·&nbsp; Dispatch <span class="tbc">[DISPATCH NUMBER]</span></div>
-  <div class="ub-r"><span>Bay Area · Owner-run</span><a href="{rel}blog/feed.xml">RSS</a></div>
+  <div class="ub-r"><span>Bay Area · Owner-run</span><div data-wx data-prep="{rel}blog/atmospheric-river-prep-checklist-east-bay.html" data-dispatch="{rel}{DISPATCH_PATH}"></div></div>
 </div></div>
 <header class="site"><div class="wrap">
   <a class="logo" href="{rel}index.html" aria-label="{BRAND} home"><img class="lg-night" src="{rel}{LOGO_NIGHT}" alt="{BRAND}" width="168" height="40"><img class="lg-day" src="{rel}{LOGO_DAY}" alt="{BRAND}" width="168" height="40"></a>
@@ -185,6 +185,7 @@ def chrome_bottom(rel):
   <div class="f-bot"><span>© {dt.date.today().year} {BRAND}. Images on this blog are illustrative.</span><a href="{rel}blog/feed.xml">RSS feed</a></div>
 </div></footer>
 <script src="{rel}blog/blog.js?v={VER}" defer></script>
+<script src="{rel}media/wx/storm-watch.js" defer></script>
 </body></html>"""
 
 
